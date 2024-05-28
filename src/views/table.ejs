@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+
+
+<body>
+    <div id="topnav">
+    <%= JSON.stringify(listUsers) %>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/create">Create User</a></li>
+        <li><a href="/table">table User</a></li>
+    </ul>
+    </div>
+
+    <h1>A Fancy Table</h1>
+
+    <table id="customers">
+    <tr>
+        <th>id</th>
+        <th>pass</th>
+        <th>quyen</th>
+        <th>hanh dong</th>
+    </tr>
+
+    <% listUsers.forEach(function(perUser) { %>
+    <tr>
+        <td><%= perUser.User_ID %></td>
+        <td><%= perUser.Pass_word %></td>
+        <td><%= perUser.Phan_quyen %></td>
+        <td>
+            <a href="/update/<%= perUser.User_ID %>"> Edit </a>
+            <button>Delete</button>
+        </td>
+    </tr>
+    <% }); %>
+    </table>
+
+
+</body>
+
+
+
+</html>
