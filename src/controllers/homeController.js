@@ -68,6 +68,19 @@ const postCreateUser = async function (req, res){
 
 };
 
+const postCheck = async function (req, res){
+  
+  console.log(req.body);
+  let id = req.body.id;
+  let pass =  req.body.pass;
+  let quyen = req.body.quyen;
+
+  
+  console.log(quyen);
+  res.send(quyen);
+
+};
+
 
 
 const {getAllUsers, getIdUsers} = require('../services/CRUDService');
@@ -100,5 +113,6 @@ module.exports = {
   postCreateUser,
   getCreateUser,
   getTable,
-  getUpdateUser
+  getUpdateUser,
+  postCheck
 };

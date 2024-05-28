@@ -7,6 +7,8 @@ const {getHome, getA, postCreateUser, getCreateUser, getTable, getUpdateUser} = 
 
 
 router.get('/', getHome);
+
+router.post('/check', getA);
   
 router.get('/a', getA);
 
