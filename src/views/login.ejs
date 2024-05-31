@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- Coding By CodingNepal - codingnepalweb.com -->
+<html lang="en">
+
+<%- include ('genaral/head.ejs') %>
+
+<body>
+    <!-- MENU -->
+    
+
+
+    <!-- FORM ĐĂNG NHẬP / ĐĂNG KÝ -->
+    <section class="login_container login_forms">
+        <!-- Đăng nhập -->
+        <div class="login_form login">
+            <div class="form-content">
+                <h4 class="login_header_title">Đăng nhập</h4>
+                <form id="login-form" action="/login/login-user" method="post">
+                    
+
+                    <div class="field_to_error">
+                        <div class="login_field login_input-field">
+                            <input type="text" placeholder="Số điện thoại" class="input phone" name="User_ID">
+                        </div>
+                       
+                    </div>
+
+                    <div class="field_to_error">
+                        <div class="login_field login_input-field">
+                            <input type="password" placeholder="Mật khẩu" class="password" name="Pass_word">
+                            <i class='bx bx-hide eye-icon'></i>
+                        </div>
+                        <!-- Check lỗi input -->
+                        <% if (err != null) { %>
+                            <span class="error password_error">
+                                <i class='bx bx-error-circle error-icon'></i>
+                                <p class="error-text"><%= err %></p>
+                            </span>
+                        <% } %>
+                    </div>
+
+                    <div class="login_form-link">
+                        <a href="#" class="forgot-pass">Quên mật khẩu?</a>
+                    </div>
+
+                    <div class="login_field login_button-field field_to_error submit_button">
+                        <input type="submit" value="Đăng nhập">
+                    </div>
+                    
+                </form>
+
+                <div class="login_form-link">
+                    <span>Bạn chưa có tài khoản? <a href="#" class="link_to_login signup-link">Đăng ký ngay</a></span>
+                </div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="media-options">
+                <a href="#" class="login_field facebook">
+                    <i class='bx bxl-facebook facebook-icon'></i>
+                    <span>Đăng nhập với Facebook</span>
+                </a>
+            </div>
+
+            <div class="media-options">
+                <a href="#" class="login_field google">
+                    <img src="./img/google_icon.png" alt="" class="google-img">
+                    <span>Đăng nhập với Google</span>
+                </a>
+            </div>
+
+        </div>
+
+        <!-- Đăng ký -->
+
+        <div class="login_form signup">
+            <div class="form-content">
+                <h4 class="login_header_title">Đăng ký</h4>
+                <form id="signup-form" action="#">
+                    <div class="field_to_error name-field">
+                        <div class="login_field login_input-field ">
+                            <input type="text" placeholder="Tên của bạn" class="input name">
+                        </div>
+                        <!-- Check lỗi input -->
+                        <span class="error name_error" style="display:none;">
+                            <i class='bx bx-error-circle error-icon'></i>
+                            <p class="error-text">Vui lòng nhập tên.</p>
+                        </span>
+                    </div>
+
+                    <div class="field_to_error">
+                        <div class="login_field login_input-field">
+                            <input type="text" placeholder="Số điện thoại" class="input phone">
+                        </div>
+                        <!-- Check lỗi input -->
+                        <span class="error phone_error" style="display:none;">
+                            <i class='bx bx-error-circle error-icon'></i>
+                            <p class="error-text">Số điện thoại không hợp lệ.</p>
+                        </span>
+                    </div>
+
+                    <div class="field_to_error">
+                        <div class="login_field login_input-field">
+                            <input type="text" placeholder="Địa chỉ" class="input address">
+                        </div>
+                        <!-- Check lỗi input -->
+                        <span class="error address_error" style="display:none;">
+                            <i class='bx bx-error-circle error-icon'></i>
+                            <p class="error-text">Vui lòng nhập địa chỉ.</p>
+                        </span>
+                    </div>
+
+                    <div class="field_to_error create-password">
+                        <div class="login_field login_input-field">
+                            <input type="password" placeholder="Tạo mật khẩu" class="password">
+                            <i class='bx bx-hide eye-icon'></i>
+                        </div>
+                        <!-- Check lỗi input -->
+                        <span class="error password_error" style="display:none;">
+                            <i class='bx bx-error-circle error-icon'></i>
+                            <p class="error-text">Vui lòng nhập mật khẩu có ít nhất 6 ký tự gồm chữ và số.</p>
+                        </span>
+                    </div>
+
+                    <div class="field_to_error confirm-password">
+                        <div class="login_field login_input-field">
+                            <input type="password" placeholder="Nhập lại mật khẩu" class="cPassword">
+                            <i class='bx bx-hide eye-icon'></i>
+                        </div>
+                        <!-- Check lỗi input -->
+                        <span class="error cPassword_error" style="display:none;">
+                            <i class='bx bx-error-circle error-icon'></i>
+                            <p class="error-text">Mật khẩu không trùng khớp.</p>
+                        </span>
+                    </div>
+
+                    <div class="login_field login_button-field field_to_error submit_button">
+                        <input type="submit" value="Đăng ký">
+                    </div>
+                </form>
+
+                <div class="login_form-link">
+                    <span>Bạn đã có tài khoản? <a href="#" class="link_to_login login-link">Đăng nhập</a></span>
+                </div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="media-options">
+                <a href="#" class="login_field facebook">
+                    <i class='bx bxl-facebook facebook-icon'></i>
+                    <span>Đăng nhập với Facebook</span>
+                </a>
+            </div>
+
+            <div class="media-options">
+                <a href="#" class="login_field google">
+                    <img src="img/google_icon.png" alt="" class="google-img">
+                    <span>Đăng nhập với Google</span>
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+
+
+    <!-- FOOTER -->
+    
+
+    <!-- JAVASCRIPT LINK  AND IONCIONS LINK-->
+    <%- include ('genaral/linkandicon.ejs') %>
+</body>
+
+</html>

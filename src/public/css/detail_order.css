@@ -1,0 +1,82 @@
+.tab__body__order_detail_code {
+    font-size: var(--normal-font-size);
+}
+
+.tab__body__order_detail_status {
+    margin-bottom: 20px;
+}
+
+.tab__body__order_detail_information_address {
+    border-collapse: collapse;
+}
+
+.tab__body__order_detail_information_address tr { 
+    border: 1px solid var(--gray-web_color);
+
+}
+
+.tab__body__order_detail_information_address th, .tab__body__order_detail_information_address td {
+    padding: 0.5rem;
+    border: 1px solid var(--gray-web_color);
+    box-shadow: var(--shadow-2);
+}
+
+.tab__body__order_detail_information_address th {
+    background-color: var(--table-header-bg-color);
+    font-weight: 500;
+    color: var(--text-color);
+    text-align: right;
+    background-color: #4e7460;
+    color: var(--cultured-1_color);
+}
+
+.tab__body__order_detail_information_address th:first-child {
+    text-align: left;
+}
+
+.tab__body__order_detail_information_address td {
+    white-space: pre-wrap;
+    max-width: 20%;
+    overflow-wrap: break-word;
+    text-align: right;
+    background-color: var(--white_70_color);
+}
+
+.tab__body__order_detail_information_address td:first-child {
+    text-align: left;
+}
+
+.tab__body__order_detail_information_address_product_name {
+    width: 280px;
+}
+
+.tab__body__order_detail_information_address_quantity {
+    width: 100px;
+}
+
+.tab__body__order_detail_information_address_price {
+    width: 120px;
+}
+
+.tab__body__order_detail_information_address_total {
+    width: 180px;
+}
+
+.tab__body__order_detail_total_price {
+    margin-top: 50px;
+    margin-left: 450px;
+}
+
+.tab__body__order_detail_total_price td {
+    padding-bottom: 15px;
+}
+
+.tab__body__order_detail_total_price td:first-child {
+    width: 60%;
+    font-weight: bold;
+}
+
+.tab__body__order_detail_total_price td:last-child {
+    text-align: right;
+    margin: 150px;
+}

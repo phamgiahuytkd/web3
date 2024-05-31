@@ -1,0 +1,98 @@
+.prroduct_detail-content{
+    display: flex;
+    margin: 104px auto 40px ;
+    background-color: white;
+    height: 80vh;
+    border-radius: 4px;
+    box-shadow: var(--shadow-1);
+}
+
+.image-slider {
+    position: relative;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.image-slider img {
+    max-width: 100%;
+    max-height: 75vh;
+    object-fit: cover;
+    border: none;
+    border-radius: 4px;
+}
+
+.image-slider button {
+    position: absolute;
+    background: rgba(0, 0, 0, 0.3);
+    color: #fff;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px;
+}
+
+.image-slider .prev {
+    left: 0;
+}
+
+.image-slider .next {
+    right: 0;
+}
+
+.product-details {
+    width: 50%;
+    padding: 20px;
+}
+
+.product-details h1 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.product-details .price {
+    font-size: 2rem;
+    font-weight: var(--fw-700);
+    color: var(--hoockers-green_color);
+    margin-bottom: 10px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.product-details .description {
+    margin-bottom: 20px;
+}
+
+.product-details .features,
+.product-details .suitable-for,
+.product-details .ingredients {
+    margin-bottom: 20px;
+}
+
+.product-details .features li {
+    list-style: none;
+    margin-bottom: 5px;
+}
+
+.product-details .badges img {
+    max-height: 50px;
+    margin-right: 10px;
+}
+
+.product-details .add-to-cart {
+    background-color: var(--hoockers-green_80_color);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: var(--fw-500);
+    transition: ease 0.1;
+}
+.product-details .add-to-cart:hover{
+    background-color: var(--hoockers-green_color);
+}

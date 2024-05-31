@@ -28,7 +28,8 @@ const getHome = function (req, res){
 };
 
 const getA = function (req, res){
-    res.render('sample.ejs');
+  console.log(req.body);
+  res.render('sample.ejs');
 };
 
 const getCreateUser = function (req, res){

@@ -1,0 +1,123 @@
+/* ===== Product Category ===== */
+.product_container {
+    background-color: var(--hoockers-green_30_color);
+    padding: 104px 0 24px;
+}
+
+.product_category {
+    background-color: var(--white_color);
+    border-radius: 2px;
+    padding-bottom: 12px;
+}
+
+.product_category_heading {
+    padding: 12px 16px 4px;
+}
+
+.product_category-item_link {
+    position: relative;
+    color: var(--black-text-color);
+    font-weight: var(--fw-500);
+    display: block;
+    padding: 2px 16px;
+    font-size: 0.875rem;
+    transition: right linear 0.1s;
+    right: 0;
+}
+
+.product_category-item_link:hover {
+    right: -4px;
+    color: var(--hoockers-green_color);
+    font-weight: var(--fw-700);
+}
+
+/* ===== Product Sort + Filter ===== */
+.product_filter {
+    display: flex;
+    align-items: center;
+    padding: 12px 22px;
+    border-radius: 2px;
+    background-color: var(--white_color);
+}
+
+.product_filter-label {
+    font-size: 1rem;
+    color: var(--black-text-color);
+    font-weight: var(--fw-600);
+    margin-right: 16px;
+}
+
+.product_filter_page {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.product_filter_page-num {
+    font-size: 1rem;
+    color: var(--black-text-color);
+    font-family: "Montserrat", sans-serif;
+    font-weight: var(--fw-600);
+    margin-right: 22px;
+}
+
+.product_filter-btn {
+    min-width: 80px;
+    height: 34px;
+    text-decoration: none;
+    border: none;
+    border-radius: 2px;
+    font-size: 15px;
+    padding: 0 10px;
+    outline: none;
+    cursor: pointer;
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 16px;
+    background-color: var(--black-text-color);
+    margin-right: 10px;
+    transition: var(--transition-2);
+}
+
+.product_filter-btn:hover {
+    background-color: var(--hoockers-green_color);
+}
+
+.product_filter_page-control {
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    width: 72px;
+    height: 34px;
+}
+
+.product_filter_page-control-btn {
+    flex: 1;
+    display: flex;
+    background-color: var(--white_color);
+    border: 1px solid var(--black-text-color);
+    border-radius: 2px;
+    text-decoration: none;
+}
+
+.product_filter_page-control-btn:first-child {
+    border-right: 2px solid #38444D;
+}
+
+.product_filter_page-control-icon {
+    color: var(--black-text-color);
+    font-weight: var(--fw-600);
+    margin: auto;
+    font-size: 1.275rem;
+}
+
+.product-item_price>span{
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.25rem;
+}
+
+.product-item_price-old{
+    text-decoration: line-through 2px solid;
+}

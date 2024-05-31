@@ -1,0 +1,187 @@
+
+    <!-- MENU -->
+    <div id="home_page">
+        <div class="home_site">
+            <!-- HEADER MENU -->
+            <header>
+                <div class="home_container">
+                    <div class="home_content">
+                        <div class="home_left">
+                            <a href="#" class="home_trigger"><i class="ri-menu-line"></i></a>
+                            <div class="home_logo">
+                                <a href="/">
+                                    G<span>LAM</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="home_middle">
+                            <nav>
+                                <ul>
+                                    <li><a href="/">Trang chủ</a></li>
+                                    <li><a href="/product">Sản phẩm</a></li>
+                                    <li><a href="/catalog/nuochoa">Nước hoa</a></li>
+                                    <li>
+                                        <a href="/group/catalog?group1=daugoi&group2=dauxa&group3=taokieutoc">Chăm sóc tóc</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="/catalog/daugoi">Dầu gội</a></li>
+                                            <li><a href="/catalog/dauxa">Dầu xả</a></li>
+                                            <li><a href="/catalog/taokieutoc">Tạo kiểu tóc</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="/group/catalog?group1=suatam&group2=duongda&group3=damat">Chăm sóc da</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="/catalog/suatam">Sữa tắm</a></li>
+                                            <li><a href="/catalog/duongda">Dưỡng da</a></li>
+                                            <li><a href="/catalog/damat">Da mặt</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                        <div class="home_right">
+                            <ul>
+                                <li>
+                                    <div class="searchBox">
+                                        <div class="searchToggle">
+                                            <i class="ri-close-line cancel"></i>
+                                            <i class="ri-search-line search"></i>
+                                        </div>
+                                        <div class="search-field">
+                                            <input type="text" placeholder="Tìm kiếm sản phẩm...">
+                                            <i class="ri-search-line"></i>
+                                        </div>
+                                    </div>
+
+                                </li>
+                                <% if (user != null) { %>
+                                <li>
+                                    <a href="#">
+                                        <span class="badge_num" id="cartCount"><%= cart %></span>
+                                        <i class="ri-shopping-cart-2-line"></i>
+                                    </a>
+                                </li>
+                                
+                                <li class="header-user">
+                                    <a href="#">
+                                        <i class="ri-user-3-line"></i>
+                                        <h5 class="login_user_name"><%= user %></h5>
+                                    </a>
+                                    <ul class="header-user-menu">
+                                        <li class="header-user-item">
+                                            <a href="#">Tài khoản</a>
+                                        </li>	
+                                        <li class="header-user-item">
+                                            <a href="/logout">Đăng xuất</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <% } else { %>
+                                    <li class="header-user">
+                                        <a href="/login"><h5 class="login_user_name">Đăng nhập / Đăng ký</h5></a>
+                                    </li>   
+
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- MOBILE MENU -->
+            <nav class="mobile_menu">
+                <div class="mini">
+                    <a href="#" class="mini-close">
+                        <i class="ri-close-line"></i>
+                    </a>
+                    <div class="menu-head">
+                        <div class="top">
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        <i class="ri-shopping-cart-2-line"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="ri-user-3-line"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <i class="ri-logout-box-line"></i>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="home_logo">
+                            <a href="">
+                                G<span>LAM</span>
+                            </a>
+                        </div>
+                        <div class="menu_socials">
+                            <ul>
+                                <li><a href="#"><i class="ri-facebook-box-fill"></i></a></li>
+                                <li><a href="#"><i class="ri-youtube-fill"></i></a></li>
+                                <li><a href="#"><i class="ri-instagram-fill"></i></a></li>
+                                <li><a href="#"><i class="ri-tiktok-fill"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="wider">
+                    <div class="main_menu">
+                        <div class="search">
+                            <i class="ri-search-line"></i>
+                            <form action="">
+                                <input type="search" placeholder="Tìm kiếm sản phẩm...">
+                            </form>
+                        </div>
+                        <div class="menu_list">
+                            <ul>
+                                <li class="has-child">
+                                    <a href="#"><span>Chăm sóc tóc</span><i class="ri-arrow-right-s-line"></i></a>
+                                    <ul>
+                                        <li class="menu_back">
+                                            <a href="#"><span>Chăm sóc tóc</span><i
+                                                    class="ri-arrow-left-s-line"></i></a>
+                                        </li>
+                                        <li><a href="#">Dầu gội</a></li>
+                                        <li><a href="#">Dầu xả</a></li>
+                                        <li><a href="#">Tạo kiểu tóc</a></li>
+                                    </ul>
+                                </li>
+                                <li class="has-child">
+                                    <a href="#"><span>Chăm sóc da</span><i class="ri-arrow-right-s-line"></i></a>
+                                    <ul>
+                                        <li class="menu_back">
+                                            <a href="#"><span>Chăm sóc da</span><i class="ri-arrow-left-s-line"></i></a>
+                                        </li>
+                                        <li><a href="#">Sữa tắm</a></li>
+                                        <li><a href="#">Dưỡng da</a></li>
+                                        <li><a href="#">Chăm sóc da mặt</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#"><span>Nước hoa</span></a></li>
+                                <li class="has-child">
+                                    <a href="#"><span>Trang điểm</span><i class="ri-arrow-right-s-line"></i></a>
+                                    <ul>
+                                        <li class="menu_back">
+                                            <a href="#"><span>Trang điểm</span><i class="ri-arrow-left-s-line"></i></a>
+                                        </li>
+                                        <li><a href="#">Môi</a></li>
+                                        <li><a href="#">Mặt</a></li>
+                                        <li><a href="#">Tẩy trang</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="copy_right">
+
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <div class="overlay"></div>
+        </div>
+    </div>

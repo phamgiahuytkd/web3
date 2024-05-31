@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+
+<%- include ('genaral/head.ejs') %>
+
+<body id="top">
+    <!-- MENU -->
+    <%- include ('genaral/menu.ejs') %>
+
+    <!-- HOME CONTENT -->
+    <div class="product_container">
+        <div class="grid">
+            <div class="grid_row">
+                <div class="grid_column-2">
+                    <nav class="product_category">
+                        <h4 class="product_category_heading">Loại da</h4>
+                        <ul class="product_category-list">
+                            <li class="product_category-item">
+                                <a href="#" class="product_category-item_link">Da thường</a>
+                            </li>
+                            <li class="product_category-item">
+                                <a href="#" class="product_category-item_link">Da dầu</a>
+                            </li>
+                            <li class="product_category-item">
+                                <a href="#" class="product_category-item_link">Da khô</a>
+                            </li>
+                        </ul>
+
+                        <h4 class="product_category_heading">Giới tính</h4>
+                        <ul class="product_category-list">
+                            <li class="product_category-item">
+                                <a href="#" class="product_category-item_link">Unisex</a>
+                            </li>
+                            <li class="product_category-item">
+                                <a href="#" class="product_category-item_link">Nam</a>
+                            </li>
+                            <li class="product_category-item">
+                                <a href="#" class="product_category-item_link">Nữ</a>
+                            </li>
+                        </ul>
+
+                        <h4 class="product_category_heading">Công dụng</h4>
+                        <ul class="product_category-list">
+                            <li class="product_category-item">
+                                <a href="#" class="product_category-item_link">Suôn mượt</a>
+                            </li>
+                            <li class="product_category-item">
+                                <a href="#" class="product_category-item_link">Sạch gàu</a>
+                            </li>
+                            <li class="product_category-item">
+                                <a href="#" class="product_category-item_link">Phục hồi hư tổn</a>
+                            </li>
+                            <li class="product_category-item">
+                                <a href="#" class="product_category-item_link">Kích thích mọc tóc</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="grid_column-10">
+                    <div class="product_filter">
+                        <span class="product_filter-label">
+                            Sắp xếp theo
+                        </span>
+
+                        <button class="product_filter-btn">Mới nhất</button>
+                        <button class="product_filter-btn">Giá từ thấp đến cao</button>
+                        <button class="product_filter-btn">Giá từ cao đến thấp</button>
+
+                        <div class="product_filter_page">
+                            <span class="product_filter_page-num">
+                                <span class="product_filter_page-current">1</span>/16
+                            </span>
+
+                            <div class="product_filter_page-control">
+                                <a href="#" class="product_filter_page-control-btn">
+                                    <i class="ri-arrow-left-s-line product_filter_page-control-icon"></i>
+                                </a>
+                                <a href="#" class="product_filter_page-control-btn">
+                                    <i class="ri-arrow-right-s-line product_filter_page-control-icon"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product">
+                        <div class="grid_row">
+                            <!--- Lấy sản phẩm từ cơ sở dữ liệu -->
+                            <% all_Product.forEach(function(each_Product) { %>
+                            <div class="grid_column-2-4">
+                                <div class="product-item">
+
+                                    <%
+                                      // Phân tách chuỗi ảnh thành mảng ảnh, sử dụng dấu phẩy (,) làm dấu phân cách
+                                        let ar_Img = each_Product.Hinh_anh.split(',');
+
+                                    %>
+                                    <div class="product-item_img" style="background-image: url('/product_img/<%= ar_Img[0] %>')">
+                                    </div>
+                                    <a href="#" class="product-item_name"><%= each_Product.Ten_san_pham %></a>
+                                    <div class="product_rating">
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-fill"></i>
+                                        <i class="ri-star-half-fill"></i>
+                                        <i class="ri-star-line"></i>
+                                        <i class="ri-star-line"></i>
+                                    </div>
+                                    <div class="product-item_price">
+                                        <%
+                                            let Gia_moi = null;
+
+                                            for (let i = 0; i < all_Discount.length; i++) {
+                                                if (each_Product.Ma_san_pham == all_Discount[i].Ma_san_pham) {
+                                                    Gia_moi = (each_Product.Don_gia * all_Discount[i].Phan_tram) / 100;
+                                                }
+                                            }
+                                        %>
+
+                                        <% if (Gia_moi == null) { %>
+                                            <span class="product-item_price-current" style="color: black;"><%= each_Product.Don_gia %></span>
+                                        <% } else { %>
+                                            <span class="product-item_price-current"><%= Gia_moi %></span>
+                                            <span class="product-item_price-old"><%= each_Product.Don_gia %></span>
+                                        <% } %>
+
+                                    </div>
+                                    <div class="product-item_action">
+                                        <ul class="product-item_action-list">
+                                            <li class="product-item_cart">
+                                                <span class="product-item_icon product-item_cart-icon">
+                                                    <i class="ri-shopping-cart-2-fill"></i>
+                                                </span>
+                                                <span class="product-item_action-title">
+                                                    <button onclick="addToCart('<%= each_Product.Ma_san_pham %>')">Thêm vào giỏ</button>
+                                                </span>
+                                            </li>
+                                            <li class="product-item_buy">
+                                                <span class="product-item_icon product-item_buy-icon">
+                                                    <i class="ri-eye-fill"></i>
+                                                </span>
+                                                <span class="product-item_action-title">
+                                                    <a href="/product/<%= each_Product.Ma_san_pham %>">Chi tiết</a>
+                                                </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <% }); %>
+                           
+
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <%- include ('genaral/footer.ejs') %>
+
+    <!-- BACK TO TOP -->
+    <!-- <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+    </a> -->
+
+    <!-- JAVASCRIPT LINK --><!-- IONCIONS LINK -->
+    <%- include ('genaral/linkandicon.ejs') %>
+
+
+</body>
+
+</html>
