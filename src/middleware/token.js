@@ -1,5 +1,7 @@
+require('dotenv').config();
 
-const secretKey = 'phamgaihuy'; // Thay thế bằng secret key thực tế của bạn// Mảng lưu trữ các refresh token đã tạo
+
+const secretKey = process.env.SECRET_KEY; // Thay thế bằng secret key thực tế// Mảng lưu trữ các refresh token đã tạo
 
 
 const crypto = require('crypto');

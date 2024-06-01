@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {getHome, getLogout, getProduct, getIdProduct, postAddProduct, getCatalog, getGroup, getDiscountProdcut, postSearch} = require('../controllers/home.controller');
+const {getHome, getLogout, getProduct, getIdProduct, postAddCart, getCatalog, getGroup, getDiscountProdcut, postSearch} = require('../controllers/home.controller');
 
 
 
@@ -17,7 +17,7 @@ router.get('/product', getProduct);
 
 router.get('/product/:id_product', getIdProduct);
 
-router.post('/add_product', postAddProduct);
+router.post('/add_cart', postAddCart);
 
 
 router.get('/catalog/:id_catalog', getCatalog);

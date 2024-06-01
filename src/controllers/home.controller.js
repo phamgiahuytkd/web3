@@ -47,7 +47,7 @@ const getIdProduct = async function (req, res){
 
 
 
-const postAddProduct = function (req, res){
+const postAddCart = function (req, res){
     if (req.session.isLoggedIn === true){
         let productId = req.body.productId;
         if (!req.session.cart) {        
@@ -111,7 +111,7 @@ module.exports = {
     getLogout,
     getProduct,
     getIdProduct,
-    postAddProduct,
+    postAddCart,
     getCatalog,
     getGroup,
     getDiscountProdcut,
