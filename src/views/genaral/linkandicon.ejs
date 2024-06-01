@@ -32,14 +32,112 @@
                  console.error('Lỗi AJAX:', error);
              }
          });
-     }
+    }
 
-     function updateCart(cart) {
+    function updateCart(cart) {
          // Cập nhật giao diện giỏ hàng
          $('#cartCount').text(cart);
-     }
+    }
 
 
- </script>
+
+    // Thanh tìm kiếm
+    function search() {
+        input = document.getElementById('searchInput');
+        filter = removeAccents(input.value.toUpperCase());
+        if (window.location.pathname === '/') {
+            // Gửi yêu cầu AJAX POST
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        // Kiểm tra kết quả từ server
+                        if (xhr.responseText === 'redirect') {
+                            // Thực hiện chuyển hướng trang
+                            window.location.href = '/product';
+                        }
+                    } else {
+                        console.error('Đã xảy ra lỗi trong quá trình tìm kiếm.');
+                    }
+                }
+            };
+            xhr.open('POST', '/search', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.send('filter=' + encodeURIComponent(filter));
+
+        }else{
+            ar_search()
+        }
+    }
+
+
+    
+    function ar_search() {
+        var input, filter, products, product, i, txtValue;
+        input = document.getElementById('searchInput');
+        filter = removeAccents(input.value.toUpperCase()); // Chuyển đổi input thành chữ không dấu và chuyển đổi sang chữ in hoa
+        products = document.getElementsByClassName('grid_column-2-4');
+
+        for (i = 0; i < products.length; i++) {
+            product = products[i].getElementsByClassName('product-item_name')[0];
+            txtValue = removeAccents(product.textContent || product.innerText); // Chuyển đổi nội dung sản phẩm thành chữ không dấu
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                products[i].style.display = "";
+            } else {
+                products[i].style.display = "none";
+            }
+        }
+    }
+
+    // Hàm chuyển đổi chữ có dấu thành chữ không dấu
+    function removeAccents(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
+
+    ar_search()
+
+
+
+
+
+
+
+function sortProductsByPrice(order) {
+    // Lấy danh sách sản phẩm
+    var products = document.getElementsByClassName('grid_column-2-4');
+    var productGrid = document.getElementById('productGrid');
+
+    // Chuyển đổi NodeList thành mảng để có thể sử dụng sort()
+    var productsArray = Array.prototype.slice.call(products);
+
+    // Sắp xếp sản phẩm dựa vào giá
+    productsArray.sort(function(a, b) {
+        var priceA = parseFloat(a.getElementsByClassName('product-item_price-current')[0].textContent.replace(/[^\d.]/g, ''));
+        var priceB = parseFloat(b.getElementsByClassName('product-item_price-current')[0].textContent.replace(/[^\d.]/g, ''));
+        
+        if (order === 'asc') {
+            return priceA - priceB;
+        } else {
+            return priceB - priceA;
+        }
+    });
+
+    // Thay đổi vị trí của các sản phẩm trên grid
+    for (var i = 0; i < productsArray.length; i++) {
+        productGrid.appendChild(productsArray[i]);
+    }
+
+    // Cập nhật hiển thị sản phẩm
+    ar_search();
+}
+
+
+
+
+
+</script>
+
+
+
 
 

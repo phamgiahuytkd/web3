@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const {getHome, getLogout, getProduct, getIdProduct, postAddProduct, getCatalog, getGroup, getDiscountProdcut} = require('../controllers/home.controller');
+const {getHome, getLogout, getProduct, getIdProduct, postAddProduct, getCatalog, getGroup, getDiscountProdcut, postSearch} = require('../controllers/home.controller');
 
 
 
@@ -26,5 +26,8 @@ router.get('/group/:catalog', getGroup);
 
 
 router.get('/discount', getDiscountProdcut);
+
+router.post('/search', postSearch);
+
 
 module.exports = router;

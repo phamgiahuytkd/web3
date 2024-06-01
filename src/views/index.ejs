@@ -35,7 +35,7 @@
 
                                     <p class="price">Chỉ từ 499.000</p>
 
-                                    <a href="#" class="btn btn-primary">Mua Ngay</a>
+                                    <a href="/product" class="btn btn-primary">Mua Ngay</a>
 
                                 </div>
 
@@ -59,7 +59,7 @@
 
                                     <p class="price">Chỉ từ 499.000</p>
 
-                                    <a href="#" class="btn btn-primary">Mua Ngay</a>
+                                    <a href="/product" class="btn btn-primary">Mua Ngay</a>
 
                                 </div>
 
@@ -83,7 +83,7 @@
 
                                     <p class="price">Chỉ từ 499.000</p>
 
-                                    <a href="#" class="btn btn-primary">Mua Ngay</a>
+                                    <a href="/product" class="btn btn-primary">Mua Ngay</a>
 
                                 </div>
 
@@ -94,6 +94,35 @@
 
                 </div>
             </section>
+            <!-- Chuyển slide -->
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    const slides = document.querySelectorAll('.scrollbar-item');
+                    let currentSlideIndex = 0;
+
+                    // Hàm chuyển slide
+                    function showSlide(index) {
+                        slides.forEach((slide, i) => {
+                            if (i === index) {
+                                slide.style.display = 'block';
+                            } else {
+                                slide.style.display = 'none';
+                            }
+                        });
+                    }
+
+                    // Hàm tự động chuyển slide
+                    function autoChangeSlide() {
+                        currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                        showSlide(currentSlideIndex);
+                    }
+
+                    // Chuyển slide tự động mỗi 4 giây
+                    setInterval(autoChangeSlide, 5000);
+                });
+
+
+            </script>
 
             <!-- COLLECTIONS -->
             <section class="section collection" id="collection" aria-label="collection" data-section>

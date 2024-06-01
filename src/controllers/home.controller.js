@@ -7,8 +7,8 @@ const {db_AllProduct, db_IdProduct, db_Discount, db_Catalog, db_Group, db_BestDi
 //Trả về trang chính
 const getHome = async function (req, res){
     let best_discount = await db_BestDiscount();
-    console.log(best_discount[0]);
     return res.render('index.ejs' , {best_Discount: best_discount[0]});
+    
     
 };
 
@@ -27,6 +27,12 @@ const getLogout = function (req, res){
 const getProduct = async function (req, res){
     let product = await db_AllProduct();
     let discount = await db_Discount();
+    if (req.session.search){
+        res.locals.search = req.session.search;
+        console.log(req.session.search);
+        delete req.session.search;
+    }
+    
     return res.render('product.ejs', {all_Product: product, all_Discount: discount});
     
 };
@@ -89,6 +95,17 @@ const getDiscountProdcut = async function (req, res){
 };
 
 
+
+
+const postSearch = function (req, res){
+    const filter = req.body.filter;
+    req.session.search = filter;
+    // Thực hiện redirect bằng cách trả về một loại dấu hiệu
+    res.send('redirect');
+};
+
+
+
 module.exports = {
     getHome,
     getLogout,
@@ -97,5 +114,6 @@ module.exports = {
     postAddProduct,
     getCatalog,
     getGroup,
-    getDiscountProdcut
+    getDiscountProdcut,
+    postSearch
 };

@@ -64,8 +64,8 @@
                         </span>
 
                         <button class="product_filter-btn">Mới nhất</button>
-                        <button class="product_filter-btn">Giá từ thấp đến cao</button>
-                        <button class="product_filter-btn">Giá từ cao đến thấp</button>
+                        <button class="product_filter-btn" onclick="sortProductsByPrice('asc')">Giá từ thấp đến cao</button>
+                        <button class="product_filter-btn" onclick="sortProductsByPrice('desc')">Giá từ cao đến thấp</button>
 
                         <div class="product_filter_page">
                             <span class="product_filter_page-num">
@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="product">
-                        <div class="grid_row">
+                        <div class="grid_row" id="productGrid">
                             <!--- Lấy sản phẩm từ cơ sở dữ liệu -->
                             <% all_Product.forEach(function(each_Product) { %>
                             <div class="grid_column-2-4">

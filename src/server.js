@@ -32,6 +32,9 @@ configViewEngine(app);
 //check login
 const {decodeToken} = require('./middleware/token');
 app.use((req, res, next) => {
+  res.locals.search = "";
+  
+  
   // Kiểm tra xem người dùng đã đăng nhập chưa
   if (req.session && req.session.token) {
       // Nếu người dùng đã đăng nhập, gán thông tin người dùng vào biến res.locals.user
