@@ -74,9 +74,6 @@ app.use((req, res, next) => {
 
 
 //config routers
-const web_router = require('./routes/web');
-app.use('/web', web_router);
-
 
 const home_router = require('./routes/home.router');
 app.use('/', home_router);

@@ -29,7 +29,6 @@ const getProduct = async function (req, res){
     let discount = await db_Discount();
     if (req.session.search){
         res.locals.search = req.session.search;
-        console.log(req.session.search);
         delete req.session.search;
     }
     
