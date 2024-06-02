@@ -26,6 +26,19 @@ const getInfoUsers = async function (id) {
     
 }
 
+
+
+const update_InfoUsers = async function (User_ID, Ho_ten, Dien_thoai, Dia_chi) {
+    try{
+        const [results, fields] = await connection.query("UPDATE tb_khachhang SET Ho_ten = ?, Dien_thoai = ?, Dia_chi = ? WHERE User_ID = ?", [Ho_ten, Dien_thoai, Dia_chi, User_ID]);
+        return results;
+
+    }catch(err){
+        throw new Error('Database query failed');
+    }
+    
+}
+
 module.exports = {
-    getIdUsers, getInfoUsers
+    getIdUsers, getInfoUsers, update_InfoUsers
 }

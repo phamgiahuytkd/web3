@@ -62,9 +62,13 @@
             </div>
         </div>
         <div class="order-button">
-            <button>Đặt hàng</button>
+            <form action="/checkout/add_bill" method="POST">
+                <input type="hidden" name="total_Checkout" value="<%= total_Checkout %>">
+                <input type="hidden" id="Dia_chi" name="Ho_ten" value="<%= info_user.Dia_chi %>">
+                <button type="submit">Đặt hàng</button>
+            </form>
         </div>
-
+        
         <!-- Modal Pop up Thay đổi thôn tin giao hàng -->
         <div id="modal" class="modal">
             <div class="modal-content">
@@ -73,7 +77,7 @@
                 <form action="checkout/update_address" method="POST">
                     <div class="checkout-update-name">
                         <label for="name">Họ và tên</label>
-                        <input type="text" id="name" name="User_ID" value="<%= info_user.Ho_ten %>">
+                        <input type="text" id="name" name="Ho_ten" value="<%= info_user.Ho_ten %>">
                     </div>
                     <div class="checkout-update-name">
                         <label for="phone">Số điện thoại</label>

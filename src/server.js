@@ -5,10 +5,13 @@ const port = process.env.PORT || 3000; //port 3000
 const hostname = process.env.HOSTNAME;
 
 
+
+
 //config req.body
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //config session 
 const session = require('express-session');
