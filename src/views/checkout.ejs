@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include ('genaral/head.ejs') %>
+
+<body>
+    <!-- MENU -->
+    <%- include ('genaral/menu.ejs') %>
+
+    <!-- HOME CONTENT -->
+    <div class="checkout-container">
+        <div class="checkout-top">
+            <div class="checkout-title">
+                <h2>Thanh toán</h2>
+            </div>
+            <div class="address">
+                <h3>Thông tin nhận hàng</h3>
+                <p>Tên người nhận: Tống Bình</p>
+                <p>Số điện thoại: 0123 456 678</p>
+                <div class="address-change">
+                    <p>Địa chỉ: 56/5 Hai Bà Trưng, Phường Tân An, Quận Ninh Kiều, Cần Thơ</p>
+                    <button id="changeAddressBtn">Thay đổi</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-summary">
+            <h3>Sản phẩm</h3>
+            <div class="order-item">
+                <div class="img_checkout-product">
+                    <img src="../img/product-Sen01.jpg" alt="Product Image">
+                </div>
+
+                <div class="order-details">
+                    <p>Sữa tắm gội JPS 500ml - John Player Special Đức dành cho...</p>
+                    <p>Đơn giá: 129.000</p>
+                    <p>Số lượng: 1</p>
+                </div>
+                <div class="price">
+                    <p>Thành tiền: ₫129.000</p>
+                </div>
+            </div>
+
+            <div class="total">
+                <p>Tổng tiền hàng:</p>
+                <p>₫129.000</p>
+            </div>
+            <div class="total">
+                <p>Phí vận chuyển:</p>
+                <p>₫43.900</p>
+            </div>
+            <div class="total">
+                <p>Tổng thanh toán:</p>
+                <span>₫170.900</span>
+            </div>
+        </div>
+        <div class="order-button">
+            <button>Đặt hàng</button>
+        </div>
+
+        <!-- Modal Pop up Thay đổi thôn tin giao hàng -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Cập nhật thông tin</h2>
+                <form>
+                    <div class="checkout-update-name">
+                        <label for="name">Họ và tên</label>
+                        <input type="text" id="name" name="name" value="Tống Bình">
+                    </div>
+                    <div class="checkout-update-name">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="text" id="phone" name="phone" value="(+84) 393 416 090">
+                    </div>
+                    <div class="checkout-update-name">
+                        <label for="address">Địa chỉ cụ thể</label>
+                        <input type="text" id="address" name="address" value="56/5 Hai Bà Trưng">
+                    </div>
+
+                    <div class="modal-buttons">
+                        <button type="button" id="cancelBtn">Hủy</button>
+                        <button type="submit" id="update-name-cf">Hoàn thành</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <%- include ('genaral/footer.ejs') %>
+
+    <!-- JAVASCRIPT LINK --><!-- IONCIONS LINK -->
+    <%- include ('genaral/linkandicon.ejs') %>
+
+</body>
+
+</html>

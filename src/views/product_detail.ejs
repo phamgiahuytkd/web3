@@ -30,8 +30,10 @@
                     }
                 %>
 
-                <% if (Gia_moi == null) { %>
-                <p class="price"><%= id_Product.Don_gia %> đ</p>
+                <% if (Gia_moi == null) { 
+                    Gia_moi = id_Product.Don_gia; 
+                %>
+                <p class="price"><%= Gia_moi %> đ</p>
                 <% } else { %>
                 <p class="price"> <%= Gia_moi %> đ          <b style="color: red;">Giảm <%= Phan_tram %> %</b></p>
                 <% } %>
@@ -50,16 +52,16 @@
                     <h3>Thành phần chính</h3>
                     <p>Chiết xuất sen, Madecassoside, B5, B12, Beta-glucan và Sweetone®.</p>
                 </div>
-                
-                <button class="add-to-cart" onclick="addToCart('<%= id_Product.Ma_san_pham %>')">THÊM VÀO GIỎ HÀNG <i class="ri-shopping-cart-2-line"></i></button>
+                <%
+                    // Phân tách chuỗi ảnh thành mảng ảnh, sử dụng dấu phẩy (,) làm dấu phân cách
+                    let ar_Img = id_Product.Hinh_anh.split(',');
+                    
+
+                %>
+                <button class="add-to-cart" onclick="addToCart('<%= id_Product.Ma_san_pham %>', '<%= id_Product.Ten_san_pham %>', '<%= ar_Img[0] %>', '<%= Gia_moi %>')">THÊM VÀO GIỎ HÀNG <i class="ri-shopping-cart-2-line"></i></button>
             </div>
         </div>
-        <%
-            // Phân tách chuỗi ảnh thành mảng ảnh, sử dụng dấu phẩy (,) làm dấu phân cách
-            let ar_Img = id_Product.Hinh_anh.split(',');
-            
-
-        %>
+        
         <div id="images" style="display: none;">
             <% ar_Img.forEach(function(each_Img){ %>
                 <img src="/product_img/<%= each_Img %>" alt="Nước sen Hậu Giang 310ml">

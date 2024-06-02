@@ -3,7 +3,7 @@ const router = express.Router();
 
 const {getHome, getLogout, getProduct, getIdProduct, postAddCart, getCatalog, getGroup, getDiscountProdcut, postSearch} = require('../controllers/home.controller');
 
-
+const {getCart} = require('../controllers/account.controller');
 
 
 
@@ -28,6 +28,10 @@ router.get('/group/:catalog', getGroup);
 router.get('/discount', getDiscountProdcut);
 
 router.post('/search', postSearch);
+
+
+router.get('/cart', getCart);
+
 
 
 module.exports = router;

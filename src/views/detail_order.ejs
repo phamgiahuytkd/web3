@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<%- include ('genaral/head.ejs') %>
+
+<body id="top">
+    <!-- MENU -->
+    <%- include ('genaral/menu.ejs') %>
+
+    <!-- HOME CONTENT -->
+
+    <main>
+        <div class="grid">
+            <div class="container_account">
+                <div class="header_container_account">
+                    <div class="handbook_container_account">
+                        <div class="link_container_account">
+                            <a href="#" class="link_handbook_container_account">Trang chủ</a>
+                            <a href="#" class="link_handbook_container_account">
+                                <i class="ri-arrow-right-s-line"></i>
+                            </a>
+                            <a href="#" class="link_handbook_container_account">Tài khoản</a>
+                        </div>
+                    </div>
+                </div>
+                <section class="accounts section -- lg">
+                    <div class="accounts__container container">
+                        <div class="account__tabs">
+                            <p class="account__tab" id="dashboard-tab" data-target="#dashboard">
+                                <i class="ri-home-4-line"></i> Tổng quan
+                            </p>
+                            <p class="account__tab account_active" id="orders-tab" data-target="#orders">
+                                <i class="ri-shopping-bag-4-line"></i> Đơn hàng
+                            </p>
+                            <p class="account__tab" id="update-profile-tab" data-target="#update-profile">
+                                <i class="ri-user-3-line"></i> Cập nhật thông tin
+                            </p>
+                            <p class="account__tab" id="address-tab" data-target="#address">
+                                <i class="fi fi-rs-shopping-bag"></i> Địa chỉ của bạn
+                            </p>
+                            <p class="account__tab" id="change-password-tab" data-target="#change-password">
+                                <i class="ri-user-3-line"></i> Đổi mật khẩu
+                            </p>
+                            <p class="account__tab" id="logout-tab" data-target="#logout">
+                                <i class="ri-logout-box-line"></i>
+                                <a href="#">Đăng xuất</a>
+                            </p>
+                        </div>
+
+                        <div class="tabs__content">
+                            <div class="tab__content" id="dashboard" content>
+                                <h3 class="tab__header">Hello Huy !</h3> <!--Huy thay bằng tên của chủ tài khoản-->
+                                <div class="tab__body">
+                                    <p class="tab__description">
+                                        Từ trang tài khoản của bạn, bạn có thể kiểm tra và xem các đơn hàng gần đây,
+                                        quản
+                                        lý địa chỉ giao hàng, thanh toán, chỉnh sửa mật khẩu và xem chi tiết tài khoản
+                                        của
+                                        mình.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="tab__content" id="orders" content>
+                                <h3 class="tab__header">Đơn hàng của bạn</h3>
+                                <div class="tab__body">
+                                    <section class="tab__body__order_detail">
+                                        <h5 class="tab__body__order_detail_code">Mã đơn hàng của bạn là #1357</h4> <!--#1357 thay bằng mã đơn hàng-->
+                                        <div class="tab__body__order_detail_date">Ngày đặt đơn: 1/1/1990</div> <!--1/1/1990 thay bằng ngày đặt đơn-->
+                                        <div class="tab__body__order_detail_status">Trạng thái đơn: đang giao</div>
+                                        <table class="tab__body__order_detail_information_address">
+                                            <tr>
+                                                <th>Tên sản phẩm</th>
+                                                <th>Mã sản phẩm</th>
+                                                <th>Số lượng</th>
+                                                <th>Giá</th>
+                                                <th>Tổng tiền</th>
+                                            </tr>
+                                            <tr>
+                                                <td class="tab__body__order_detail_information_address_product_name">Sản phẩm A rất dài và có thể chứa nhiều ký tự</td>
+                                                <td class="tab__body__order_detail_information_address_code">100</td>
+                                                <td class="tab__body__order_detail_information_address_quantity">100</td>
+                                                <td class="tab__body__order_detail_information_address_price">100.000 VND</td>
+                                                <td class="tab__body__order_detail_information_address_total">10.000.000 VND</td>                               
+                                            </tr>
+                                            <tr>
+                                                <td class="tab__body__order_detail_information_address_product_name">Sản phẩm A rất dài và có thể chứa nhiều ký tự</td>
+                                                <td class="tab__body__order_detail_information_address_code">100</td>
+                                                <td class="tab__body__order_detail_information_address_quantity">100</td>
+                                                <td class="tab__body__order_detail_information_address_price">100.000 VND</td>
+                                                <td class="tab__body__order_detail_information_address_total">10.000.000 VND</td>    
+                                            </tr>
+                                            <tr>
+                                                <td class="tab__body__order_detail_information_address_product-name">Sản phẩm A rất dài và có thể chứa nhiều ký tự</td>
+                                                <td class="tab__body__order_detail_information_address_code">100</td>
+                                                <td class="tab__body__order_detail_information_address_quantity">100</td>
+                                                <td class="tab__body__order_detail_information_address_price">100.000 VND</td>
+                                                <td class="tab__body__order_detail_information_address_total">10.000.000 VND</td>    
+                                            </tr>
+                                            <tr>
+                                                <td class="tab__body__order_detail_information_address_product-name">Sản phẩm A rất dài và có thể chứa nhiều ký tự</td>
+                                                <td class="tab__body__order_detail_information_address_code">100</td>
+                                                <td class="tab__body__order_detail_information_address_quantity">100</td>
+                                                <td class="tab__body__order_detail_information_address_price">100.000 VND</td>
+                                                <td class="tab__body__order_detail_information_address_total">10.000.000 VND</td>                             
+                                            </tr>
+                                        </table>
+                                        <table class="tab__body__order_detail_total_price">
+                                            <tr>
+                                                <td>Tổng tiền các món hàng</td>
+                                                <td>100000 VND</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Phí vận chuyển</td>
+                                                <td>0 VND</td>
+                                            </tr>
+                                            <tr>        
+                                                <td>Tổng tiền</td>
+                                                <td>1000000 VND</td>
+                                            </tr>
+                                        </table>
+                                    </section>  
+                                </div>
+                            </div>
+                            <div class="tab__content" id="update-profile" content>
+                                <h3 class="tab__header">Cập nhật thông tin</h3>
+                                <div class="tab__body">
+                                    <form action="" class="form">
+                                        <input type="text" placeholder="Username" class="form__input">
+                                        <div class="form__btn">
+                                            <button class="btn btn__md">Lưu</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tab__content" id="address" content>
+                                <h3 class="tab__header">Địa chỉ giao hàng</h3>
+                                <div class="tab__body">
+                                    <address class="address">
+                                        3522 Interstate <br />
+                                        75 Business Spur, <br />
+                                        Sault Ste. <br />
+                                        Marie, MI 49783 <br />
+                                        New York
+                                    </address>
+                                    <button class="btn btn__edit">Chỉnh sửa</button>
+                                </div>
+                            </div>
+                            <div class="tab__content" id="change-password" content>
+                                <h3 class="tab__header">Đổi mật khẩu</h3>
+                                <div class="tab__body">
+                                    <form action="" class="form">
+                                        <input type="password" placeholder="Mật khẩu cũ" class="form__input" />
+                                        <input type="password" placeholder="Mật khẩu mới" class="form__input" />
+                                        <input type="password" placeholder="Nhập lại mật khẩu" class="form__input" />
+                                        <div class="form__btn">
+                                            <button class="btn btn__md">Lưu</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+    </main>
+    <!-- FOOTER -->
+    <%- include ('genaral/footer.ejs') %>
+
+    <!-- BACK TO TOP -->
+    <!-- <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+    </a> -->
+
+    <!-- JAVASCRIPT LINK --><!-- IONCIONS LINK -->
+    <%- include ('genaral/linkandicon.ejs') %>
+
+
+</body>
+
+</html>

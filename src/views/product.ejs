@@ -116,8 +116,10 @@
                                             }
                                         %>
 
-                                        <% if (Gia_moi == null) { %>
-                                            <span class="product-item_price-current" style="color: black;"><%= each_Product.Don_gia %></span>
+                                        <% if (Gia_moi == null) { 
+                                            Gia_moi = each_Product.Don_gia;
+                                        %>
+                                            <span class="product-item_price-current" style="color: black;"><%= Gia_moi %></span>
                                         <% } else { %>
                                             <span class="product-item_price-current"><%= Gia_moi %></span>
                                             <span class="product-item_price-old"><%= each_Product.Don_gia %></span>
@@ -131,7 +133,7 @@
                                                     <i class="ri-shopping-cart-2-fill"></i>
                                                 </span>
                                                 <span class="product-item_action-title">
-                                                    <button onclick="addToCart('<%= each_Product.Ma_san_pham %>')">Thêm vào giỏ</button>
+                                                    <button onclick="addToCart('<%= each_Product.Ma_san_pham %>', '<%= each_Product.Ten_san_pham %>', '<%= ar_Img[0] %>', '<%= Gia_moi %>')">Thêm vào giỏ</button>
                                                 </span>
                                             </li>
                                             <li class="product-item_buy">

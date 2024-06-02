@@ -48,13 +48,18 @@ const getIdProduct = async function (req, res){
 
 const postAddCart = function (req, res){
     if (req.session.isLoggedIn === true){
-        let productId = req.body.productId;
+        let Ma_san_pham = req.body.Ma_san_pham;
+        let Ten_san_pham = req.body.Ten_san_pham;
+        let Img = req.body.Img;
+        let Gia_san_pham = req.body.Gia_san_pham;
+        let data = {Ma_san_pham, Ten_san_pham, Img, Gia_san_pham};
         if (!req.session.cart) {        
             req.session.cart = [];
         }
         // Kiểm tra xem cart có tồn tại trong res.locals không
-        // Thêm productId vào mảng cart
-        req.session.cart.push(productId);
+        // Thêm data vào mảng cart
+        req.session.cart.push(data);
+        console.log(req.session.cart);
         // Gửi phản hồi về client
         res.send({ success: true, cart: req.session.cart.length });
     }else{

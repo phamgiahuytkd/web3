@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+
+<%- include ('genaral/head.ejs') %>
+
+<body id="top">
+    <!-- MENU -->
+    <%- include ('genaral/menu.ejs') %>
+
+    <!-- HOME CONTENT -->
+    <main>
+        <div class="grid">
+            <div class="container_account">
+                <div class="header_container_account">
+                    <div class="handbook_container_account">
+                        <div class="link_container_account">
+                            <a href="#" class="link_handbook_container_account">Trang chủ</a>
+                            <a href="#" class="link_handbook_container_account">
+                                <i class="ri-arrow-right-s-line"></i>
+                            </a>
+                            <a href="#" class="link_handbook_container_account">Tài khoản</a>
+                        </div>
+                    </div>
+                </div>
+                <section class="accounts section -- lg">
+                    <div class="accounts__container container">
+                        <div class="account__tabs">
+                            <p class="account__tab account_active" id="dashboard-tab" data-target="#dashboard">
+                                <i class="ri-home-4-line"></i> Tổng quan
+                            </p>
+                            <p class="account__tab" id="orders-tab" data-target="#orders">
+                                <i class="ri-shopping-bag-4-line"></i> Đơn hàng
+                            </p>
+                            <!-- <p class="account__tab" id="update-profile-tab" data-target="#update-profile">
+                                <i class="ri-user-3-line"></i> Cập nhật thông tin
+                            </p> -->
+                            <p class="account__tab" id="address-tab" data-target="#address">
+                                <i class="ri-map-pin-line"></i> Cập nhật thông tin
+                            </p>
+                            <p class="account__tab" id="change-password-tab" data-target="#change-password">
+                                <i class="ri-user-3-line"></i> Đổi mật khẩu
+                            </p>
+                            <p class="account__tab" id="logout-tab" data-target="#logout">
+                                <i class="ri-logout-box-r-line"></i>
+                                <a href="#">Đăng xuất</a>
+                            </p>
+                        </div>
+
+                        <div class="tabs__content">
+                            <div class="tab__content" id="dashboard" content>
+                                <h3 class="tab__header">Hello Huy !</h3>
+                                <div class="tab__body">
+                                    <p class="tab__description">
+                                        Từ trang tài khoản của bạn, bạn có thể kiểm tra và xem các đơn hàng gần đây,
+                                        quản
+                                        lý địa chỉ giao hàng, thanh toán, chỉnh sửa mật khẩu và xem chi tiết tài khoản
+                                        của
+                                        mình.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Đơn hàng -->
+                            <div class="tab__content" id="orders" content>
+                                <h3 class="tab__header">Đơn hàng của bạn</h3>
+                                <div class="tab__body">
+                                    <table class="placed__order-table">
+                                        <tr>
+                                            <th>Đơn hàng</th>
+                                            <th>Ngày</th>
+                                            <th>Trạng thái</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Chi tiết</th>
+                                        </tr>
+                                        <tr>
+                                            <td>#1357</td>
+                                            <td>March 45, 2020</td>
+                                            <td>Processing</td>
+                                            <td>$125.00</td>
+                                            <td><a href="#" class="view__order">Xem</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>#1357</td>
+                                            <td>March 45, 2020</td>
+                                            <td>Processing</td>
+                                            <td>$125.00</td>
+                                            <td><a href="#" class="view__order">Xem</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>#1357</td>
+                                            <td>March 45, 2020</td>
+                                            <td>Processing</td>
+                                            <td>$125.00</td>
+                                            <td><a href="#" class="view__order">Xem</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>#1357</td>
+                                            <td>March 45, 2020</td>
+                                            <td>Processing</td>
+                                            <td>$125.00</td>
+                                            <td><a href="#" class="view__order">Xem</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>#1357</td>
+                                            <td>March 45, 2020</td>
+                                            <td>Processing</td>
+                                            <td>$125.00</td>
+                                            <td><a href="#" class="view__order">Xem</a></td>
+                                        </tr>
+                                        <tr>
+                                            <td>#1357</td>
+                                            <td>March 45, 2020</td>
+                                            <td>Processing</td>
+                                            <td>$125.00</td>
+                                            <td><a href="#" class="view__order">Xem</a></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <!-- Thông tin người dùng (bỏ) -->
+                            <!-- <div class="tab__content" id="update-profile" content>
+                                <h3 class="tab__header">Cập nhật thông tin</h3>
+                                <div class="tab__body">
+                                    <form action="" class="form">
+                                        <input type="text" placeholder="Tên người dùng..." class="form__input">
+                                        <div class="form__btn">
+                                            <button class="btn btn__md">Lưu</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div> -->
+
+                            <!-- Thông tin người dùng (tên , số điện thoại, địa chỉ) -->
+                            <div class="tab__content" id="address" content>
+                                <h3 class="tab__header">Địa chỉ giao hàng</h3>
+                                <div class="tab__body">
+                                    <div class="address">
+                                        <p><b>Tên người dùng: </b> Huy Conan</p>
+                                        <p><b>Số điện thoại: </b> 0123 456 678</p>
+                                        <div class="address-change">
+                                            <p><b>Địa chỉ: </b> 56/5 Hai Bà Trưng, Phường Tân An, Quận Ninh Kiều, Cần
+                                                Thơ</p>
+                                            <button class="btn btn__edit" id="changeAddressBtn">Chỉnh sửa</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- Đổi mật khẩu -->
+                            <div class="tab__content" id="change-password" content>
+                                <h3 class="tab__header">Đổi mật khẩu</h3>
+                                <div class="tab__body">
+                                    <form action="" class="form">
+                                        <div class="form__input-container">
+                                            <input type="password" placeholder="Nhập mật khẩu cũ" class="form__input" id="oldPassword" />
+                                            <i class='bx bx-hide' id="toggleOldPassword"></i>
+                                        </div>
+                                        <div class="form__input-container">
+                                            <input type="password" placeholder="Nhập mật khẩu mới" class="form__input" id="newPassword" />
+                                            <i class='bx bx-hide' id="toggleNewPassword"></i>
+                                        </div>
+                                        <div class="form__input-container">
+                                            <input type="password" placeholder="Nhập lại mật khẩu" class="form__input" id="confirmPassword" />
+                                            <i class='bx bx-hide' id="toggleConfirmPassword"></i>
+                                        </div>
+                                        <div class="form__btn">
+                                            <button class="btn btn__md">Lưu</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+    </main>
+
+    <!-- Modal Pop up Thay đổi thôn tin giao hàng -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Cập nhật thông tin</h2>
+            <form>
+                <div class="checkout-update-name">
+                    <label for="name">Họ và tên</label>
+                    <input type="text" id="name" name="name" value="Tống Bình">
+                </div>
+                <div class="checkout-update-name">
+                    <label for="phone">Số điện thoại</label>
+                    <input type="text" id="phone" name="phone" value="(+84) 393 416 090">
+                </div>
+                <div class="checkout-update-name">
+                    <label for="address">Địa chỉ cụ thể</label>
+                    <input type="text" id="address" name="address" value="56/5 Hai Bà Trưng">
+                </div>
+
+                <div class="modal-buttons">
+                    <button type="button" id="cancelBtn">Hủy</button>
+                    <button type="submit" id="update-name-cf">Hoàn thành</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <%- include ('genaral/footer.ejs') %>
+
+    <!-- BACK TO TOP -->
+    <!-- <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+    </a> -->
+
+    <!-- JAVASCRIPT LINK --><!-- IONCIONS LINK -->
+    <%- include ('genaral/linkandicon.ejs') %>
+
+
+
+</body>
+
+</html>

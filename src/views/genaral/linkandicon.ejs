@@ -2,9 +2,17 @@
 <script src="/js/main.js" defer></script>
 <script src="/js/login.js" defer></script>
 <script src="/js/product_details.js"></script>
+<script src="/js/detail_order.js" defer></script>
+<script src="/js/checkout.js"></script>
+<script src="/js/account.js" defer></script>
+<script src="/js/cart.js"></script>
 <!-- IONCIONS LINK -->
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+
+
 
 
 
@@ -13,16 +21,19 @@
  <!--- Thêm sản phẩm vào giỏ hàng -->
  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
  <script>
-     function addToCart(productId) {
+     function addToCart(Ma_san_pham, Ten_san_pham, Img, Gia_san_pham) {
          $.ajax({
              type: 'POST',
              url: '/add_cart',
              data: {
-                 productId: productId
+                Ma_san_pham: Ma_san_pham,
+                Ten_san_pham: Ten_san_pham,
+                Img: Img,
+                Gia_san_pham: Gia_san_pham
              },
              success: function(response) {
                  if (response.success) {
-                     alert('Sản phẩm đã được thêm vào giỏ hàng' + response.cart);
+                     alert('Sản phẩm đã được thêm vào giỏ hàng!');
                      updateCart(response.cart)
                  } else {
                      alert('Vui lòng đăng nhập trước khi mua sản phẩm!');
