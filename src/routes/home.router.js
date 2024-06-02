@@ -3,7 +3,7 @@ const router = express.Router();
 
 const {getHome, getLogout, getProduct, getIdProduct, postAddCart, getCatalog, getGroup, getDiscountProdcut, postSearch} = require('../controllers/home.controller');
 
-const {getCart} = require('../controllers/account.controller');
+const {getCart, postUpdateCart, postRemoveCart, getCheckout, postCartPay, getAccount} = require('../controllers/account.controller');
 
 
 
@@ -31,6 +31,24 @@ router.post('/search', postSearch);
 
 
 router.get('/cart', getCart);
+
+
+router.post('/cart/update_cart', postUpdateCart);
+
+router.post('/cart/remove_cart', postRemoveCart);
+
+router.get('/checkout', getCheckout);
+
+
+router.post('/pay', postCartPay);
+
+
+
+router.get('/account', getAccount);
+
+
+router.post('/checkout/update_address', postCartPay);
+
 
 
 

@@ -45,7 +45,8 @@ app.use((req, res, next) => {
         if (!req.session.cart) {        
             req.session.cart = [];
         }
-        res.locals.cart = req.session.cart.length;
+        const totalQuantity = req.session.cart.reduce((total, product) => total + product.So_luong, 0);
+        res.locals.cart = totalQuantity;
       // Kiểm tra xem có mảng cart trong session chưa
     
   } else {

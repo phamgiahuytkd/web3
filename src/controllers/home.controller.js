@@ -47,23 +47,33 @@ const getIdProduct = async function (req, res){
 
 
 const postAddCart = function (req, res){
-    if (req.session.isLoggedIn === true){
+    if (req.session.isLoggedIn === true) {
         let Ma_san_pham = req.body.Ma_san_pham;
         let Ten_san_pham = req.body.Ten_san_pham;
         let Img = req.body.Img;
         let Gia_san_pham = req.body.Gia_san_pham;
-        let data = {Ma_san_pham, Ten_san_pham, Img, Gia_san_pham};
+        let So_luong = 1;
+        let data = { Ma_san_pham, Ten_san_pham, Img, Gia_san_pham, So_luong };
+    
         if (!req.session.cart) {        
             req.session.cart = [];
         }
-        // Kiểm tra xem cart có tồn tại trong res.locals không
-        // Thêm data vào mảng cart
-        req.session.cart.push(data);
-        console.log(req.session.cart);
+    
+        // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng hay chưa
+        const productIndex = req.session.cart.findIndex(item => item.Ma_san_pham === data.Ma_san_pham);
+    
+        if (productIndex === -1) {
+            // Sản phẩm chưa tồn tại, thêm mới vào giỏ hàng
+            req.session.cart.push(data);
+        } else {
+            // Sản phẩm đã tồn tại, cập nhật số lượng
+            req.session.cart[productIndex].So_luong += 1;
+        }
+        const totalQuantity = req.session.cart.reduce((total, product) => total + product.So_luong, 0);
         // Gửi phản hồi về client
-        res.send({ success: true, cart: req.session.cart.length });
-    }else{
-        res.send({ success: false});
+        res.send({ success: true, cart: totalQuantity });
+    } else {
+        res.send({ success: false });
     }
     
     

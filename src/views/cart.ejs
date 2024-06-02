@@ -8,7 +8,13 @@
     <%- include ('genaral/menu.ejs') %>
 
     <!-- HOME CONTENT -->
+    
     <div class="cart">
+        <% if (detail_cart.length === 0) { %>
+            <p>
+                đéo có sản phẩm
+            </p>
+        <% } else {  %>
         <div class="table_section">
             <table class="cart-table">
                 <thead>
@@ -22,92 +28,40 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
+                    <%detail_cart.forEach(function(each_Cart) { %>
                     <tr>
                         <td><input type="checkbox" class="product-checkbox" onclick="calculateTotal()"></td>
                         <td class="cart_produuct">
-                            <img src="../img/product_detail_04.jpg" alt="Product Image 1" class="product-image">
+                            <img src="/product_img/<%= each_Cart.Img %>" alt="Product Image 1" class="product-image">
                             <p>
-                                Kem đánh bóng kim loại Autosol Metal Polish dddddddddddd dddddddđ
-                                sssssssssssssssssssssssssssssss ddfdsfdsfds
+                                <%= each_Cart.Ten_san_pham %>
                             </p>
                         </td>
-                        <td>500.000.000 đ</td>
+                        <td><%= each_Cart.Gia_san_pham %> đ</td>
                         <td class="qty_field">
-                            <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                            <input type="number" value="1" min="1" readonly>
-                            <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
+                            <button class="qty-btn" onclick="updateQuantity(this, -1, '<%= each_Cart.Ma_san_pham %>')">-</button>
+                            <input type="number" value="<%= each_Cart.So_luong %>" min="1" readonly>
+                            <button class="qty-btn" onclick="updateQuantity(this, 1, '<%= each_Cart.Ma_san_pham %>')">+</button>
                         </td>
-                        <td class="cart_price">500.000.000 đ</td>
-                        <td><button class="remove-btn" onclick="removeProduct(this)">Xóa</button></td>
+                        <td class="cart_price"><%= each_Cart.Gia_san_pham*each_Cart.So_luong %> đ</td>
+                        <td><button class="remove-btn" onclick="removeProduct(this, '<%= each_Cart.Ma_san_pham %>')">Xóa</button></td>
+
+
+                        <td class="hidden-info" style="display: none;">
+                            <span class = "Ma_san_pham"><%= each_Cart.Ma_san_pham %></span>
+                            <span class = "Ten_san_pham"><%= each_Cart.Ten_san_pham %></span>
+                            <span class = "Img"><%= each_Cart.Img %></span>
+                            <span class = "Gia_san_pham"><%= each_Cart.Gia_san_pham %></span>
+                        </td>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox" class="product-checkbox" onclick="calculateTotal()"></td>
-                        <td class="cart_produuct">
-                            <img src="../img/product_detail_03.jpg" alt="Product Image 1" class="product-image">
-                            <p>
-                                Kem đánh răng
-                            </p>
-                        </td>
-                        <td>123.000 đ</td>
-                        <td class="qty_field">
-                            <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                            <input type="number" value="1" min="1" readonly>
-                            <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-                        </td>
-                        <td class="cart_price">123.000 đ</td>
-                        <td><button class="remove-btn" onclick="removeProduct(this)">Xóa</button></td>
-                    </tr>               
-                    <tr>
-                        <td><input type="checkbox" class="product-checkbox" onclick="calculateTotal()"></td>
-                        <td class="cart_produuct">
-                            <img src="../img/product_detail_03.jpg" alt="Product Image 1" class="product-image">
-                            <p>
-                                Kem đánh răng
-                            </p>
-                        </td>
-                        <td>123.000 đ</td>
-                        <td class="qty_field">
-                            <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                            <input type="number" value="1" min="1" readonly>
-                            <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-                        </td>
-                        <td class="cart_price">123.000 đ</td>
-                        <td><button class="remove-btn" onclick="removeProduct(this)">Xóa</button></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="product-checkbox" onclick="calculateTotal()"></td>
-                        <td class="cart_produuct">
-                            <img src="../img/product_detail_02.jpg" alt="Product Image 1" class="product-image">
-                            <p>
-                                Kem đánh răng
-                            </p>
-                        </td>
-                        <td>123.000 đ</td>
-                        <td class="qty_field">
-                            <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                            <input type="number" value="1" min="1" readonly>
-                            <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-                        </td>
-                        <td class="cart_price">123.000 đ</td>
-                        <td><button class="remove-btn" onclick="removeProduct(this)">Xóa</button></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" class="product-checkbox" onclick="calculateTotal()"></td>
-                        <td class="cart_produuct">
-                            <img src="../img/product_detail_01.jpg" alt="Product Image 1" class="product-image">
-                            <p>
-                                Kem đánh răng
-                            </p>
-                        </td>
-                        <td>123.000 đ</td>
-                        <td class="qty_field">
-                            <button class="qty-btn" onclick="updateQuantity(this, -1)">-</button>
-                            <input type="number" value="1" min="1" readonly>
-                            <button class="qty-btn" onclick="updateQuantity(this, 1)">+</button>
-                        </td>
-                        <td class="cart_price">123.000 đ</td>
-                        <td><button class="remove-btn" onclick="removeProduct(this)">Xóa</button></td>
-                    </tr>
+                   
+                    
+                    <% }); %>
+                    
+
+
+                    
                 </tbody>
             </table>
         </div>
@@ -116,7 +70,9 @@
             <p>Tổng thanh toán (<span id="itemCount">0 sản phẩm</span>): <span id="totalAmount">0 đ</span></p>
             <button class="purchase-btn" onclick="purchase()">Mua Hàng</button>
         </div>
+        <% } %>
     </div>
+    
 
     <!-- FOOTER -->
     <%- include ('genaral/footer.ejs') %>

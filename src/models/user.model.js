@@ -13,6 +13,19 @@ const getIdUsers = async function (id) {
     
 }
 
+
+
+const getInfoUsers = async function (id) {
+    try{
+        const [results, fields] = await connection.query("SELECT * FROM tb_khachhang WHERE User_ID = ?", [id]);
+        return results;
+
+    }catch(err){
+        throw new Error('Database query failed');
+    }
+    
+}
+
 module.exports = {
-    getIdUsers
+    getIdUsers, getInfoUsers
 }
