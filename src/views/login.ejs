@@ -15,7 +15,7 @@
         <div class="login_form login">
             <div class="form-content">
                 <h4 class="login_header_title">Đăng nhập</h4>
-                <form id="login-form" action="/login/login-user" method="post">
+                <form id="login-form" action="/login/login-user" method="POST">
                     
 
                     <div class="field_to_error">
@@ -77,10 +77,21 @@
         <div class="login_form signup">
             <div class="form-content">
                 <h4 class="login_header_title">Đăng ký</h4>
-                <form id="signup-form" action="#">
+                <form id="signup-form" onsubmit="return false;">
                     <div class="field_to_error name-field">
                         <div class="login_field login_input-field ">
-                            <input type="text" placeholder="Tên của bạn" class="input name">
+                            <input type="text" placeholder="Tên đăng nhập" class="input name" name="User_ID">
+                        </div>
+                        <!-- Check lỗi input -->
+                        <span class="error name_error" style="display:none;">
+                            <i class='bx bx-error-circle error-icon'></i>
+                            <p class="error-text">Vui lòng nhập tên đăng nhập.</p>
+                        </span>
+                    </div>
+
+                    <div class="field_to_error name-field">
+                        <div class="login_field login_input-field ">
+                            <input type="text" placeholder="Tên của bạn" class="input name" name="Ho_ten">
                         </div>
                         <!-- Check lỗi input -->
                         <span class="error name_error" style="display:none;">
@@ -91,7 +102,7 @@
 
                     <div class="field_to_error">
                         <div class="login_field login_input-field">
-                            <input type="text" placeholder="Số điện thoại" class="input phone">
+                            <input type="text" placeholder="Số điện thoại" class="input phone" name="Dien_thoai">
                         </div>
                         <!-- Check lỗi input -->
                         <span class="error phone_error" style="display:none;">
@@ -102,7 +113,7 @@
 
                     <div class="field_to_error">
                         <div class="login_field login_input-field">
-                            <input type="text" placeholder="Địa chỉ" class="input address">
+                            <input type="text" placeholder="Địa chỉ" class="input address" name="Dia_chi">
                         </div>
                         <!-- Check lỗi input -->
                         <span class="error address_error" style="display:none;">
@@ -113,7 +124,7 @@
 
                     <div class="field_to_error create-password">
                         <div class="login_field login_input-field">
-                            <input type="password" placeholder="Tạo mật khẩu" class="password">
+                            <input type="password" placeholder="Tạo mật khẩu" class="password" name="Pass_word">
                             <i class='bx bx-hide eye-icon'></i>
                         </div>
                         <!-- Check lỗi input -->

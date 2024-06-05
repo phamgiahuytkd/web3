@@ -84,32 +84,9 @@ const db_DiscountProduct = async function (err) {
 
 
 
-const ad_Bill = async function (Ma_hoa_don , makhachhang, Thoi_gian_xuat_hoa_don, Dia_chi, Tong_tien) {
-    try{
-        const [results, fields] = await connection.query("INSERT INTO `tb_hoadon` (`Ma_hoa_don`, `makhachhang`, `Thoi_gian_xuat_hoa_don`, `Dia_chi`, `Tong_tien`) VALUES (?, ?, ?, ?, ?);", [Ma_hoa_don , makhachhang, Thoi_gian_xuat_hoa_don, Dia_chi, Tong_tien]);
-        return results;
 
-    }catch(err){
-        console.log(err);
-        throw new Error('Database query failed');
-    }
-    
-}
-
-
-const ad_DetailBill = async function (Ma_hoa_don , Ma_san_pham, Ten_san_pham, So_luong, Don_gia, Tong_tien) {
-    try{
-        const [results, fields] = await connection.query("INSERT INTO `tb_chitiethoadon` (`Ma_hoa_don`, `Ma_san_pham`, `Ten_san_pham`, `So_luong`, `Don_gia`, `Tong_tien`) VALUES ( ?, ?, ?, ?, ?, ?)", [Ma_hoa_don , Ma_san_pham, Ten_san_pham, So_luong, Don_gia, Tong_tien]);
-        return results;
-
-    }catch(err){
-        console.log(err);
-        throw new Error('Database query failed');
-    }
-    
-}
 
 
 module.exports = {
-    db_AllProduct, db_IdProduct, db_Discount, db_Catalog, db_Group, db_BestDiscount, db_DiscountProduct, ad_Bill, ad_DetailBill
+    db_AllProduct, db_IdProduct, db_Discount, db_Catalog, db_Group, db_BestDiscount, db_DiscountProduct
 }

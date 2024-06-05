@@ -1,6 +1,6 @@
 const connection = require('../config/database');
 const bcrypt = require('bcrypt');
-const {getIdUsers} = require('../models/user.model');
+const {getIdUsers, add_Users, add_info_Users} = require('../models/user.model');
 
 const {createToken} = require('../middleware/token');
 
@@ -54,10 +54,40 @@ const postLogin = async function (req, res){
 };
 
 
+const postSign = async function (req, res){
+    let User_ID  = req.body.User_ID ;
+    let Pass_word =  req.body.Pass_word;
+    let Phan_quyen = 1;
+
+    let Ho_ten  = req.body.Ho_ten ;
+    let Dien_thoai  = req.body.Dien_thoai ;
+    let Dia_chi  = req.body.Dia_chi ;
+   
+        let results = await getIdUsers(User_ID);
+        if (!results || results.length === 0) {
+            let check_sign = await add_Users(User_ID , Pass_word, Phan_quyen);
+            add_info_Users(User_ID , Ho_ten, Dien_thoai, Dia_chi);
+            if(check_sign === true){
+                res.send({success: true});
+            }else{
+                res.send({success: false, message: "Lỗi server!"});
+            }
+            
+        }
+        else{
+            
+            res.send({success: false, message: "EXIT"});
+        }
+        
+
+    
+};
+
 
 
 
 module.exports = {
     getLogin,
-    postLogin
+    postLogin,
+    postSign
 };

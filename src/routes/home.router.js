@@ -3,7 +3,9 @@ const router = express.Router();
 
 const {getHome, getLogout, getProduct, getIdProduct, postAddCart, getCatalog, getGroup, getDiscountProdcut, postSearch} = require('../controllers/home.controller');
 
-const {getCart, postUpdateCart, postRemoveCart, getCheckout, postCartPay, getAccount, postUpdateAddress, postAddBill} = require('../controllers/account.controller');
+const {getCart, postUpdateCart, postRemoveCart, getCheckout, postCartPay, getAccount, postUpdateAddressCheckout, postAddBill, getdetail_order, postUpdateAddressAccount, 
+    postUpdatePass, postOrderDetail
+} = require('../controllers/account.controller');
 
 
 
@@ -46,13 +48,25 @@ router.post('/pay', postCartPay);
 
 router.get('/account', getAccount);
 
+router.get('/detail_order', getdetail_order);
 
-router.post('/checkout/update_address', postUpdateAddress);
+
+
+
+router.post('/checkout/update_address', postUpdateAddressCheckout);
 
 
 router.post('/checkout/add_bill', postAddBill);
 
 
+router.post('/account/update_address', postUpdateAddressAccount);
+
+
+router.post('/account/update_pass', postUpdatePass);
+
+
+
+router.post('/account/order_detail', postOrderDetail);
 
 
 

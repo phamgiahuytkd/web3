@@ -1,6 +1,8 @@
-const {getInfoUsers, update_InfoUsers} = require('../models/user.model');
-const {ad_Bill, ad_DetailBill} = require('../models/product.model');
+const {getInfoUsers, update_InfoUsers, update_Pass, getIdUsers} = require('../models/user.model');
+const {ad_Bill, ad_DetailBill, db_AllBill, get_BillDetail} = require('../models/bill.model');
+const baseForm = require('../migration/view.func');
 const moment = require('moment');
+const bcrypt = require('bcrypt');
 
 
 const { v4: uuidv4 } = require('uuid');
@@ -102,7 +104,19 @@ const postCartPay = async function (req, res) {
 
 const getAccount = async function (req, res){
     if (req.session.isLoggedIn === true) {
-        return res.render('account.ejs');
+        let all_bill = await db_AllBill();
+        let info_user = await getInfoUsers(res.locals.user);
+        return res.render('account.ejs', {all_bill: all_bill, info_user: info_user[0], baseForm: baseForm});
+    }
+    
+    
+    
+};
+
+
+const getdetail_order = async function (req, res){
+    if (req.session.isLoggedIn === true) {
+        return res.render('detail_order.ejs');
     }
     
     
@@ -111,8 +125,78 @@ const getAccount = async function (req, res){
 
 
 
+const postUpdateAddressAccount = async function (req, res){
+    if (req.session.isLoggedIn === true) {
+        
+        let User_ID  = res.locals.user;
+        let Ho_ten = req.body.Ho_ten ;
+        let Dien_thoai = req.body.Dien_thoai ;
+        let Dia_chi = req.body.Dia_chi ;
+        let check_update = await update_InfoUsers(User_ID, Ho_ten, Dien_thoai, Dia_chi);
+        if(check_update === true){
+            res.send({success: true});
+        }else{
+            res.send({success: false});
+        }
+        
+    }
+    
+};
 
-const postUpdateAddress = async function (req, res){
+
+
+const postUpdatePass = async function (req, res){
+    if (req.session.isLoggedIn === true) {
+        
+        let User_ID  = res.locals.user;
+        let Old_pass = req.body.oldPassword;
+        let Pass_word = req.body.newPassword ;
+        let check_pass = await getIdUsers(User_ID);
+        const data_pass = await bcrypt.hash(check_pass[0].Pass_word, 10);
+
+        bcrypt.compare(Old_pass, data_pass, function(err, result) {
+            if (err) {
+                res.send({success: false, message: 'Lỗi server!'});
+            } else {
+                if(result){
+                    update_Pass(User_ID, Pass_word);
+                    res.send({success: true});
+                }else{
+                    res.send({success: false, message: 'Sai mật khẩu!'});
+                }
+               
+            }
+        });
+    }
+    
+};
+
+
+
+
+const postOrderDetail = async function (req, res){
+    if (req.session.isLoggedIn === true) {
+        let Ma_hoa_don  = req.body.Ma_hoa_don;
+        let bill_detail = await get_BillDetail(Ma_hoa_don);
+        if(bill_detail){
+            console.log(bill_detail);
+            res.send({success: true, bill_detail: bill_detail});
+        }else{
+            res.send({success: false});
+        }
+
+        
+    }
+    
+};
+
+
+
+
+
+
+
+const postUpdateAddressCheckout = async function (req, res){
     if (req.session.isLoggedIn === true) {
         
         let User_ID  = res.locals.user;
@@ -145,17 +229,31 @@ const postAddBill = async function (req, res){
             }
         });
 
-        ad_Bill(Ma_hoa_don , makhachhang, Thoi_gian_xuat_hoa_don, Dia_chi, total_Checkout);
-        req.session.checkout.forEach(item => {
-            ad_DetailBill(Ma_hoa_don , item.Ma_san_pham, item.Ten_san_pham, item.So_luong, item.Gia_san_pham, item.Gia_san_pham * item.So_luong);
-        });
-        res.redirect('/cart');
+        let check_bill = await ad_Bill(Ma_hoa_don , makhachhang, Thoi_gian_xuat_hoa_don, Dia_chi, total_Checkout);
+        let check_detail_bill = false;
+        for (const item of req.session.checkout) {
+            check_detail_bill = await ad_DetailBill(Ma_hoa_don , item.Ma_san_pham, item.Ten_san_pham, item.So_luong, item.Gia_san_pham, item.Gia_san_pham * item.So_luong);
+        };
+        if(check_bill === true && check_detail_bill === true) {
+            delete req.session.checkout;
+            res.send({success: true});
+        }else{
+            res.send({success: false});
+        }
     }
     
 };
 
 
 
+
+
+
+
+
+
+
 module.exports = {
-    getCart, postUpdateCart, postRemoveCart, getCheckout, postCartPay, getAccount, postUpdateAddress, postAddBill
+    getCart, postUpdateCart, postRemoveCart, getCheckout, postCartPay, getAccount, postUpdateAddressCheckout, postAddBill, getdetail_order, postUpdateAddressAccount,
+    postUpdatePass, postOrderDetail
 };

@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isValid) {
       // Submit the form
-      signupForm.submit();
+      sign_account();
     }
   });
 

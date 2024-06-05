@@ -62,11 +62,7 @@
             </div>
         </div>
         <div class="order-button">
-            <form action="/checkout/add_bill" method="POST">
-                <input type="hidden" name="total_Checkout" value="<%= total_Checkout %>">
-                <input type="hidden" id="Dia_chi" name="Ho_ten" value="<%= info_user.Dia_chi %>">
-                <button type="submit">Đặt hàng</button>
-            </form>
+                <button  onclick="checkout_add_bill('<%= info_user.Dia_chi %>', '<%= total_Checkout+43900 %>')">Đặt hàng</button>
         </div>
         
         <!-- Modal Pop up Thay đổi thôn tin giao hàng -->

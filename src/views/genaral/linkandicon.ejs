@@ -144,6 +144,238 @@ function sortProductsByPrice(order) {
 
 
 
+//Cập nhật thông tin khách hàng
+function update_info_account() { 
+    var form = document.getElementById("update_info_account");
+    var Ho_ten = form.elements["Ho_ten"];
+    var Dien_thoai = form.elements["Dien_thoai"];
+    var Dia_chi = form.elements["Dia_chi"];
+  // update session cart
+  $.ajax({
+      type: 'POST',
+      url: '/account/update_address',
+      data: {
+          Ho_ten: Ho_ten.value,
+          Dien_thoai: Dien_thoai.value,
+          Dia_chi: Dia_chi.value
+      },
+      success: function(response) {
+          if (response.success) {
+            document.getElementById("account_Ho_ten").innerHTML = Ho_ten.value;
+            const reversedPhoneNumber = Dien_thoai.value.split('').reverse().join('');
+            // Sử dụng mẫu regex và định dạng lại chuỗi
+            const formattedPhoneNumber = reversedPhoneNumber.replace(/(\d{3})(\d{3})(\d+)/, '$1 $2 $3');
+            // Đảo ngược lại chuỗi đã định dạng
+            const reversedFormattedPhoneNumber = formattedPhoneNumber.split('').reverse().join('');
+            document.getElementById("account_Dien_thoai").innerHTML = reversedFormattedPhoneNumber;
+            document.getElementById("account_Dia_chi").innerHTML = Dia_chi.value;
+            document.getElementById('modal').style.display = 'none';
+          } else {
+              alert('Đặt hàng thất bại!');
+          }
+      },  
+      error: function(xhr, status, error) {
+          console.error('Lỗi AJAX:', error);
+      }
+  });
+  
+
+}
+
+
+//cập nhật mật khẩu
+function update_pass_account() { 
+    var form = document.getElementById("update_pass_account");
+    var oldPassword = form.elements["oldPassword"];
+    var newPassword = form.elements["newPassword"];
+    var confirmPassword = form.elements["confirmPassword"];
+    if (confirmPassword.value === newPassword.value){
+        $.ajax({
+            type: 'POST',
+            url: '/account/update_pass',
+            data: {
+                    oldPassword: oldPassword.value,
+                    newPassword: newPassword.value,
+                    confirmPassword: confirmPassword.value
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert('Đổi mật khẩu thành công!');
+                    window.location.href = '/account'
+
+                } else {
+                    alert(response.message);
+                }
+            },  
+            error: function(xhr, status, error) {
+                console.error('Lỗi AJAX:', error);
+            }
+        });
+    }else{
+        alert('Mật khẩu không trùng khớp');
+    }
+  // update session cart
+  
+  
+
+}
+
+
+
+
+
+
+function sign_account() { 
+    var form = document.getElementById("signup-form");
+    var User_ID  = form.elements["User_ID"];
+    var Pass_word =  form.elements["Pass_word"];
+
+    var Ho_ten  = form.elements["Ho_ten"];
+    var Dien_thoai  = form.elements["Dien_thoai"];
+    var Dia_chi  = form.elements["Dia_chi"];
+
+
+        $.ajax({
+            type: 'POST',
+            url: '/login/sign-user',
+            data: {
+                    User_ID: User_ID.value,
+                    Pass_word:  Pass_word.value,
+                    Ho_ten: Ho_ten.value,
+                    Dien_thoai: Dien_thoai.value,
+                    Dia_chi: Dia_chi.value
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert('Đăng ký thành công!');
+                    window.location.href = '/login'
+
+                } else if (response.message = "EXIT") {
+                    alert("Tên tài khoản đã tồn tại!");
+                }
+                else {
+                    alert(response.message);
+                }
+            },  
+            error: function(xhr, status, error) {
+                console.error('Lỗi AJAX:', error);
+            }
+        });
+   
+  // update session cart
+  
+  
+
+}
+
+
+
+
+
+
+
+
+
+
+//Hàm hiển thị chi tiết đơn hàng
+function get_detail_bill(Ma_hoa_don, Ngay_dat, Trang_thai, Tong_tien) {
+    $.ajax({
+            type: 'POST',
+            url: '/account/order_detail',
+            data: {
+                Ma_hoa_don: Ma_hoa_don
+            },
+            success: function(response) {
+                if (response.success) {
+
+                    //Hiẻn thị thông tin tổng
+                    document.querySelector('.tab__body__order_detail_code').innerHTML = `Mã đơn hàng của bạn là #${Ma_hoa_don}`;
+                    document.querySelector('.tab__body__order_detail_date').innerHTML = `Thời gian đặt đơn: ${Ngay_dat}`;
+                    document.querySelector('.tab__body__order_detail_status').innerHTML = `Trạng thái đơn: ${Trang_thai}`;
+
+
+                    const products = response.bill_detail;
+                    const table = document.querySelector('.tab__body__order_detail_information_address');
+                    table.innerHTML = `
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Mã sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Giá</th>
+                            <th>Tổng tiền</th>
+                        </tr>
+                    `;
+                    // Hàm hiển thị sản phẩm
+                    let total_product = 0;
+                    products.forEach(product => {
+
+                        let row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td class="tab__body__order_detail_information_address_product_name">${product.Ten_san_pham}</td>
+                            <td class="tab__body__order_detail_information_address_code">${product.Ma_san_pham}</td>
+                            <td class="tab__body__order_detail_information_address_quantity">${product.So_luong}</td>
+                            <td class="tab__body__order_detail_information_address_price">${product.Don_gia.toLocaleString('vi-VN')} VND</td>
+                            <td class="tab__body__order_detail_information_address_total">${product.Tong_tien.toLocaleString('vi-VN')} VND</td>
+                        `;
+                        table.appendChild(row);
+                        total_product += parseInt (product.Tong_tien);
+                    });
+
+
+
+                    const table_total = document.querySelector('.tab__body__order_detail_total_price');
+
+                    table_total.innerHTML = `
+                    <tr>
+                        <td>Tổng tiền các món hàng</td>
+                        <td>${total_product.toLocaleString('vi-VN')} VND</td>
+                     </tr>
+                     <tr>
+                        <td>Phí vận chuyển</td>
+                        <td>43.900 VND</td>
+                    </tr>
+                     <tr>        
+                        <td>Tổng tiền</td>
+                        <td>${Tong_tien} VND</td>
+                    </tr>
+                    `;
+
+
+                    const tabs = document.querySelectorAll('.account__tab');
+                    const tabContents = document.querySelectorAll('.tab__content');
+                    const tabContent = document.querySelector('#orders-tab');
+
+
+                    // Get the target tab content ID
+                    const targetId = "#orders-detail";
+
+                    // Remove active class from all tabs and tab contents
+                    tabs.forEach((t) => t.classList.remove('account_active'));
+                    tabContents.forEach((tc) => tc.classList.remove('active-tab'));
+
+                    // Add active class to the current tab and tab content
+                    tabContent.classList.add('account_active');
+                    document.querySelector(targetId).classList.add('active-tab');
+
+
+
+
+                } else {
+                    alert("Lỗi server");
+                }
+            },  
+            error: function(xhr, status, error) {
+                console.error('Lỗi AJAX:', error);
+            }
+        });
+    
+
+
+  
+
+}
+
+
 
 
 </script>

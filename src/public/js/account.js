@@ -71,3 +71,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   }
 });
+
+
+
+//Xư lứ sự kiện trong accoount
