@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<!-- Website - www.codingnepalweb.com -->
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thống kê</title>
+    <link rel="stylesheet" href="/admin/css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Đường dẫn tới thư viện Chart.js -->
+
+    <!-- ICON Link -->
+    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+</head>
+
+<body>
+    <!-- SIDE MENU -->
+    <div class="admin_sidebar">
+        <div class="logo-details">
+            <div class="admin_home_logo">
+                <i class="ri-gatsby-fill"></i>
+                <a href="">
+                    G<span>LAM</span>
+                </a>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="#">
+                    <i class="bx bx-grid-alt"></i>
+                    <span class="links_name">Tổng quan</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-box"></i>
+                    <span class="links_name">Sản phẩm</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-list-ul"></i>
+                    <span class="links_name">Đơn hàng</span>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="active">
+                    <i class="bx bx-pie-chart-alt-2"></i>
+                    <span class="links_name">Thống kê</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-user"></i>
+                    <span class="links_name">Khách hàng</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="ri-discount-percent-line"></i>
+                    <span class="links_name">Giảm giá</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class="bx bx-cog"></i>
+                    <span class="links_name">Cài đặt</span>
+                </a>
+            </li>
+            <li class="log_out">
+                <a href="#">
+                    <i class="bx bx-log-out"></i>
+                    <span class="links_name"> Đăng xuất</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- HOME CONTENT -->
+    <section class="admin_home-section" id="csc">
+        <!-- HEADER -->
+        <nav>
+            <div class="sidebar-button">
+                <i class="bx bx-menu sidebarBtn"></i>
+                <span class="admin_dashboard_title">Thống kê</span>
+            </div>
+        </nav>
+
+        <!-- CONTENT -->
+        <div class="home-content">
+            <div class="overview-boxes">
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Tất cả đơn hàng</div>
+                        <div class="number">40,876</div>
+                    </div>
+                    <i class="bx bx-cart-alt cart"></i>
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Tất cả lượt bán</div>
+                        <div class="number">38,876</div>
+                    </div>
+                    <i class="bx bxs-cart-add cart two"></i>
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Doanh thu</div>
+                        <div class="number">11,025,789,567</div>
+                    </div>
+                    <i class="bx bx-cart cart three"></i>
+                </div>
+                <div class="box">
+                    <div class="right-side">
+                        <div class="box-topic">Lợi nhuận</div>
+                        <div class="number">11,086</div>
+                    </div>
+                    <i class="bx bxs-cart-download cart four"></i>
+                </div>
+            </div>
+
+            <div class="sales-boxes">
+                <div class="recent-sales box">
+                    <canvas id="chart1" width="576" height="576"></canvas>
+                    <script>
+                        const labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
+                        const data = {
+                            labels: labels,
+                            datasets: [{
+                                label: 'Doanh thu (USD)',
+                                data: [1200, 1500, 1800, 2000, 2200, 2500, 2700, 2900, 3100, 3400, 3700, 4000],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)',
+                                    'rgba(153, 102, 255, 1)',
+                                    'rgba(255, 159, 64, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        };
+                        const config = {
+                            type: 'line',
+                            data: data,
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                    }
+                                },
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: 'Biểu đồ doanh thu theo tháng',
+                                        font: {
+                                            size: 18
+                                        },
+                                        padding: {
+                                            top: 20,
+                                            bottom: 20
+                                        },
+                                        position: 'top'
+                                    },
+                                    legend: {
+                                        display: true,
+                                        position: 'bottom'
+                                    }
+                                }
+                            }
+                        };
+                        const chart1 = new Chart(
+                            document.getElementById('chart1'),
+                            config
+                        );
+                    </script>
+                </div>
+
+                <div class="top-sales box">
+                    <canvas id="chart2" width="576" height="576"></canvas>
+                    <script>
+                        const ctx = document.getElementById('chart2').getContext('2d');
+                        const chartData = {
+                            labels: ['Hoàn tất', 'Tiếp nhận', 'Đang vận chuyển', 'Huỷ bỏ'],
+                            datasets: [{
+                                label: 'Số lượng     đơn hàng',
+                                data: [10, 70, 10, 10],
+                                backgroundColor: [
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)'
+                                ],
+                                borderColor: [
+                                    'rgba(255, 99, 132, 1)',
+                                    'rgba(54, 162, 235, 1)',
+                                    'rgba(255, 206, 86, 1)',
+                                    'rgba(75, 192, 192, 1)'
+                                ],
+                                borderWidth: 1
+                            }]
+                        };
+                        const chartConfig = {
+                            type: 'pie',
+                            data: chartData,
+                            options: {
+
+                                title: {
+                                    display: true,
+                                    text: 'Thống kê trạng thái đơn hàng',
+                                },
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: 'Thống kê trạng thái đơn hàng',
+                                        font: {
+                                            size: 18
+                                        },
+                                        padding: {
+                                            top: 20,
+                                            bottom: 20
+                                        },
+                                        position: 'top'
+                                    },
+
+                                    legend: {
+                                        display: true,
+                                        position: 'bottom'
+                                    }
+                                }
+                            }
+                        };
+                        const chart2 = new Chart(
+                            ctx,
+                            chartConfig
+                        );
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script src="/admin/js/script.js" defer></script>
+    <script>
+        let sidebar = document.querySelector(".admin_sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function () {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else
+                sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+    </script>
+</body>
+
+</html>
