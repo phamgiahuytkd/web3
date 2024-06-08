@@ -6,7 +6,14 @@ function formatDateTime(dateTime) {
 }
 
 function formatTrangThai(trangThai) {
-    return trangThai === 1 ? 'Đã duyệt' : 'Chờ duyệt';
+    if(trangThai === 2){
+        return 'Đã duyệt';
+    }else if(trangThai === 1){
+        return 'Chờ duyệt';
+    }else{
+        return 'Đã hủy';
+    }
+    
 }
 
 function formatTien(tongTien) {

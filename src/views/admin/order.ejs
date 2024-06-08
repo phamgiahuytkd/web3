@@ -37,27 +37,54 @@
                                     <th class="order-table_date">Thời gian<span> &uarr;</span></th>
                                     <th class="order-table_bill-order">Mã đơn hàng<span> &uarr;</span></th>
                                     <th class="order-table_user-id">Khách hàng<span> &uarr;</span></th>
-                                    <th class="order-table_address">Địa chỉ</th>
                                     <th>Tổng tiền<span> &uarr;</span></th>
+                                    <th class="order-table_status">Trạng thái</th>
                                     <th class="order-table_action">Thao tác</th>
+                                </tr>
+                            </thead>
                                 </tr>
                             </thead>
                             <tbody id="tbody_order-table">
                                 <% all_bill.forEach(function(each_bill) { %>
                                 <tr>
+                                    <% 
+                                        let TrangThai = '';
+                                        if(each_bill.Trang_thai === 2){
+                                            TrangThai = 'stt_done';
+                                        }else if(each_bill.Trang_thai === 1){
+                                             TrangThai ='stt_pending';
+                                        }else{
+                                             TrangThai ='stt_fail';
+                                        }
+                                    %>
                                     <td><%= baseForm.formatDateTime(each_bill.Thoi_gian_xuat_hoa_don) %></td>
                                     <td><strong><%= each_bill.Ma_hoa_don %></strong></td>
                                     <td><%= each_bill.makhachhang %></td>
-                                    <td><%= each_bill.Dia_chi %></td>
                                     <td><%= baseForm.formatTien(each_bill.Tong_tien) %></td>
+                                    <td><div class="status <%= TrangThai %>"><%= baseForm.formatTrangThai(each_bill.Trang_thai) %></div></td>
+                                    
                                     <td>
                                         <button title="Chi tiết" type="button" class="see-order_icon"
                                             onclick="get_detail_order('<%= each_bill.Ma_hoa_don %>', '<%= each_bill.makhachhang %>', '<%= baseForm.formatDateTime(each_bill.Thoi_gian_xuat_hoa_don) %>', '<%= each_bill.Dia_chi %>', '<%= baseForm.formatTien(each_bill.Tong_tien) %>', '<%= baseForm.formatTien(each_bill.Trang_thai) %>')">
-                                            <i class="ri-eye-fill"></i>
+                                            <i class="ri-eye-fill"></i>   
                                         </button>
+
+
+                                        <% if(each_bill.Trang_thai === 1){ %>
+                                        <button title="Hủy" type="button" class="cancel-order_icon" onclick="update_status_bill('<%= each_bill.Ma_hoa_don %>', 0)">
+                                            <i class="ri-close-fill"></i>
+                                        </button>
+
+                                        <button title="Duyệt" type="button" class="accept-order_icon" onclick="update_status_bill('<%= each_bill.Ma_hoa_don %>', 2)">
+                                            <i class="ri-check-fill"></i>
+                                        </button>
+                                        <% } %>
                                     </td>
                                 </tr>
-                                <% }); %>  
+                                    </td>
+                                </tr>
+                                <% }); %> 
+
 
 
 

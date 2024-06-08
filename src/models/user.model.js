@@ -78,8 +78,18 @@ const add_info_Users = async function (User_ID , Ho_ten, Dien_thoai, Dia_chi) {
 }
 
 
+const getAllInfoUsers = async function () {
+    try{
+        const [results, fields] = await connection.query("SELECT * FROM tb_khachhang");
+        return results;
+
+    }catch(err){
+        throw new Error('Database query failed');
+    }
+    
+}
 
 
 module.exports = {
-    getIdUsers, getInfoUsers, update_InfoUsers, update_Pass, add_Users, add_info_Users
+    getIdUsers, getInfoUsers, update_InfoUsers, update_Pass, add_Users, add_info_Users, getAllInfoUsers
 }

@@ -1,5 +1,5 @@
 const {getInfoUsers, update_InfoUsers, update_Pass, getIdUsers} = require('../models/user.model');
-const {ad_Bill, ad_DetailBill, db_AllBill, get_BillDetail} = require('../models/bill.model');
+const {ad_Bill, ad_DetailBill, db_AllBillUser, get_BillDetail} = require('../models/bill.model');
 const baseForm = require('../migration/view.func');
 const moment = require('moment');
 const bcrypt = require('bcrypt');
@@ -104,7 +104,7 @@ const postCartPay = async function (req, res) {
 
 const getAccount = async function (req, res){
     if (req.session.isLoggedIn === true) {
-        let all_bill = await db_AllBill();
+        let all_bill = await db_AllBillUser(res.locals.user);
         let info_user = await getInfoUsers(res.locals.user);
         return res.render('account.ejs', {all_bill: all_bill, info_user: info_user[0], baseForm: baseForm});
     }

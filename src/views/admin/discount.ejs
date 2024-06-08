@@ -8,6 +8,9 @@
     <!-- CSS Link -->
     <link rel="stylesheet" href="/admin/css/style.css" />
     <link rel="stylesheet" href="/admin/css/product.css">
+    <link rel="stylesheet" href="/admin/css/discount.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_green.css">
     <!-- ICON Link -->
     <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
@@ -32,7 +35,7 @@
                 </a>
             </li>
             <li>
-                <a href="#" class="active">
+                <a href="#">
                     <i class="bx bx-box"></i>
                     <span class="links_name">Sản phẩm</span>
                 </a>
@@ -56,7 +59,7 @@
                 </a>
             </li>
             <li>
-                <a href="#">
+                <a href="#" class="active">
                     <i class="ri-discount-percent-line"></i>
                     <span class="links_name">Giảm giá</span>
                 </a>
@@ -82,7 +85,7 @@
         <nav>
             <div class="sidebar-button">
                 <i class="bx bx-menu sidebarBtn"></i>
-                <span class="admin_dashboard_title">Sản phẩm</span>
+                <span class="admin_dashboard_title">Giảm giá</span>
             </div>
             <div class="search-box">
                 <input id="search-input" class="form-control" type="text" placeholder="Tìm kiếm..." />
@@ -128,10 +131,10 @@
                                         </label>
                                     </th>
                                     <th class="product-table_id">Mã<span> &uarr;</span></th>
-                                    <th>Ảnh</th>
                                     <th class="product-table_name">Tên<span> &uarr;</span></th>
-                                    <th>Giá<span> &uarr;</span></th>
-                                    <th>Số lượng<span> &uarr;</span></th>
+                                    <th class="data-sort-order" data-sort-order="asc">Ngày bắt đầu</th>
+                                    <th class="data-sort-order" data-sort-order="asc">Ngày kết thúc</th>
+                                    <th>Giảm giá (%)<span> &uarr;</span></th>
                                     <th class="product-table_action">Thao tác</th>
                                 </tr>
                             </thead>
@@ -141,11 +144,10 @@
                                         <input type="checkbox" class="select" name="">
                                     </td>
                                     <td><strong>Abc001</strong></td>
-                                    <td><img src="/admin/images/addidas.jpg"></td>
-                                    <td>Matcha latte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara Yoko
-                                    </td>
+                                    <td>Matcha latte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara Yoko</td>
+                                    <td class="product-table_start_discount">2-1-1990</td>
+                                    <td class="product-table_end_discount">5-1-1990</td>
                                     <td class="product-table_price">150</td>
-                                    <td>12</td>
                                     <td>
                                         <button title="Chi tiết" type="button" class="see-product_icon"
                                             onclick="openModal_view()">
@@ -167,12 +169,11 @@
                                     <td>
                                         <input type="checkbox" class="select" name="">
                                     </td>
-                                    <td><strong>Abc000</strong></td>
-                                    <td><img src="/admin/images/bag.jpg"></td>
-                                    <td>Matcha latte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara
-                                        Yoko1</td>
-                                    <td class="product-table_price">350</td>
-                                    <td>12</td>
+                                    <td><strong>bbc001</strong></td>
+                                    <td>Matcha latte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara Yoko</td>
+                                    <td class="product-table_start_discount">11-1-1989</td>
+                                    <td class="product-table_end_discount">2-1-1991</td>
+                                    <td class="product-table_price">150</td>
                                     <td>
                                         <button title="Chi tiết" type="button" class="see-product_icon"
                                             onclick="openModal_view()">
@@ -185,7 +186,7 @@
                                         </button>
 
                                         <button title="Xóa" type="button" class="delete-product_icon"
-                                            data-product-id="2">
+                                            onclick="openModal_delete()">
                                             <i class='bx bxs-trash'></i>
                                         </button>
                                     </td>
@@ -194,12 +195,11 @@
                                     <td>
                                         <input type="checkbox" class="select" name="">
                                     </td>
-                                    <td><strong>ABc001</strong></td>
-                                    <td><img src="/admin/images/blueBag.jpg"></td>
-                                    <td>Aatcha latte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara Yoko
-                                    </td>
-                                    <td class="product-table_price">155</td>
-                                    <td>1</td>
+                                    <td><strong>Abc001</strong></td>
+                                    <td>aatcha latte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara Yoko</td>
+                                    <td class="product-table_start_discount">1-5-1990</td>
+                                    <td class="product-table_end_discount">2-1-1990</td>
+                                    <td class="product-table_price">150</td>
                                     <td>
                                         <button title="Chi tiết" type="button" class="see-product_icon"
                                             onclick="openModal_view()">
@@ -212,7 +212,7 @@
                                         </button>
 
                                         <button title="Xóa" type="button" class="delete-product_icon"
-                                            data-product-id="3">
+                                            onclick="openModal_delete()">
                                             <i class='bx bxs-trash'></i>
                                         </button>
                                     </td>
@@ -221,12 +221,11 @@
                                     <td>
                                         <input type="checkbox" class="select" name="">
                                     </td>
-                                    <td><strong>Abc002</strong></td>
-                                    <td><img src="/admin/images/jeans.jpg"></td>
-                                    <td>Aatcha Aatte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara Yoko
-                                    </td>
-                                    <td class="product-table_price">450</td>
-                                    <td>40</td>
+                                    <td><strong>Abc001</strong></td>
+                                    <td>Matcha latte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara Yoko</td>
+                                    <td class="product-table_start_discount">1-1-1990</td>
+                                    <td class="product-table_end_discount">2-1-1990</td>
+                                    <td class="product-table_price">140</td>
                                     <td>
                                         <button title="Chi tiết" type="button" class="see-product_icon"
                                             onclick="openModal_view()">
@@ -239,7 +238,7 @@
                                         </button>
 
                                         <button title="Xóa" type="button" class="delete-product_icon"
-                                            data-product-id="4">
+                                            onclick="openModal_delete()">
                                             <i class='bx bxs-trash'></i>
                                         </button>
                                     </td>
@@ -254,7 +253,7 @@
         <!-- MODAL THÊM SẢN PHẨM -->
         <div id="add_product_Modal" class="add-product_modal">
             <div class="modal-content">
-                <h2>Thêm sản phẩm</h2>
+                <h2>Thêm thông tin giảm giá</h2>
                 <form id="addProductForm">
                     <div class="popup-container">
                         <div class="close-popup-btn" title="Đóng" onclick="closeModal()"><i class='bx bxs-x-circle'></i>
@@ -266,48 +265,18 @@
                                 <div class="error" id="error_product_code"></div>
                             </div>
                             <div class="popup_form-element">
-                                <label for="product_name">Tên sản phẩm</label>
-                                <input type="text" id="product_name" placeholder="Nhập tên sản phẩm">
-                                <div class="error" id="error_product_name"></div>
+                                <label for="product_discount">Phần trăm giảm giá</label>
+                                <input type="text" id="product_discount" placeholder="Nhập phần trăm giảm giá">
+                                <div class="error" id="error_product_discount"></div>
                             </div>
                             <div class="popup_form-element">
-                                <label for="product_price">Giá bán</label>
-                                <input type="text" id="product_price" placeholder="Nhập giá bán">
-                                <div class="error" id="error_product_price"></div>
+                                <label for="product_start_end_discount">Thời gian giảm giá</label>
+                                <input type="text" id="myID" placeholder="Chọn thời gian giảm giá">
+                            </div>
+
                             </div>
                             <div class="popup_form-element">
-                                <label for="product_quantity">Số lượng</label>
-                                <input type="text" id="product_quantity" placeholder="Nhập số lượng">
-                                <div class="error" id="error_product_quantity"></div>
-                            </div>
-                            <div class="popup_form-element product_info_field">
-                                <label for="product_info">Mô tả</label>
-                                <textarea id="productDescription" name="productDescription"
-                                    placeholder="Nhập mô tả sản phẩm" rows="6" cols="50"></textarea>
-                            </div>
-                            <div class="popup_form-element popup_form-element-img">
-                                <input type="file" id="file-input_product" accept="image/png, image/jpeg"
-                                    onchange="preview()" multiple>
-                                <label for="file-input_product" class="input_img">
-                                    <i class="ri-upload-2-fill"></i> &nbsp; Chọn ảnh
-                                </label>
-                                <p id="num-of-files_product">Không có ảnh nào được chọn</p>
-                                <div class="error" id="error_file_input"></div>
-                                <div id="upload_product_images"></div>
-                            </div>
-                            <div class="popup_form-element select-category-wrapper">
-                                <label for="product_category">Danh mục sản phẩm</label>
-                                <select id="productCategory" name="productCategory">
-                                    <option value="Nước hoa">Nước hoa</option>
-                                    <option value="Dầu gội">Dầu gội</option>
-                                    <option value="Dầu xả">Dầu xả</option>
-                                    <option value="Sữa tắm">Sữa tắm</option>
-                                    <option value="Dưỡng da">Dưỡng da</option>
-                                    <option value="Da mặt">Da mặt</option>
-                                </select>
-                            </div>
-                            <div class="popup_form-element">
-                                <input type="submit" class="btn_ad" value="Thêm sản phẩm">
+                                <input type="submit" class="btn_ad" value="Thêm giảm giá cho sản phẩm">
                             </div>
                         </div>
                     </div>
@@ -319,60 +288,28 @@
         <!-- MODAL SỬA SẢN PHẨM -->
         <div id="edit_product_Modal" class="edit-product_modal">
             <div class="modal-content">
-                <h2>Sửa thông tin</h2>
+                <h2>Sửa thông tin giảm giá</h2>
                 <form id="editProductForm">
                     <div class="popup-container">
                         <div class="close-popup-btn" title="Đóng" onclick="closeModal_edit()"><i
                                 class='bx bxs-x-circle'></i></div>
                         <div class="popup_form">
                             <div class="popup_form-element">
-                                <label for="product_code-edit">Mã sản phẩm</label>
-                                <input type="text" id="product_code-edit" placeholder="Nhập mã sản phẩm" readonly>
+                                <label for="product_code">Mã sản phẩm</label>
+                                <input type="text" id="product_code-edit" placeholder="Nhập mã sản phẩm">
                                 <div class="error" id="error_product_code-edit"></div>
                             </div>
                             <div class="popup_form-element">
-                                <label for="product_name-edit">Tên sản phẩm</label>
-                                <input type="text" id="product_name-edit" placeholder="Nhập tên sản phẩm">
-                                <div class="error" id="error_product_name-edit"></div>
+                                <label for="product_discount">Phần trăm giảm giá</label>
+                                <input type="text" id="product_discount-edit" placeholder="Nhập phần trăm giảm giá">
+                                <div class="error" id="error_product_discount-edit"></div>
                             </div>
                             <div class="popup_form-element">
-                                <label for="product_price-edit">Giá bán</label>
-                                <input type="text" id="product_price-edit" placeholder="Nhập giá bán">
-                                <div class="error" id="error_product_price-edit"></div>
+                                <label for="product_start_end_discount-edit">Thời gian giảm giá</label>
+                                <input type="text" id="myID" placeholder="Chọn thời gian giảm giá">
                             </div>
                             <div class="popup_form-element">
-                                <label for="product_quantity-edit">Số lượng</label>
-                                <input type="text" id="product_quantity-edit" placeholder="Nhập số lượng">
-                                <div class="error" id="error_product_quantity-edit"></div>
-                            </div>
-                            <div class="popup_form-element product_info_field">
-                                <label for="product_info-edit">Mô tả</label>
-                                <textarea id="productDescription-edit" name="productDescription-edit"
-                                    placeholder="Nhập mô tả sản phẩm" rows="6" cols="50"></textarea>
-                            </div>
-                            <div class="popup_form-element popup_form-element-img">
-                                <input type="file" id="file-input_product-edit" accept="image/png, image/jpeg"
-                                    onchange="preview_edit()" multiple>
-                                <label for="file-input_product-edit" class="input_img">
-                                    <i class="ri-upload-2-fill"></i> &nbsp; Chọn ảnh
-                                </label>
-                                <p id="num-of-files_product-edit">Không có ảnh nào được chọn</p>
-                                <div class="error" id="error_file_input-edit"></div>
-                                <div id="upload_product_images-edit"></div>
-                            </div>
-                            <div class="popup_form-element select-category-wrapper">
-                                <label for="product_category-edit">Danh mục sản phẩm</label>
-                                <select id="productCategory-edit" name="productCategory-edit">
-                                    <option value="Nước hoa">Nước hoa</option>
-                                    <option value="Dầu gội">Dầu gội</option>
-                                    <option value="Dầu xả">Dầu xả</option>
-                                    <option value="Sữa tắm">Sữa tắm</option>
-                                    <option value="Dưỡng da">Dưỡng da</option>
-                                    <option value="Da mặt">Da mặt</option>
-                                </select>
-                            </div>
-                            <div class="popup_form-element">
-                                <input type="submit" class="btn_ad" value="Thêm sản phẩm">
+                                <input type="submit" class="btn_ad" value="Sửa thông tin giảm giá">
                             </div>
                         </div>
                     </div>
@@ -384,7 +321,7 @@
         <!-- MODAL XEM CHI TIẾT SẢN PHẨM -->
         <div id="view_product_Modal" class="view-product_modal">
             <div class="modal-content">
-                <h2>Thông tin sản phẩm</h2>
+                <h2>Thông tin sản phẩm giảm giá</h2>
                 <form id="viewProductForm">
                     <div class="popup-container">
                         <div class="close-popup-btn" title="Đóng" onclick="closeModal_view()"><i
@@ -442,6 +379,18 @@
                                     <span>(10 lượt đánh giá)</span>
                                 </div>
                             </div>
+                            <div class="popup_form-element view_modal">
+                                <label for="product_start-discount-view">Ngày bắt đầu giảm giá:</label>
+                                <p class="product_view-content product_start-discount-view">2-2-1990</p>
+                            </div>
+                            <div class="popup_form-element view_modal">
+                                <label for="product_end-discount-view">Ngày kết thúc giảm giá:</label>
+                                <p class="product_view-content product_end-discount-view">2-2-1990</p>
+                            </div>
+                            <div class="popup_form-element view_modal">
+                                <label for="product_discount-view">Phần trăm giảm giá giảm giá:</label>
+                                <p class="product_view-content product_discount-view">20 (%)</p>
+                            </div>
                         </div>
                     </div>
                 </form>
@@ -453,7 +402,7 @@
         <div id="delete_product_Modal" class="delete-product_modal">
             <div class="delete-modal-content">
                 <div class="delete_modal-header">
-                    <h2>Xóa sản phẩm</h2>
+                    <h2>Xóa giảm giá</h2>
                     <i class='ri-close-fill' title="Đóng" onclick="closeModal_delete()"></i>
                 </div>
                 <div class="delete_modal-middle">
@@ -470,8 +419,10 @@
     </section>
 
     <!-- JAVA Link -->
-    <script src="/admin/js/product.js" defer></script>
+
     <script src="/admin/js/script.js" defer></script>
+    <script src="/admin/js/discount.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
         /* ===== BẪY LỖI THÊM SẢN PHẨM ===== */
         document.getElementById("addProductForm").addEventListener("submit", function (e) {
@@ -489,41 +440,15 @@
                 productCode.classList.add("error-input");
                 document.getElementById("error_product_code").innerText = "Mã không được để trống";
             }
-
-            // Validate product name
-            const productName = document.getElementById("product_name");
-            if (!productName.value.trim()) {
-                valid = false;
-                productName.classList.add("error-input");
-                document.getElementById("error_product_name").innerText = "Tên sản phẩm không được để trống";
-            }
-
             // Validate product price
-            const productPrice = document.getElementById("product_price");
-            if (!productPrice.value.trim() || isNaN(productPrice.value)) {
+            const productDiscount = document.getElementById("product_discount");
+            if (!productDiscount.value.trim() || isNaN(productDiscount.value)) {
                 valid = false;
-                productPrice.classList.add("error-input");
-                document.getElementById("error_product_price").innerText = "Giá bán không được để trống và chỉ có thể nhập số";
+                productDiscount.classList.add("error-input");
+                document.getElementById("error_product_discount").innerText = "Phần trăm giảm giá không được để trống và chỉ có thể nhập số";
             }
-
-            // Validate product quantity
-            const productQuantity = document.getElementById("product_quantity");
-            if (!productQuantity.value.trim() || isNaN(productQuantity.value)) {
-                valid = false;
-                productQuantity.classList.add("error-input");
-                document.getElementById("error_product_quantity").innerText = "Số lượng không được để trống và chỉ có thể nhập số";
-            }
-
-            // Validate product images
-            const productImages = document.getElementById("file-input_product");
-            if (productImages.files.length === 0) {
-                valid = false;
-                productImages.classList.add("error-input");
-                document.getElementById("error_file_input").innerText = "Phải chọn ít nhất một hình ảnh";
-            }
-
             if (valid) {
-                alert("Đã thêm sản phẩm");
+                alert("Đã thêm giảm giá cho sản phẩm");
             }
         });
 
@@ -537,41 +462,29 @@
             document.querySelectorAll("input, textarea").forEach(el => el.classList.remove("error-input"));
 
             // Validate product name
-            const productName_edit = document.getElementById("product_name-edit");
-            if (!productName_edit.value.trim()) {
+            const productCode_edit = document.getElementById("product_code-edit");
+            if (!productCode_edit.value.trim()) {
                 valid = false;
-                productName_edit.classList.add("error-input");
-                document.getElementById("error_product_name-edit").innerText = "Tên sản phẩm không được để trống";
+                productCode_edit.classList.add("error-input");
+                document.getElementById("error_product_code-edit").innerText = "Mã sản phẩm không được để trống";
             }
-
             // Validate product price
-            const productPrice_eidt = document.getElementById("product_price-edit");
-            if (!productPrice_eidt.value.trim() || isNaN(productPrice_eidt.value)) {
+            const productDiscount_eidt = document.getElementById("product_discount-edit");
+            if (!productDiscount_eidt.value.trim() || isNaN(productDiscount_eidt.value)) {
                 valid = false;
-                productPrice_eidt.classList.add("error-input");
-                document.getElementById("error_product_price-edit").innerText = "Giá bán chỉ có thể nhập số và không thể để trống";
+                productDiscount_eidt.classList.add("error-input");
+                document.getElementById("error_product_discount-edit").innerText = "Giảm giá chỉ có thể nhập số và không thể để trống";
             }
-
-            // Validate product quantity
-            const productQuantity_eidt = document.getElementById("product_quantity-edit");
-            if (!productQuantity_eidt.value.trim() || isNaN(productQuantity_eidt.value)) {
-                valid = false;
-                productQuantity_eidt.classList.add("error-input");
-                document.getElementById("error_product_quantity-edit").innerText = "Số lượng chỉ có thể nhập số và không thể để trống";
-            }
-
-            // Validate product images
-            const productImages_edit = document.getElementById("file-input_product-edit");
-            if (productImages_edit.files.length === 0) {
-                valid = false;
-                productImages_edit.classList.add("error-input");
-                document.getElementById("error_file_input-edit").innerText = "Phải chọn ít nhất một hình ảnh";
-            }
-
             if (valid) {
-                alert("Đã cập nhật sản phẩm.");
+                alert("Đã cập nhật giảm giá.");
             }
         });
+
+        flatpickr("#myID", {
+            dateFormat: 'd-m-Y',
+            minDate: "today",
+            mode : "range"
+        })
 
     </script>
 </body>

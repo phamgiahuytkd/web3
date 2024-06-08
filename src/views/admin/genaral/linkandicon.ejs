@@ -261,7 +261,6 @@ function get_detail_order(Ma_hoa_don, makhachhang, Thoi_gian_xuat_hoa_don, Dia_c
         url: `/manager/order/${Ma_hoa_don}`,
         success: function(response) {
             var order = response.detail;
-            console.log(order);
             // Chèn dữ liệu vào các phần tử HTML tương ứng
             const tbody = document.getElementById('input_table_body_edit');
             tbody.innerHTML = '';
@@ -340,7 +339,7 @@ function set_quantity0_product() {
     // Gửi dữ liệu lên server bằng AJAX
     $.ajax({
         type: 'POST',
-        url: '/manager//product/set_quantity0_product',
+        url: '/manager/product/set_quantity0_product',
         data: {
             Ma_san_pham: productQuantity_eidt
         },
@@ -350,6 +349,101 @@ function set_quantity0_product() {
                 window.location.href = '/manager/product';
             } else {
                 alert('Lôi ẩn sản phẩm: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Lỗi AJAX:', error);
+        }
+    });
+}
+
+
+
+
+
+//Hàm lấy thông tin khách hàng
+function get_info_customer(customerID, Ho_ten, Dien_thoai, Dia_chi) {
+    $.ajax({
+        type: 'GET',
+        url: `/manager/customer/${customerID}`,
+        success: function(response) {
+            
+            document.querySelector('.order_date-view').textContent = Ho_ten;
+            document.querySelector('.order_bill-id-view b').textContent = Dien_thoai;
+            document.querySelector('.order_address-view').textContent = Dia_chi;
+
+            
+
+            var bill_customer = response.bill_customer;
+            const accordion = document.querySelector('.accordion');
+            accordion.innerHTML = '';
+
+            bill_customer.forEach(function(each_bill) {
+                const contentBx = document.createElement('div');
+                contentBx.className = 'accordion-contentBx';
+
+                // Create the accordion-label div
+                const label = document.createElement('div');
+                label.className = 'accordion-label';
+
+                // Create the span for the date
+                const dateSpan = document.createElement('span');
+
+                const date = new Date(each_bill.Thoi_gian_xuat_hoa_don);
+                const formattedDateTime = `${date.getHours()}:${date.getMinutes()}:${date.getSeconds()} ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+                dateSpan.textContent = formattedDateTime;
+
+                // Create the p for the order ID
+                const orderP = document.createElement('p');
+                orderP.textContent = `Đơn hàng: ${each_bill.Ma_hoa_don}`;
+
+                // Append the dateSpan and orderP to the label
+                label.appendChild(dateSpan);
+                label.appendChild(orderP);
+
+                // Append the label to the contentBx
+                contentBx.appendChild(label);
+
+                // Append the contentBx to the accordion
+                accordion.appendChild(contentBx);
+            });
+            // Loop through the orders array
+            
+            openModal_view_order()
+        },
+        error: function(xhr, status, error) {
+            console.error('Lỗi AJAX:', error);
+        }
+    });
+    
+
+
+  
+
+}
+
+
+
+
+
+
+//cập nhật trang thái
+function update_status_bill(Ma_hoa_don, Trang_thai) {
+    // Gửi dữ liệu lên server bằng AJAX
+    $.ajax({
+        type: 'POST',
+        url: '/manager/order/update_status_bill',
+        data: {
+            Ma_hoa_don: Ma_hoa_don,
+            Trang_thai: Trang_thai
+
+        },
+        success: function(response) {
+            if (response.success) {
+                alert('Đã xử lý!');
+                window.location.href = '/manager/order';
+            } else {
+                alert('Lôi duyệt hóa đơn: ' + response.message);
             }
         },
         error: function(xhr, status, error) {

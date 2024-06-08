@@ -29,7 +29,7 @@
     color: var(--black-text-color);
 }
 
-.order-table {
+.customer-table {
     width: 100%;
     table-layout: fixed;
     min-width: 1000px;
@@ -39,7 +39,7 @@
     overflow: auto;
 }
 
-.order-table thead th {
+.customer-table thead th {
     position: sticky;
     top: 0;
     background: var(--hoockers-green_color);
@@ -47,28 +47,28 @@
     font-size: 16px;
 }
 
-.order-table tr th {
+.customer-table tr th {
     padding: 0.8rem 0.5rem;
     text-align: center;
 }
 
-.order-table tr td {
+.customer-table tr td {
     padding: 0.7rem 0.4rem;
     word-break: break-word;
     text-align: center;
 }
 
-.order-table tr:hover td {
+.customer-table tr:hover td {
     color: var(--black-text-color);
     background: var(--white_color);
     transition: ease-in-out .5s;
 }
 
-.order-table tbody tr:nth-child(even) {
+.customer-table tbody tr:nth-child(even) {
     background-color: #0000000b;
 }
 
-.order-table button {
+.customer-table button {
     border: 1px solid var(--black-text-color);
     outline: none;
     background-color: var(--white_color);
@@ -77,62 +77,60 @@
     padding: 5px;
 }
 
-.order-table button:hover {
+.customer-table button:hover {
     background-color: var(--hoockers-green_color);
     border: 1px solid var(--hoockers-green_color);
 }
 
-.order-table button:hover i {
+.customer-table button:hover i {
     color: var(--white_color);
 }
 
-.order-table button i {
+.customer-table button i {
     font-size: 20px;
     color: var(--black-text-color);
 }
 
 /* CSS BẢNG */
-.order-table_bill-order,
-.order-table_date {
-    width: 150px;
+.customer-table_user-id,
+.customer-table_user-name {
+    width: 260px;
 }
 
-.order-table_user-id {
-    width: 220px;
+.customer-table_user-address {
+    width: 380px;
 }
-
-
 
 /* ====== Search sort ====== */
-.order-table tbody tr {
+.customer-table tbody tr {
     --delay: .1s;
     transition: .5s ease-in-out var(--delay), background-color 0s;
 }
 
-.order-table tbody tr.hide {
+.customer-table tbody tr.hide {
     opacity: 0;
     transform: translateX(100%);
 }
 
-.order-table tbody tr td,
-.order-table tbody tr td input,
-.order-table tbody tr td img,
-.order-table tbody tr td button,
-.order-table tbody tr td button i {
+.customer-table tbody tr td,
+.customer-table tbody tr td input,
+.customer-table tbody tr td img,
+.customer-table tbody tr td button,
+.customer-table tbody tr td button i {
     transition: .2s ease-in-out;
 }
 
-.order-table tbody tr.hide td,
-.order-table tbody tr.hide td button,
-.order-table tbody tr.hide td button i,
-.order-table tbody tr.hide td input {
+.customer-table tbody tr.hide td,
+.customer-table tbody tr.hide td button,
+.customer-table tbody tr.hide td button i,
+.customer-table tbody tr.hide td input {
     padding: 0;
     font: 0 / 0 'Merriweather', serif;
     transition: .2s ease-in-out .5s;
 }
 
-.order-table tbody tr.hide td img,
-.order-table tbody tr.hide td input {
+.customer-table tbody tr.hide td img,
+.customer-table tbody tr.hide td input {
     height: 0;
     width: 0;
     transition: .2s ease-in-out .5s;
@@ -200,6 +198,11 @@ table thead th>span {
     color: var(--black-text-color);
     display: flex;
     justify-content: left;
+    white-space: nowrap;
+}
+
+.view-order_modal .popup_form .popup_form-element p {
+    text-align: left;
 }
 
 /* ===== Xem chi tiết ===== */
@@ -222,7 +225,6 @@ table thead th>span {
     max-width: 900px;
     width: 100%;
     background-color: #fff;
-    margin: 20px 0;
     overflow-x: auto;
 }
 
@@ -260,42 +262,55 @@ table thead th>span {
     width: 150px;
 }
 
+/* Accordion - sổ xem chi tiết đơn hàng */
+.accordion {
+    max-width: 100%;
+}
 
+.accordion-contentBx {
+    position: relative;
+    margin: 10px;
+}
 
+.accordion-label {
+    position: relative;
+    padding: 8px;
+    background-color: var(--hoockers-green_color);
+    color: white;
+    cursor: pointer;
+    display: flex;
+    justify-content: left;
+    border-radius: 6px;
+}
 
-
-/* STATUS */
-.status {
-    margin: 0 auto;
-    padding: 4px 8px;
-    border-radius: 18px;
-    text-align: center;
-    font-size: 14px;
+.accordion-label span {
+    margin-right: 50px;
+    margin-left: 10px;
     font-weight: var(--fw-600);
-    white-space: nowrap;
-    width: 100px ;
 }
 
-.stt_done {
-    color: var(--hoockers-green_color);
-    background: #C0F2D8;
+.accordion-label p {
+    margin-left: 10px;
 }
 
-.stt_pending {
-    color: #ad7900;
-    background: #ffe8b3;
+.accordion-label::before{
+    content: "+";
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 1.625rem;
+    font-weight: var(--fw-600);
 }
 
-.stt_fail {
-    color: #e05260;
-    background: #f7d4d7;
+.accordion-contentBx .accordion-content{
+    position: relative;
+    display: none;
+    overflow: hidden;
+    transition: 1s;
+    overflow-y: auto;
 }
 
-.cancel-order_icon:hover{
-    background-color: #e05260 !important;
-}
-
-
-.order-table_status {
-    width: 120px;
+.accordion-contentBx.active .accordion-content{
+    display: block;
 }

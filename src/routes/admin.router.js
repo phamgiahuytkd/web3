@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const {getAdmin, getAdminProduct, postAddProduct, getAdminIdProduct, postUpdateProduct,
-    getCatalogAdmin, getAdminOrder, getAdminOrderDetail, getStatistics, postQuantity0Product
+    getCatalogAdmin, getAdminOrder, getAdminOrderDetail, getStatistics, postQuantity0Product, 
+    getCustomer, getCustomerID, getDiscount, postStatusBill
 } = require('../controllers/admin.controller');
 
 //Upload ảnh
@@ -76,9 +77,18 @@ router.get('/order', getAdminOrder);
 
 router.get('/order/:id_order', getAdminOrderDetail);
 
+router.post('/order/update_status_bill', postStatusBill);
+
+
+
 router.get('/statistics', getStatistics);
 
 
+router.get('/customer', getCustomer);
+
+router.get('/customer/:customerID', getCustomerID);
+
+router.get('/discount', getDiscount);
 
 
 

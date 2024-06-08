@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<%- include ('genaral/head.ejs') %>
+
+<body>
+    <!-- SIDE MENU -->
+    <%- include ('genaral/menu.ejs') %>
+
+    <!-- HOME CONTENT -->
+    <section class="admin_home-section" id="csc">
+        <!-- HEADER -->
+        <nav>
+            <div class="sidebar-button">
+                <i class="bx bx-menu sidebarBtn"></i>
+                <span class="admin_dashboard_title">Khách hàng</span>
+            </div>
+            <div class="search-box">
+                <input id="search-input-order" class="form-control" type="text" placeholder="Tìm kiếm..." />
+                <i class="bx bx-search"></i>
+            </div>
+        </nav>
+
+        <!-- CONTENT -->
+        <div class="home-content">
+
+            <!-- PRODUCT TABLE -->
+            <div class="table">
+                <div class="table_section">
+                    <table class="customer-table">
+                        <form>
+                            <thead>
+                                <tr>
+                                    <th class="customer-table_user-id">Tài khoản<span> &uarr;</span></th>
+                                    <th class="customer-table_user-name">Họ tên<span> &uarr;</span></th>
+                                    <th>Số điện thoại</th>
+                                    <th class="order-table_action">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_customer-table">
+                                <% all_info_user.forEach(function(each_user) { %>
+                                <tr>
+                                    <td><b><%= each_user.User_ID %></b></td>
+                                    <td><%= each_user.Ho_ten %></td>
+                                    <td><%= each_user.Dien_thoai %></td>
+                                    <td>
+                                        <button title="Chi tiết" type="button" class="see-order_icon"
+                                            onclick="get_info_customer('<%= each_user.User_ID %>', '<%= each_user.Ho_ten %>', '<%= each_user.Dien_thoai %>', '<%= each_user.Dia_chi %>')">
+                                            <i class="ri-eye-fill"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <% }); %>
+
+
+
+                            </tbody>
+                        </form>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL XEM CHI TIẾT SẢN PHẨM -->
+        <div id="view_order_Modal" class="view-order_modal">
+            <div class="modal-content">
+                <h2>Thông tin khách hàng</h2>
+                <form id="viewOrderForm">
+                    <div class="popup-container">
+                        <div class="close-popup-btn close" title="Đóng" onclick="closeModal_view_order()"><i
+                                class='bx bxs-x-circle'></i></div>
+                        <div class="popup_form">
+                            <div class="popup_form-element view_modal">
+                                <label for="order_date-view">Tên:</label>
+                                <p class="order_view-content order_date-view">Nguyễn Thúy Nhi</p>
+                            </div>
+                            <div class="popup_form-element view_modal">
+                                <label for="order_bill-id-view">Số điện thoại:</label>
+                                <p class="order_view-content order_bill-id-view"><b>0393416090</b></p>
+                            </div>
+                            <div class="popup_form-element view_modal">
+                                <label for="order_address-view">Địa chỉ:</label>
+                                <p class="order_view-content order_address-view">
+                                    122/23/455 Lưu Văn Liệt, p. Phú Hòa, q. Ninh kiều, Tp Cần Thơ Việt Nam
+                                </p>
+                            </div>
+
+                            <div class="popup_form-element view_modal">
+                                <label for="order_bill-id-view">Đơn hàng:</label>
+                            </div>
+                            <div class="accordion">
+                                <div class="accordion-contentBx">
+                                    <div class="accordion-label">
+                                        <span>20/10/2024 19:10:10</span>
+                                        Đơn hàng:
+                                        <p>HD00212165g</p>
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="accordion-contentBx">
+                                    <div class="accordion-label">
+                                        <span>20/10/2024 19:10:10</span>
+                                        Đơn hàng:
+                                        <p>HD0021216đw5dđg</p>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <div class="modal_edit-product_element popup_form-element view_modal">
+                                            <div class="container_input_table">
+                                                <table class="input_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="input_table_0">Mã sản phẩm</th>
+                                                            <th class="input_table_1">Tên sản phẩm</th>
+                                                            <th class="input_table_2">Số lượng</th>
+                                                            <th class="input_table_3">Đơn giá</th>
+                                                            <th class="input_table_4">Tổng</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="input_table_body_edit">
+                                                        <tr>
+                                                            <td>COCO001</td>
+                                                            <td class="input_table_body_edit_1">Nước tẩy trang hương hoa
+                                                                hồng màu hồng cánh sen thơm bát ngát</td>
+                                                            <td>2</td>
+                                                            <td>50.000</td>
+                                                            <td class="netPrice">100.000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>COCO0021</td>
+                                                            <td>Nước tẩy trang hương hoa hồng màu hồng cánh sen thơm bát
+                                                                ngát</td>
+                                                            <td>2</td>
+                                                            <td>50.000</td>
+                                                            <td class="netPrice">150.000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>COO023201</td>
+                                                            <td>Nước tẩy trang hương hoa hồng màu hồng cánh sen thơm bát
+                                                                ngát</td>
+                                                            <td>2000</td>
+                                                            <td>57.990.000</td>
+                                                            <td class="netPrice">100.000.000</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="4" class="form_control_tfoot">Tổng</th>
+                                                            <td colspan="2" class="form_control_tfoot_total total"
+                                                                id="">
+                                                                <b>1.000.000.000</b>
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-contentBx">
+                                    <div class="accordion-label">
+                                        <span>20/10/2024 19:10:10</span>
+                                        Đơn hàng:
+                                        <p>HD00212165g</p>
+                                    </div>
+                                    <div class="accordion-content">
+                                        <div class="modal_edit-product_element popup_form-element view_modal">
+                                            <div class="container_input_table">
+                                                <table class="input_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="input_table_0">Mã sản phẩm</th>
+                                                            <th class="input_table_1">Tên sản phẩm</th>
+                                                            <th class="input_table_2">Số lượng</th>
+                                                            <th class="input_table_3">Đơn giá</th>
+                                                            <th class="input_table_4">Tổng</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody id="input_table_body_edit">
+                                                        <tr>
+                                                            <td>COCO001</td>
+                                                            <td class="input_table_body_edit_1">Nước tẩy trang hương hoa
+                                                                hồng màu hồng cánh sen thơm bát ngát</td>
+                                                            <td>2</td>
+                                                            <td>50.000</td>
+                                                            <td class="netPrice">100.000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>COCO0021</td>
+                                                            <td>Nước tẩy trang hương hoa hồng màu hồng cánh sen thơm bát
+                                                                ngát</td>
+                                                            <td>2</td>
+                                                            <td>50.000</td>
+                                                            <td class="netPrice">150.000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>COO023201</td>
+                                                            <td>Nước tẩy trang hương hoa hồng màu hồng cánh sen thơm bát
+                                                                ngát</td>
+                                                            <td>2000</td>
+                                                            <td>57.990.000</td>
+                                                            <td class="netPrice">100.000.000</td>
+                                                        </tr>
+                                                    </tbody>
+                                                    <tfoot>
+                                                        <tr>
+                                                            <th colspan="4" class="form_control_tfoot">Tổng</th>
+                                                            <td colspan="2" class="form_control_tfoot_total total"
+                                                                id="">
+                                                                <b>1.000.000.000</b>
+                                                            </td>
+                                                        </tr>
+                                                    </tfoot>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- JAVA Link -->
+    <script src="/admin/js/customer.js" defer></script>
+    <script>
+        let sidebar = document.querySelector(".admin_sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function () {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else
+                sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+    </script>
+    <script>
+        /*========== ACCORDION==========*/
+        const accordion = document.getElementsByClassName('accordion-contentBx');
+        for (i = 0; i < accordion.length; i++) {
+            accordion[i].addEventListener('click', function () {
+                this.classList.toggle('active')
+            })
+        }
+    </script>
+
+<!-- JAVA Link -->
+<%- include ('genaral/linkandicon.ejs') %>
+</body>
+
+</html>

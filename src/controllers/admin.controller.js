@@ -3,9 +3,9 @@ const fs = require('fs');
 const baseForm = require('../migration/view.func');
 const {db_AllProductAdmin, db_IdProduct, db_AddProduct, db_UpdateProduct, db_CatalogAdmin, set_Quantity0_Product} = require('../models/product.model');
 const {db_AllBill, get_BillDetail, db_StatisticsCatalog, db_StatisticsMonth, db_Top10Product, db_Overview,
-    db_RecentBill, 
+    db_RecentBill, db_AllBillUser, update_StatusBill
 } = require('../models/bill.model');
-
+const {getAllInfoUsers} = require('../models/user.model');
 
 //Hàm tạo mã sản phẩm bất kỳ
 function generateProductCode(categoryCode) {
@@ -83,6 +83,10 @@ const postQuantity0Product = async function (req, res){
 
     
 };
+
+
+
+
 
 
 
@@ -185,6 +189,10 @@ const getAdminOrderDetail = async function (req, res){
 
 
 
+
+
+
+
 const getStatistics = async function (req, res){
     const overview = await db_Overview();
     let chart2 = await db_StatisticsCatalog();
@@ -201,8 +209,71 @@ const getStatistics = async function (req, res){
 };
 
 
+
+
+
+const getCustomer = async function (req, res){
+    const all_info_user = await getAllInfoUsers();
+    if(all_info_user){
+        return res.render('admin/customer.ejs', {all_info_user: all_info_user});
+    }else{
+        res.send('Lỗi server!');
+    }
+    
+
+};
+
+
+
+
+const getCustomerID = async function (req, res){
+    const customerID = req.params.customerID;
+    let bill_customer = await db_AllBillUser(customerID);
+    if(bill_customer){
+        res.send({ success: true, bill_customer: bill_customer})
+    }else{
+        res.send({ success: false});
+    }
+    
+
+    
+};
+
+
+
+
+const getDiscount = async function (req, res){
+   
+        return res.render('admin/discount.ejs');
+   
+    
+
+};
+
+
+
+
+const postStatusBill = async function (req, res){
+    const Ma_hoa_don = req.body.Ma_hoa_don;
+    const Trang_thai = req.body.Trang_thai;
+    let check = update_StatusBill(Ma_hoa_don, Trang_thai);
+    
+    if(check){
+        res.send({ success: true})
+    }else{
+        res.send({ success: false});
+    }
+    
+
+    
+};
+
+
+
+
+
 module.exports = {
     getAdmin,
     getAdminProduct, postAddProduct, getAdminIdProduct, postUpdateProduct, getCatalogAdmin, getAdminOrder,
-    getAdminOrderDetail, getStatistics, postQuantity0Product
+    getAdminOrderDetail, getStatistics, postQuantity0Product, getCustomer, getCustomerID, getDiscount, postStatusBill
 };

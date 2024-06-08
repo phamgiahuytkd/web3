@@ -4,7 +4,7 @@ const connection = require('../config/database');
 
 const ad_Bill = async function (Ma_hoa_don , makhachhang, Thoi_gian_xuat_hoa_don, Dia_chi, Tong_tien) {
     try{
-        const [results, fields] = await connection.query("INSERT INTO `tb_hoadon` (`Ma_hoa_don`, `makhachhang`, `Thoi_gian_xuat_hoa_don`, `Dia_chi`, `Tong_tien`, `Trang_thai`) VALUES (?, ?, ?, ?, ?, 0);", [Ma_hoa_don , makhachhang, Thoi_gian_xuat_hoa_don, Dia_chi, Tong_tien]);
+        const [results, fields] = await connection.query("INSERT INTO `tb_hoadon` (`Ma_hoa_don`, `makhachhang`, `Thoi_gian_xuat_hoa_don`, `Dia_chi`, `Tong_tien`, `Trang_thai`) VALUES (?, ?, ?, ?, ?, 1);", [Ma_hoa_don , makhachhang, Thoi_gian_xuat_hoa_don, Dia_chi, Tong_tien]);
         return true;
 
     }catch(err){
@@ -30,7 +30,7 @@ const ad_DetailBill = async function (Ma_hoa_don , Ma_san_pham, Ten_san_pham, So
 
 const db_AllBill = async function (err) {
     try{
-        const [results, fields] = await connection.query("SELECT * FROM tb_hoadon ORDER BY Thoi_gian_xuat_hoa_don");
+        const [results, fields] = await connection.query("SELECT * FROM tb_hoadon ORDER BY Thoi_gian_xuat_hoa_don DESC");
         return results;
 
     }catch(err){
@@ -169,7 +169,35 @@ SELECT
 }
 
 
+
+
+const db_AllBillUser = async function (makhachhang) {
+    try{
+        const [results, fields] = await connection.query("SELECT * FROM tb_hoadon WHERE makhachhang = ? ORDER BY Thoi_gian_xuat_hoa_don DESC" , [makhachhang]);
+        return results;
+
+    }catch(err){
+        throw new Error('Database query failed');
+    }
+}
+
+
+
+const update_StatusBill = async function (Ma_hoa_don, Trang_thai) {
+    try{
+        const [results, fields] = await connection.query("UPDATE tb_hoadon SET Trang_thai = ? WHERE Ma_hoa_don = ?", [Trang_thai, Ma_hoa_don]);
+        return true;
+
+    }catch(err){
+        console.log(err);
+        throw new Error('Database query failed');
+    }
+}
+
+
+
 module.exports = {
     ad_Bill, ad_DetailBill, db_AllBill, get_BillDetail, db_StatisticsCatalog, db_StatisticsMonth, db_Top10Product, db_RecentBill, db_Overview,
+    db_AllBillUser, update_StatusBill
 
 }
