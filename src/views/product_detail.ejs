@@ -10,9 +10,15 @@
     <!-- HOME CONTENT -->
     <section>
         <div class="container prroduct_detail-content">
+                <%
+                    // Phân tách chuỗi ảnh thành mảng ảnh, sử dụng dấu phẩy (,) làm dấu phân cách
+                    let ar_Img = id_Product.Hinh_anh.split(',');
+                    
+
+                %>
             <div class="image-slider">
                 <button class="prev" onclick="prevImage()">❮</button>
-                <img id="productImage" src="../img/product-Sen01.jpg" alt="Nước sen Hậu Giang 310ml">
+                <img id="productImage" src="/product_img/<%= ar_Img[0] %>" alt="Nước sen Hậu Giang 310ml">
                 <button class="next" onclick="nextImage()">❯</button>
             </div>
             <div class="product-details">
@@ -52,12 +58,7 @@
                     <h3>Thành phần chính</h3>
                     <p>Chiết xuất sen, Madecassoside, B5, B12, Beta-glucan và Sweetone®.</p>
                 </div>
-                <%
-                    // Phân tách chuỗi ảnh thành mảng ảnh, sử dụng dấu phẩy (,) làm dấu phân cách
-                    let ar_Img = id_Product.Hinh_anh.split(',');
-                    
-
-                %>
+                
                 <button class="add-to-cart" onclick="addToCart('<%= id_Product.Ma_san_pham %>', '<%= id_Product.Ten_san_pham %>', '<%= ar_Img[0] %>', '<%= Gia_moi %>')">THÊM VÀO GIỎ HÀNG <i class="ri-shopping-cart-2-line"></i></button>
             </div>
         </div>

@@ -1,0 +1,263 @@
+/* ===== ORDER TABLE - đơn hàng ===== */
+.table {
+    width: 100%;
+}
+
+.table_section::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
+}
+
+.table_section::-webkit-scrollbar-track {
+    border-radius: 12px;
+    margin: 46px 6px 6px 6px;
+}
+
+.table_section::-webkit-scrollbar-thumb {
+    border-radius: .5rem;
+    background: #0003;
+    visibility: hidden;
+}
+
+.table_section {
+    overflow: auto;
+    height: auto;
+    max-height: 590px;
+    margin: 0 20px 20px;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.10);
+    border-radius: 12px;
+    color: var(--black-text-color);
+}
+
+.order-table {
+    width: 100%;
+    table-layout: fixed;
+    min-width: 1000px;
+    text-align: center;
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow: auto;
+}
+
+.order-table thead th {
+    position: sticky;
+    top: 0;
+    background: var(--hoockers-green_color);
+    color: var(--white_color);
+    font-size: 16px;
+}
+
+.order-table tr th {
+    padding: 0.8rem 0.5rem;
+    text-align: center;
+}
+
+.order-table tr td {
+    padding: 0.7rem 0.4rem;
+    word-break: break-word;
+    text-align: center;
+}
+
+.order-table tr:hover td {
+    color: var(--black-text-color);
+    background: var(--white_color);
+    transition: ease-in-out .5s;
+}
+
+.order-table tbody tr:nth-child(even) {
+    background-color: #0000000b;
+}
+
+.order-table button {
+    border: 1px solid var(--black-text-color);
+    outline: none;
+    background-color: var(--white_color);
+    border-radius: 8px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.order-table button:hover {
+    background-color: var(--hoockers-green_color);
+    border: 1px solid var(--hoockers-green_color);
+}
+
+.order-table button:hover i {
+    color: var(--white_color);
+}
+
+.order-table button i {
+    font-size: 20px;
+    color: var(--black-text-color);
+}
+
+/* CSS BẢNG */
+.order-table_bill-order,
+.order-table_date {
+    width: 150px;
+}
+
+.order-table_user-id {
+    width: 220px;
+}
+
+.order-table_address {
+    width: 280px;
+}
+
+/* ====== Search sort ====== */
+.order-table tbody tr {
+    --delay: .1s;
+    transition: .5s ease-in-out var(--delay), background-color 0s;
+}
+
+.order-table tbody tr.hide {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.order-table tbody tr td,
+.order-table tbody tr td input,
+.order-table tbody tr td img,
+.order-table tbody tr td button,
+.order-table tbody tr td button i {
+    transition: .2s ease-in-out;
+}
+
+.order-table tbody tr.hide td,
+.order-table tbody tr.hide td button,
+.order-table tbody tr.hide td button i,
+.order-table tbody tr.hide td input {
+    padding: 0;
+    font: 0 / 0 'Merriweather', serif;
+    transition: .2s ease-in-out .5s;
+}
+
+.order-table tbody tr.hide td img,
+.order-table tbody tr.hide td input {
+    height: 0;
+    width: 0;
+    transition: .2s ease-in-out .5s;
+}
+
+/* ===== Table Sort ===== */
+
+table thead th>span {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* ===== MODAL - xem đơn hàng ===== */
+.view-order_modal {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 200;
+}
+
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 2% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.close-popup-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 26px;
+    color: var(--gray-web_color);
+    cursor: pointer;
+}
+
+.close-popup-btn:hover {
+    color: var(--hoockers-green_color);
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    font-size: 28px;
+    align-items: center;
+    margin-bottom: 10px;
+    color: var(--hoockers-green_color);
+}
+
+.popup_form .popup_form-element {
+    margin: 15px 0;
+}
+
+.view-order_modal .popup_form .popup_form-element label {
+    font-size: 18px;
+    font-weight: var(--fw-600);
+    color: var(--black-text-color);
+    display: flex;
+    justify-content: left;
+}
+
+/* ===== Xem chi tiết ===== */
+.view-order_modal .modal-content {
+    width: 900px;
+}
+
+.view_modal {
+    display: flex;
+    align-items: baseline;
+    font-size: 1.075rem;
+}
+
+.order_view-content {
+    margin-left: 8px;
+}
+
+/* ======== INPUT TABLE - BẢNG TRONG VIEW ============ */
+.container_input_table {
+    max-width: 900px;
+    width: 100%;
+    background-color: #fff;
+    margin: 20px 0;
+    overflow-x: auto;
+}
+
+.input_table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.input_table :is(th, td) {
+    border: 1px solid #0002;
+    border-radius: 6px;
+    padding: 8px 10px;
+    text-align: center;
+}
+
+/* form field design start */
+
+.input_table_0 {
+    width: 140px;
+}
+
+.input_table_1 {
+    width: 250px;
+}
+
+.input_table_2 {
+    width: 100px;
+}
+
+.input_table_3 {
+    width: 140px;
+}
+
+.input_table_4 {
+    width: 150px;
+}

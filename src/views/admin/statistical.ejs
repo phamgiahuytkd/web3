@@ -2,80 +2,11 @@
 <!-- Website - www.codingnepalweb.com -->
 <html lang="en" dir="ltr">
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Thống kê</title>
-    <link rel="stylesheet" href="/admin/css/style.css" />
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Đường dẫn tới thư viện Chart.js -->
-
-    <!-- ICON Link -->
-    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
-</head>
+<%- include ('genaral/head.ejs') %>
 
 <body>
     <!-- SIDE MENU -->
-    <div class="admin_sidebar">
-        <div class="logo-details">
-            <div class="admin_home_logo">
-                <i class="ri-gatsby-fill"></i>
-                <a href="">
-                    G<span>LAM</span>
-                </a>
-            </div>
-        </div>
-        <ul class="nav-links">
-            <li>
-                <a href="#">
-                    <i class="bx bx-grid-alt"></i>
-                    <span class="links_name">Tổng quan</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-box"></i>
-                    <span class="links_name">Sản phẩm</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-list-ul"></i>
-                    <span class="links_name">Đơn hàng</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="active">
-                    <i class="bx bx-pie-chart-alt-2"></i>
-                    <span class="links_name">Thống kê</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-user"></i>
-                    <span class="links_name">Khách hàng</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="ri-discount-percent-line"></i>
-                    <span class="links_name">Giảm giá</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-cog"></i>
-                    <span class="links_name">Cài đặt</span>
-                </a>
-            </li>
-            <li class="log_out">
-                <a href="#">
-                    <i class="bx bx-log-out"></i>
-                    <span class="links_name"> Đăng xuất</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+    <%- include ('genaral/menu.ejs') %>
 
     <!-- HOME CONTENT -->
     <section class="admin_home-section" id="csc">
@@ -91,45 +22,54 @@
         <div class="home-content">
             <div class="overview-boxes">
                 <div class="box">
-                    <div class="right-side">
-                        <div class="box-topic">Tất cả đơn hàng</div>
-                        <div class="number">40,876</div>
-                    </div>
-                    <i class="bx bx-cart-alt cart"></i>
+                  <div class="right-side">
+                    <div class="box-topic">Tất cả đơn hàng</div>
+                    <div class="number"><%= overview.so_luong_hoa_don %></div>
+                  </div>
+                  <i class="bx bx-cart-alt cart"></i>
                 </div>
                 <div class="box">
-                    <div class="right-side">
-                        <div class="box-topic">Tất cả lượt bán</div>
-                        <div class="number">38,876</div>
-                    </div>
-                    <i class="bx bxs-cart-add cart two"></i>
+                  <div class="right-side">
+                    <div class="box-topic">Tất cả khách hàng</div>
+                    <div class="number"><%= overview.so_luong_tai_khoan %></div>
+                  </div>
+                  <i class="bx bxs-cart-add cart two"></i>
                 </div>
                 <div class="box">
-                    <div class="right-side">
-                        <div class="box-topic">Doanh thu</div>
-                        <div class="number">11,025,789,567</div>
-                    </div>
-                    <i class="bx bx-cart cart three"></i>
+                  <div class="right-side">
+                    <div class="box-topic">Tất cả sản phẩm</div>
+                    <div class="number"><%= overview.so_luong_san_pham %></div>
+                  </div>
+                  <i class="bx bx-cart cart three"></i>
                 </div>
                 <div class="box">
-                    <div class="right-side">
-                        <div class="box-topic">Lợi nhuận</div>
-                        <div class="number">11,086</div>
-                    </div>
-                    <i class="bx bxs-cart-download cart four"></i>
+                  <div class="right-side">
+                    <div class="box-topic">Lợi nhuận</div>
+                    <div class="number"><%= baseForm.formatTien(overview.tong_doanh_thu) %></div>
+                  </div>
+                  <i class="bx bxs-cart-download cart four"></i>
                 </div>
-            </div>
+              </div>
 
             <div class="sales-boxes">
                 <div class="recent-sales box">
                     <canvas id="chart1" width="576" height="576"></canvas>
                     <script>
+                        const serverDataJSON1  = '<%- JSON.stringify(chart1) %>';
+                       
+                        const serverData1 = JSON.parse(serverDataJSON1);
+                        
+
+                        // Chuyển đổi dữ liệu từ server thành mảng labels và data
+                        const labels1 = serverData1.map(item => item.Thang);
+                        const data1 = serverData1.map(item => parseFloat(item.Doanh_thu));
+
                         const labels = ['Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4', 'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8', 'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12'];
                         const data = {
-                            labels: labels,
+                            labels: labels1,
                             datasets: [{
                                 label: 'Doanh thu (USD)',
-                                data: [1200, 1500, 1800, 2000, 2200, 2500, 2700, 2900, 3100, 3400, 3700, 4000],
+                                data: data1,
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 0.2)',
                                     'rgba(54, 162, 235, 0.2)',
@@ -189,22 +129,37 @@
                     <canvas id="chart2" width="576" height="576"></canvas>
                     <script>
                         const ctx = document.getElementById('chart2').getContext('2d');
+                        const serverDataJSON  = '<%- JSON.stringify(chart2) %>';
+                        const serverData = JSON.parse(serverDataJSON);
+
+
+                        // Chuyển đổi dữ liệu từ server thành mảng labels và data
+                        const labels2 = serverData.map(item => item.Ten_danh_muc);
+                        const data2 = serverData.map(item => parseFloat(item.Tong_Doanh_Thu));
+
+
                         const chartData = {
-                            labels: ['Hoàn tất', 'Tiếp nhận', 'Đang vận chuyển', 'Huỷ bỏ'],
+                            labels: labels2,
                             datasets: [{
-                                label: 'Số lượng     đơn hàng',
-                                data: [10, 70, 10, 10],
+                                label: 'Doanh thu',
+                                data: data2,
                                 backgroundColor: [
                                     'rgba(255, 99, 132, 0.2)',
                                     'rgba(54, 162, 235, 0.2)',
                                     'rgba(255, 206, 86, 0.2)',
-                                    'rgba(75, 192, 192, 0.2)'
+                                    'rgba(75, 192, 75, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
                                 ],
                                 borderColor: [
-                                    'rgba(255, 99, 132, 1)',
-                                    'rgba(54, 162, 235, 1)',
-                                    'rgba(255, 206, 86, 1)',
-                                    'rgba(75, 192, 192, 1)'
+                                    'rgba(255, 99, 132, 0.2)',
+                                    'rgba(54, 162, 235, 0.2)',
+                                    'rgba(255, 206, 86, 0.2)',
+                                    'rgba(75, 192, 75, 0.2)',
+                                    'rgba(75, 192, 192, 0.2)',
+                                    'rgba(153, 102, 255, 0.2)',
+                                    'rgba(255, 159, 64, 0.2)'
                                 ],
                                 borderWidth: 1
                             }]

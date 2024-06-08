@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<%- include ('genaral/head.ejs') %>
+
+<body>
+    <!-- SIDE MENU -->
+    <%- include ('genaral/menu.ejs') %>
+
+    <!-- HOME CONTENT -->
+    <section class="admin_home-section" id="csc">
+        <!-- HEADER -->
+        <nav>
+            <div class="sidebar-button">
+                <i class="bx bx-menu sidebarBtn"></i>
+                <span class="admin_dashboard_title">Đơn hàng</span>
+            </div>
+            <div class="search-box">
+                <input id="search-input-order" class="form-control" type="text" placeholder="Tìm kiếm..." />
+                <i class="bx bx-search"></i>
+            </div>
+        </nav>
+
+        <!-- CONTENT -->
+        <div class="home-content">
+
+            <!-- PRODUCT TABLE -->
+            <div class="table">
+                <div class="table_section">
+                    <% if(all_bill.length === 0) { %>
+                    <h4>Bạn chưa thực hiện giao dịch nào !</h4>
+                    <% }else { %>
+                    <table class="order-table">
+                        <form>
+                            <thead>
+                                <tr>
+                                    <th class="order-table_date">Thời gian<span> &uarr;</span></th>
+                                    <th class="order-table_bill-order">Mã đơn hàng<span> &uarr;</span></th>
+                                    <th class="order-table_user-id">Khách hàng<span> &uarr;</span></th>
+                                    <th class="order-table_address">Địa chỉ</th>
+                                    <th>Tổng tiền<span> &uarr;</span></th>
+                                    <th class="order-table_action">Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody_order-table">
+                                <% all_bill.forEach(function(each_bill) { %>
+                                <tr>
+                                    <td><%= baseForm.formatDateTime(each_bill.Thoi_gian_xuat_hoa_don) %></td>
+                                    <td><strong><%= each_bill.Ma_hoa_don %></strong></td>
+                                    <td><%= each_bill.makhachhang %></td>
+                                    <td><%= each_bill.Dia_chi %></td>
+                                    <td><%= baseForm.formatTien(each_bill.Tong_tien) %></td>
+                                    <td>
+                                        <button title="Chi tiết" type="button" class="see-order_icon"
+                                            onclick="get_detail_order('<%= each_bill.Ma_hoa_don %>', '<%= each_bill.makhachhang %>', '<%= baseForm.formatDateTime(each_bill.Thoi_gian_xuat_hoa_don) %>', '<%= each_bill.Dia_chi %>', '<%= baseForm.formatTien(each_bill.Tong_tien) %>', '<%= baseForm.formatTien(each_bill.Trang_thai) %>')">
+                                            <i class="ri-eye-fill"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <% }); %>  
+
+
+
+                            </tbody>
+                        </form>
+                    </table>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL XEM CHI TIẾT SẢN PHẨM -->
+        <div id="view_order_Modal" class="view-order_modal">
+            <div class="modal-content">
+                <h2>Thông tin đơn hàng</h2>
+                <form id="viewOrderForm">
+                    <div class="popup-container">
+                        <div class="close-popup-btn" title="Đóng" onclick="closeModal_view_order()"><i
+                                class='bx bxs-x-circle'></i></div>
+                        <div class="popup_form">
+                            <div class="popup_form-element view_modal">
+                                <label for="order_date-view">Thời gian:</label>
+                                <p class="order_view-content order_date-view">13/05/2024</p>
+                            </div>
+                            <div class="popup_form-element view_modal">
+                                <label for="order_bill-id-view">Mã đơn hàng:</label>
+                                <p class="order_view-content order_bill-id-view"><b>HD0768754bby01</b></p>
+                            </div>
+                            <div class="popup_form-element view_modal">
+                                <label for="order_user-id-view">Khách hàng:</label>
+                                <p class="order_view-content order_user-id-view">Nobita Nobito Shizuka</p>
+                            </div>
+                            <div class="popup_form-element view_modal">
+                                <label for="order_address-view">Địa chỉ:</label>
+                                <p class="order_view-content order_address-view">
+                                    122/23/455 Lưu Văn Liệt, p. Phú Hòa, q. Ninh kiều, Tp Cần Thơ Việt Nam
+                                </p>
+                            </div>
+
+                            <div class="modal_edit-product_element popup_form-element view_modal">
+                                <div class="container_input_table">
+                                    <table class="input_table">
+                                        <thead>
+                                            <tr>
+                                                <th class="input_table_0">Mã sản phẩm</th>
+                                                <th class="input_table_1">Tên sản phẩm</th>
+                                                <th class="input_table_2">Số lượng</th>
+                                                <th class="input_table_3">Đơn giá</th>
+                                                <th class="input_table_4">Tổng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="input_table_body_edit">
+                                            
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th colspan="4" class="form_control_tfoot">Phí Ship</th>
+                                                <td colspan="2" class="form_control_tfoot_total total" id="">
+                                                    <b>1.000</b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th colspan="4" class="form_control_tfoot">Tổng</th>
+                                                <td colspan="2" class="form_control_tfoot_total total" id="">
+                                                    <b>1.000.000.000</b>
+                                                </td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- JAVA Link -->
+    <script src="/admin/js/order.js" defer></script>
+    <%- include ('genaral/linkandicon.ejs') %>  
+</body>
+
+</html>

@@ -1,0 +1,362 @@
+<!-- JAVA Link -->
+
+<script src="/admin/js/script.js" defer></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+
+//sự kiệnkhiểm tra thếanr phẩm
+document.getElementById("addProductForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    let valid = true;
+
+    // Clear previous errors
+    document.querySelectorAll(".error").forEach(el => el.innerText = "");
+    document.querySelectorAll("input, textarea").forEach(el => el.classList.remove("error-input"));
+
+
+    
+
+    // Validate product name
+    const productName = document.getElementById("product_name");
+    if (!productName.value.trim()) {
+      valid = false;
+      productName.classList.add("error-input");
+      document.getElementById("error_product_name").innerText = "Tên sản phẩm không được để trống";
+    }
+
+    // Validate product price
+    const productPrice = document.getElementById("product_price");
+    if (!productPrice.value.trim() || isNaN(productPrice.value)) {
+      valid = false;
+      productPrice.classList.add("error-input");
+      document.getElementById("error_product_price").innerText = "Giá bán không được để trống và chỉ có thể nhập số";
+    }
+
+    // Validate product quantity
+    const productQuantity = document.getElementById("product_quantity");
+    if (!productQuantity.value.trim() || isNaN(productQuantity.value)) {
+      valid = false;
+      productQuantity.classList.add("error-input");
+      document.getElementById("error_product_quantity").innerText = "Số lượng không được để trống và chỉ có thể nhập số";
+    }
+
+    // Validate product images
+    const productImages = document.getElementById("file-input_product");
+    if (productImages.files.length === 0) {
+      valid = false;
+      productImages.classList.add("error-input");
+      document.getElementById("error_file_input").innerText = "Phải chọn ít nhất một hình ảnh";
+    }
+
+    if (valid) {
+        addProduct();
+    }
+  });
+
+
+
+
+
+//Thêm sản phẩm
+function addProduct() {
+    var form = document.getElementById("addProductForm");
+    var formData = new FormData(form);
+    var files = document.getElementById("file-input_product").files;
+
+    for (var i = 0; i < files.length; i++) {
+        formData.append("productImages[]", files[i]);
+    }
+
+    // Thêm dữ liệu từ các trường khác của biểu mẫu
+    
+
+    // Gửi dữ liệu lên server bằng AJAX
+    $.ajax({
+        type: 'POST',
+        url: '/manager/product/add_product',
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if (response.success) {
+                alert('Thêm sản phẩm thành công!');
+                window.location.href = '/manager/product';
+            } else {
+                alert('Thêm sản phẩm thất bại: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Lỗi AJAX:', error);
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function get_detail_product(productId) {
+    $.ajax({
+        type: 'GET',
+        url: `/manager/product/${productId}`,
+        success: function(response) {
+            // Chèn dữ liệu vào các phần tử HTML tương ứng
+            $('.product_code-view').text(response.productId.Ma_san_pham);
+            $('.product_name-view').text(response.productId.Ten_san_pham);
+            $('.product_price-view').text(response.productId.Don_gia);
+            $('.product_quantity-view').text(response.productId.So_luong);
+            $('.product_info-view').text(response.productId.Mo_ta_san_pham);
+            $('.product_category-view').text(response.productId.Ma_danh_muc);
+
+            // Xóa tất cả các ảnh hiện tại
+            $('.upload_product_images-view').empty();
+
+            // Kiểm tra nếu Hinh_anh tồn tại và không rỗng
+            if (response.productId.Hinh_anh) {
+                // Tách chuỗi thành mảng
+                const images = response.productId.Hinh_anh.split(',');
+                //thêm dử liệu ảnh ẩn vào form
+                
+                // Chèn các ảnh mới
+                images.forEach(function(src) {
+                    $('.upload_product_images-view').append(`<img src="/product_img/${src.trim()}" alt="">`);
+                });
+            } else {
+                console.error('Hinh_anh does not exist or is empty.');
+            }
+            openModal_view()
+        },
+        error: function(xhr, status, error) {
+            console.error('Lỗi AJAX:', error);
+        }
+    });
+    
+
+
+  
+
+}
+
+
+
+
+
+
+
+
+
+    
+
+/* ===== BẪY LỖI CHỈNH SỬA SẢN PHẨM ===== */
+document.getElementById("editProductForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    let valid = true;
+
+    // Clear previous errors
+    document.querySelectorAll(".error").forEach(el => el.innerText = "");
+    document.querySelectorAll("input, textarea").forEach(el => el.classList.remove("error-input"));
+
+    // Validate product name
+    const productName_edit = document.getElementById("product_name-edit");
+    if (!productName_edit.value.trim()) {
+      valid = false;
+      productName_edit.classList.add("error-input");
+      document.getElementById("error_product_name-edit").innerText = "Tên sản phẩm không được để trống";
+    }
+
+    // Validate product price
+    const productPrice_eidt = document.getElementById("product_price-edit");
+    if (!productPrice_eidt.value.trim() || isNaN(productPrice_eidt.value)) {
+      valid = false;
+      productPrice_eidt.classList.add("error-input");
+      document.getElementById("error_product_price-edit").innerText = "Giá bán chỉ có thể nhập số và không thể để trống";
+    }
+
+    // Validate product quantity
+    const productQuantity_eidt = document.getElementById("product_quantity-edit");
+    if (!productQuantity_eidt.value.trim() || isNaN(productQuantity_eidt.value)) {
+      valid = false;
+      productQuantity_eidt.classList.add("error-input");
+      document.getElementById("error_product_quantity-edit").innerText = "Số lượng chỉ có thể nhập số và không thể để trống";
+    }
+
+    // Validate product images
+    
+
+    if (valid) {
+      updateProduct()
+    }
+  });
+
+
+
+
+  //Cập nhật sản phẩm
+  function updateProduct() {
+    var form = document.getElementById("editProductForm");
+    var formData = new FormData(form);
+    var files = document.getElementById("file-input_product-edit").files;
+
+    for (var i = 0; i < files.length; i++) {
+        formData.append("productImages[]", files[i]);
+    }
+
+    // Thêm dữ liệu từ các trường khác của biểu mẫu
+    
+    const hiddenValue = $('#old_images').val();
+    console.log(hiddenValue)
+    // Gửi dữ liệu lên server bằng AJAX
+    $.ajax({
+        type: 'POST',
+        url: '/manager/product/update_product',
+        data: formData,
+        old_images: hiddenValue,
+        processData: false,
+        contentType: false,
+        success: function(response) {
+            if (response.success) {
+                alert('Cập nhật sản phẩm thành công!');
+                window.location.href = '/manager/product';
+            } else {
+                alert('Thêm sản phẩm thất bại: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Lỗi AJAX:', error);
+        }
+    });
+}
+
+
+
+
+//Hàm lấy chi tiết háo đơn
+function get_detail_order(Ma_hoa_don, makhachhang, Thoi_gian_xuat_hoa_don, Dia_chi, Tong_tien, Trang_thai) {
+    $.ajax({
+        type: 'GET',
+        url: `/manager/order/${Ma_hoa_don}`,
+        success: function(response) {
+            var order = response.detail;
+            console.log(order);
+            // Chèn dữ liệu vào các phần tử HTML tương ứng
+            const tbody = document.getElementById('input_table_body_edit');
+            tbody.innerHTML = '';
+            const table = document.querySelector('.input_table');
+
+            const tfoot = document.querySelector('tfoot');
+            tfoot.innerHTML = `
+                <tr>
+                    <th colspan="4" class="form_control_tfoot">Phí Ship</th>
+                    <td colspan="2" class="form_control_tfoot_total total" id="">
+                        43.900
+                    </td>
+                </tr>
+                    <tr>
+                        <th colspan="4" class="form_control_tfoot">Tổng</th>
+                        <td colspan="2" class="form_control_tfoot_total total" id="">
+                            <b>${Tong_tien.toLocaleString()}</b>
+                        </td>
+                </tr>
+
+            `;
+
+            order.forEach(item => {
+                const row = document.createElement('tr');
+
+                const maSanPhamCell = document.createElement('td');
+                maSanPhamCell.textContent = item.Ma_san_pham;
+                row.appendChild(maSanPhamCell);
+
+                const tenSanPhamCell = document.createElement('td');
+                tenSanPhamCell.textContent = item.Ten_san_pham;
+                row.appendChild(tenSanPhamCell);
+
+                const soLuongCell = document.createElement('td');
+                soLuongCell.textContent = item.So_luong;
+                row.appendChild(soLuongCell);
+
+                const donGiaCell = document.createElement('td');
+                donGiaCell.textContent = item.Don_gia.toLocaleString(); // Convert to string with commas
+                row.appendChild(donGiaCell);
+
+                const tongTienCell = document.createElement('td');
+                tongTienCell.classList.add('netPrice');
+                tongTienCell.textContent = item.Tong_tien.toLocaleString(); // Convert to string with commas
+                row.appendChild(tongTienCell);
+
+                tbody.appendChild(row);
+            });
+
+            openModal_view_order()
+        },
+        error: function(xhr, status, error) {
+            console.error('Lỗi AJAX:', error);
+        }
+    });
+    
+
+
+  
+
+}
+
+
+
+
+//Hàmn đưa sản phẩm về không để ẩn
+let productQuantity_eidt = null
+function openModal_delete(Ma_san_pham) {
+    productQuantity_eidt = Ma_san_pham;
+    
+    document.getElementById("delete_product_Modal").style.display = "block";
+}
+
+function set_quantity0_product() {
+    console.log(productQuantity_eidt);
+    // Gửi dữ liệu lên server bằng AJAX
+    $.ajax({
+        type: 'POST',
+        url: '/manager//product/set_quantity0_product',
+        data: {
+            Ma_san_pham: productQuantity_eidt
+        },
+        success: function(response) {
+            if (response.success) {
+                alert('Đã ẩn sản phẩm!');
+                window.location.href = '/manager/product';
+            } else {
+                alert('Lôi ẩn sản phẩm: ' + response.message);
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Lỗi AJAX:', error);
+        }
+    });
+}
+
+
+</script>

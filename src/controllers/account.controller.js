@@ -114,14 +114,7 @@ const getAccount = async function (req, res){
 };
 
 
-const getdetail_order = async function (req, res){
-    if (req.session.isLoggedIn === true) {
-        return res.render('detail_order.ejs');
-    }
-    
-    
-    
-};
+
 
 
 
@@ -254,6 +247,6 @@ const postAddBill = async function (req, res){
 
 
 module.exports = {
-    getCart, postUpdateCart, postRemoveCart, getCheckout, postCartPay, getAccount, postUpdateAddressCheckout, postAddBill, getdetail_order, postUpdateAddressAccount,
+    getCart, postUpdateCart, postRemoveCart, getCheckout, postCartPay, getAccount, postUpdateAddressCheckout, postAddBill, postUpdateAddressAccount,
     postUpdatePass, postOrderDetail
 };

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<%- include ('genaral/head.ejs') %>
+
+<body>
+  <!-- SIDE MENU -->
+  <%- include ('genaral/menu.ejs') %>
+
+  <!-- HOME CONTENT -->
+  <section class="admin_home-section" id="csc">
+    <!-- HEADER -->
+    <nav>
+      <div class="sidebar-button">
+        <i class="bx bx-menu sidebarBtn"></i>
+        <span class="admin_dashboard_title">Tổng quan</span>
+      </div>
+    </nav>
+
+    <!-- CONTENT -->
+    <div class="home-content">
+      <div class="overview-boxes">
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Tất cả đơn hàng</div>
+            <div class="number"><%= overview.so_luong_hoa_don %></div>
+          </div>
+          <i class="bx bx-cart-alt cart"></i>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Tất cả khách hàng</div>
+            <div class="number"><%= overview.so_luong_tai_khoan %></div>
+          </div>
+          <i class="bx bxs-cart-add cart two"></i>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Tất cả sản phẩm</div>
+            <div class="number"><%= overview.so_luong_san_pham %></div>
+          </div>
+          <i class="bx bx-cart cart three"></i>
+        </div>
+        <div class="box">
+          <div class="right-side">
+            <div class="box-topic">Lợi nhuận</div>
+            <div class="number"><%= baseForm.formatTien(overview.tong_doanh_thu) %></div>
+          </div>
+          <i class="bx bxs-cart-download cart four"></i>
+        </div>
+      </div>
+
+      <div class="sales-boxes">
+        <div class="recent-sales box">
+          <div class="title">Đơn hàng gần đây</div>
+          <div class="sales-details">
+            <ul class="details">
+             
+              <li class="topic">Ngày</li>
+              <% recent_bill.forEach(function(each_bill) { %>
+              <li><a href="#"><%= baseForm.formatDateTime(each_bill.Thoi_gian_xuat_hoa_don) %></a></li>
+               <% }); %>
+            </ul>
+            <ul class="details customer_name">
+              <li class="topic">Khách hàng</li>
+              <% recent_bill.forEach(function(each_bill) { %>
+                <li><a href="#"><%= each_bill.Ho_ten %></a></li>
+              <% }); %>
+            </ul>
+            <ul class="details">
+              <li class="topic">Sales</li>
+              <% recent_bill.forEach(function(each_bill) { %>
+                <li><a href="#"><%= baseForm.formatTrangThai(each_bill.Trang_thai) %></a></li>
+              <% }); %>
+            </ul>
+            <ul class="details">
+              <li class="topic">Total</li>
+              <% recent_bill.forEach(function(each_bill) { %>
+                <li><a href="#"><%= baseForm.formatTien(each_bill.Tong_tien) %></a></li>
+              <% }); %>
+            </ul>
+          </div>
+          <div class="button">
+            <a href="/manager/order">Xem tất cả</a>
+          </div>
+        </div>
+        <div class="top-sales box">
+          <div class="title">Top 10 sản phẩm bán chạy</div>
+          <ul class="top-sales-details">
+
+            <% top_product.forEach(function(each_product) { %>
+            <%
+              // Phân tách chuỗi ảnh thành mảng ảnh, sử dụng dấu phẩy (,) làm dấu phân cách
+              let ar_Img = each_product.Hinh_anh.split(',');
+
+            %>
+            <li>
+              <a href="#">
+                <img src="/product_img/<%= ar_Img[0] %>" alt="" />
+                <span class="product"><%= each_product.Ten_san_pham %></span>
+              </a>
+              <span class="qty"><%= each_product.So_luong %></span>
+            </li>
+            <% }); %>  
+
+
+
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    let sidebar = document.querySelector(".admin_sidebar");
+    let sidebarBtn = document.querySelector(".sidebarBtn");
+    sidebarBtn.onclick = function () {
+      sidebar.classList.toggle("active");
+      if (sidebar.classList.contains("active")) {
+        sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+      } else sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+    };
+  </script>
+
+  
+
+</body>
+
+</html>

@@ -22,6 +22,15 @@ app.use(session({
 }));
 
 
+
+
+
+//Upload nhiieeuf file
+
+
+
+
+
 //config cookie 
 const cookieParser = require('cookie-parser');
 app.use(cookieParser()); 
@@ -37,12 +46,12 @@ const {decodeToken} = require('./middleware/token');
 app.use((req, res, next) => {
   res.locals.search = "";
   
-  
+  if(req.session.isLoggedIn == true){
   // Kiểm tra xem người dùng đã đăng nhập chưa
-  if (req.session && req.session.token) {
+    if (req.session && req.session.token) {
       // Nếu người dùng đã đăng nhập, gán thông tin người dùng vào biến res.locals.user
-      if(req.session.isLoggedIn === true)
-        user = decodeToken(req.session.token);
+      
+        let user = decodeToken(req.session.token);
        
         res.locals.user = user.User_ID;
         if (!req.session.cart) {        
@@ -51,7 +60,7 @@ app.use((req, res, next) => {
         const totalQuantity = req.session.cart.reduce((total, product) => total + product.So_luong, 0);
         res.locals.cart = totalQuantity;
       // Kiểm tra xem có mảng cart trong session chưa
-    
+    }
   } else {
       // Nếu không có người dùng đã đăng nhập, có thể gán một giá trị mặc định khác
       res.locals.user = null;
@@ -76,6 +85,20 @@ app.use((req, res, next) => {
 });
 
 
+//Kiểm tra quyền truy cập vào trang admin
+const checkAdmin = (req, res, next) => {
+  if(req.session.isLoggedIn === true){
+    if (req.session && req.session.token) {
+      let user = decodeToken(req.session.token);
+      if (user.Phan_quyen === 2) {
+        next(); // Người dùng có quyền truy cập
+      }
+    }
+
+  }
+  
+}
+
 
 //config routers
 
@@ -87,7 +110,8 @@ const login_router = require('./routes/login.router');
 app.use('/login', login_router);
 
 
-
+const admin_router = require('./routes/admin.router');
+app.use('/manager', checkAdmin, admin_router);
 
 
 //các biến global

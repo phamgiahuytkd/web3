@@ -39,8 +39,12 @@ const postLogin = async function (req, res){
                         delete req.session.check_login;
                         req.session.token = token;
                         req.session.isLoggedIn = true;        
-                        if (results[0].Phan_quyen == 1)     
+                        if (results[0].Phan_quyen == 1){
                             res.redirect('/');
+                        }else if(results[0].Phan_quyen == 2){
+                            res.redirect('/manager');
+                        }   
+                            
                     } else {
                         req.session.check_login = 'Mật khẩu không chính xác!'
                         res.redirect('/login');
