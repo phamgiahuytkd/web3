@@ -11,51 +11,6 @@
     <div class="product_container">
         <div class="grid">
             <div class="grid_row">
-                <div class="grid_column-2">
-                    <nav class="product_category">
-                        <h4 class="product_category_heading">Loại da</h4>
-                        <ul class="product_category-list">
-                            <li class="product_category-item">
-                                <a href="#" class="product_category-item_link">Da thường</a>
-                            </li>
-                            <li class="product_category-item">
-                                <a href="#" class="product_category-item_link">Da dầu</a>
-                            </li>
-                            <li class="product_category-item">
-                                <a href="#" class="product_category-item_link">Da khô</a>
-                            </li>
-                        </ul>
-
-                        <h4 class="product_category_heading">Giới tính</h4>
-                        <ul class="product_category-list">
-                            <li class="product_category-item">
-                                <a href="#" class="product_category-item_link">Unisex</a>
-                            </li>
-                            <li class="product_category-item">
-                                <a href="#" class="product_category-item_link">Nam</a>
-                            </li>
-                            <li class="product_category-item">
-                                <a href="#" class="product_category-item_link">Nữ</a>
-                            </li>
-                        </ul>
-
-                        <h4 class="product_category_heading">Công dụng</h4>
-                        <ul class="product_category-list">
-                            <li class="product_category-item">
-                                <a href="#" class="product_category-item_link">Suôn mượt</a>
-                            </li>
-                            <li class="product_category-item">
-                                <a href="#" class="product_category-item_link">Sạch gàu</a>
-                            </li>
-                            <li class="product_category-item">
-                                <a href="#" class="product_category-item_link">Phục hồi hư tổn</a>
-                            </li>
-                            <li class="product_category-item">
-                                <a href="#" class="product_category-item_link">Kích thích mọc tóc</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
 
                 <div class="grid_column-10">
                     <div class="product_filter">
@@ -63,24 +18,10 @@
                             Sắp xếp theo
                         </span>
 
-                        <button class="product_filter-btn">Mới nhất</button>
                         <button class="product_filter-btn" onclick="sortProductsByPrice('asc')">Giá từ thấp đến cao</button>
                         <button class="product_filter-btn" onclick="sortProductsByPrice('desc')">Giá từ cao đến thấp</button>
 
-                        <div class="product_filter_page">
-                            <span class="product_filter_page-num">
-                                <span class="product_filter_page-current">1</span>/16
-                            </span>
-
-                            <div class="product_filter_page-control">
-                                <a href="#" class="product_filter_page-control-btn">
-                                    <i class="ri-arrow-left-s-line product_filter_page-control-icon"></i>
-                                </a>
-                                <a href="#" class="product_filter_page-control-btn">
-                                    <i class="ri-arrow-right-s-line product_filter_page-control-icon"></i>
-                                </a>
-                            </div>
-                        </div>
+                    
                     </div>
 
                     <div class="product">
@@ -98,13 +39,7 @@
                                     <div class="product-item_img" style="background-image: url('/product_img/<%= ar_Img[0] %>')">
                                     </div>
                                     <a href="#" class="product-item_name"><%= each_Product.Ten_san_pham %></a>
-                                    <div class="product_rating">
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-fill"></i>
-                                        <i class="ri-star-half-fill"></i>
-                                        <i class="ri-star-line"></i>
-                                        <i class="ri-star-line"></i>
-                                    </div>
+                                    
                                     <div class="product-item_price">
                                         <%
                                             let Gia_moi = null;
