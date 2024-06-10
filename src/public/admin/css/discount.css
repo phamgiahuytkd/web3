@@ -1,27 +1,26 @@
 /* ===== SORT & FILTER ===== */
-.filter {
-    display: flex;
+.dis-filter {
+    height: 80vh;
     align-items: center;
     padding: 12px 22px;
     border-radius: 12px;
-    background-color: var(--white_color);
     margin: 0px 20px 26px;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.10);
     overflow: auto;
 }
 
-.filter::-webkit-scrollbar {
+.dis-filter::-webkit-scrollbar {
     width: 0.5rem;
     height: 0.5rem;
 }
 
-.filter::-webkit-scrollbar-thumb {
+.dis-filter::-webkit-scrollbar-thumb {
     border-radius: .5rem;
     background: #0003;
     visibility: hidden;
 }
 
-.filter:hover::-webkit-scrollbar-thumb {
+.dis-filter:hover::-webkit-scrollbar-thumb {
     visibility: visible;
 }
 
@@ -34,7 +33,7 @@
 .filter_page {
     display: flex;
     align-items: center;
-    margin-left: auto;
+    justify-content: space-between;
 }
 
 .btn-filter {
@@ -76,11 +75,11 @@
     margin-right: 0;
 }
 
-.filter .filter_page i {
+.dis-filter.filter_page i {
     margin-right: 5px;
 }
 
-.filter .filter_page button {
+.dis-filter.filter_page button {
     margin-left: 10px;
     background: var(--white_color);
     color: var(--hoockers-green_color);
@@ -88,11 +87,11 @@
     font-weight: var(--fw-600);
 }
 
-.filter .filter_page button i {
+.dis-filter.filter_page button i {
     font-size: 16px;
 }
 
-.filter .filter_page button:hover {
+.dis-filter.filter_page button:hover {
     background: var(--hoockers-green_color);
     color: var(--white_color);
 }
@@ -125,7 +124,7 @@
 
 .table_section {
     overflow: auto;
-    height: auto;
+    height: 80vh;
     max-height: 590px;
     margin: 0 20px 20px;
     box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.10);
@@ -264,25 +263,8 @@ table thead th>span {
 }
 
 /* ===== MODAL - thêm sản phẩm - sửa sản phẩm - xem chi tiết sản phẩm - xóa sản phẩm ===== */
-.add-product_modal,
-.edit-product_modal,
-.view-product_modal,
-.delete-product_modal {
-    display: none;
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 200;
-}
-
-.modal-content {
-    position: relative;
+.dis-wrap .modal-content {
     background-color: #fefefe;
-    margin: 2% auto;
     padding: 20px;
     border: 1px solid #888;
     border-radius: 12px;
@@ -290,25 +272,12 @@ table thead th>span {
     text-align: center;
 }
 
-.add-product_modal .modal-content,
-.edit-product_modal .modal-content {
-    width: 650px;
+.dis-wrap .add-product_modal .modal-content {
+    min-width: 420px;
+    height: 72vh;
 }
 
-.close-popup-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 26px;
-    color: var(--gray-web_color);
-    cursor: pointer;
-}
-
-.close-popup-btn:hover {
-    color: var(--hoockers-green_color);
-}
-
-.modal-content h2 {
+.dis-wrap .modal-content h2 {
     margin-top: 0;
     font-size: 28px;
     align-items: center;
@@ -316,13 +285,11 @@ table thead th>span {
     color: var(--hoockers-green_color);
 }
 
-.popup_form .popup_form-element {
-    margin: 15px 0;
+.dis-wrap .popup_form .popup_form-element {
+    margin: 10px 0;
 }
 
-.add-product_modal .popup_form .popup_form-element label,
-.edit-product_modal .popup_form .popup_form-element label,
-.view-product_modal .popup_form .popup_form-element label {
+.dis-wrap .add-product_modal .popup_form .popup_form-element label {
     font-size: 18px;
     font-weight: var(--fw-600);
     color: var(--black-text-color);
@@ -337,12 +304,13 @@ textarea {
     box-sizing: border-box;
 }
 
-.popup_form-element select,
-.popup_form .popup_form-element select,
-.popup_form .popup_form-element input[type="text"],
-.popup_form .popup_form-element input[type="file"],
-.popup_form .popup_form-element textarea {
-    margin-top: 5px;
+.dis-wrap .popup_form-element select,
+.dis-wrap .popup_form .popup_form-element select,
+.dis-wrap .popup_form .popup_form-element input[type="text"],
+.dis-wrap .popup_form .popup_form-element input[type="file"],
+.dis-wrap .popup_form .popup_form-element input[type="number"],
+.dis-wrap .popup_form .popup_form-element textarea {
+    margin-top: 10px;
     display: block;
     width: 100%;
     padding: 8px;
@@ -352,56 +320,7 @@ textarea {
     font-size: 18px;
 }
 
-/* Khung select danh mục */
-.popup_form-element select,
-.popup_form .popup_form-element select {
-    cursor: pointer;
-    font-weight: var(--fw-500);
-    appearance: none;
-    /*  safari  */
-    -webkit-appearance: none;
-
-}
-
-.select-category-wrapper {
-    position: relative;
-}
-
-.select-category-wrapper::before,
-.select-category-wrapper::after {
-    content: "";
-    position: absolute;
-    right: 20px;
-    pointer-events: none;
-}
-
-.select-category-wrapper::before {
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-bottom: 6px solid var(--black-text-color);
-    top: 57%;
-}
-
-.select-category-wrapper::after {
-    border-left: 6px solid transparent;
-    border-right: 6px solid transparent;
-    border-top: 6px solid var(--black-text-color);
-    top: 73%;
-}
-
-.popup_form .popup_form-element button {
-    width: 100%;
-    height: 40px;
-    border: none;
-    outline: none;
-    font-size: 18px;
-    background: var(--hoockers-green_80_color);
-    color: white;
-    border-radius: 12px;
-    cursor: pointer;
-}
-
-.btn_ad {
+.dis-wrap .btn_ad {
     display: block;
     width: 100%;
     height: 50px;
@@ -413,74 +332,19 @@ textarea {
     font-size: 20px;
     color: #fff;
     text-transform: uppercase;
-    margin: 1rem 0;
+    margin: 1.725rem 0;
     cursor: pointer;
     transition: .5s;
 }
 
-.btn_ad:hover {
+.dis-wrap .btn_ad:hover {
     background-position: right;
     background-color: #ffffff;
 }
 
-/* Lựa chọn ảnh */
-.popup_form-element-img {
-    position: relative;
-}
-
-.popup_form-element-img>input[type="file"] {
-    display: none !important;
-}
-
-.popup_form-element-img>label {
-    display: block !important;
-    position: relative;
-    background-color: var(--hoockers-green_color);
-    color: white !important;
-    font-size: 18px;
-    text-align: center !important;
-    width: 300px;
-    padding: 18px 0;
-    margin: 0 auto;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.popup_form-element-img p {
-    text-align: center;
-    margin: 20px 0 20px 0;
-}
-
-.popup_form-element-img #upload_product_images,
-.popup_form-element-img #upload_product_images-edit {
-    width: 90%;
-    position: relative;
-    margin: auto;
-    display: flex;
-    justify-content: space-evenly;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.popup_form-element-img figure {
-    width: 45%;
-}
-
-.popup_form-element-img img,
-.popup_form-element-img_view img {
-    height: 180px;
-    width: 180px;
-    object-fit: cover;
-}
-
-.popup_form-element-img figcaption {
-    text-align: center;
-    font-size: 2.4vmin;
-    margin-top: 0.5vmin;
-}
-
 /* ===== Check Lỗi input ===== */
 .error {
+    width: 370px;
     display: flex;
     justify-content: left;
     color: red;
@@ -496,97 +360,171 @@ textarea {
     justify-content: center;
 }
 
-/* ===== Xem chi tiết sản phẩm ===== */
-.view-product_modal .modal-content {
-    width: 850px;
+/* bảng sản phẩm giảm giá*/
+.table_dis-wrapper {
+    width: 58%;
 }
 
-.view_modal {
-    display: flex;
-    align-items: baseline;
-    font-size: 1.075rem;
+.dis-table_section::-webkit-scrollbar {
+    width: 0.5rem;
+    height: 0.5rem;
 }
 
-.product_view-content {
-    margin-left: 8px;
-}
-
-.product_view-textarea {
-    text-align: left;
-    font-size: 1.075rem;
-    margin-top: 6px;
-    width: 95%;
-}
-
-.upload_product_images-view {
-    margin-top: 10px;
-}
-
-.upload_product_images-view img {
-    margin: 5px;
-}
-
-.product_rating-view i {
-    color: var(--star_color);
-}
-
-/* ===== Xóa sản phẩm ===== */
-.delete-modal-content {
-    position: relative;
-    width: 400px;
-    background-color: #fefefe;
-    margin: 15% auto;
-    border: 1px solid #888;
+.dis-table_section::-webkit-scrollbar-track {
     border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    margin: 46px 6px 6px 6px;
+}
+
+.dis-table_section::-webkit-scrollbar-thumb {
+    border-radius: .5rem;
+    background: #0003;
+    visibility: hidden;
+}
+
+.dis-table_section {
+    overflow: auto;
+    height: 62vh;
+    max-height: 590px;
+    margin: 10px 0;
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.10);
+    border-radius: 12px;
+    color: var(--black-text-color);
+}
+
+.dis-table {
+    table-layout: fixed;
+    width: 100%;
     text-align: center;
-    overflow: hidden;
+    border-collapse: collapse;
+    border-spacing: 0;
+    overflow: auto;
 }
 
-.delete_modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 15px;
-    background-color: var(--hoockers-green_color);
-    padding: 12px 16px;
-    color: white;
+.dis-table thead th {
+    position: sticky;
+    top: 0;
+    background: var(--hoockers-green_color);
+    color: var(--white_color);
+    font-size: 16px;
 }
 
-.delete_modal-header h2 {
-    font-size: 1.625rem;
-    margin: 0;
+.dis-table tr th {
+    padding: 0.8rem 0.5rem;
+    text-align: center;
 }
 
-.delete_modal-header i {
-    font-size: 1.5rem;
-    font-weight: var(--fw-600);
+.dis-table tr td {
+    padding: 0.4rem;
+    word-break: break-word;
+    text-align: center;
+}
+
+.dis-table tr:hover td {
+    color: var(--black-text-color);
+    background: var(--white_color);
+    transition: ease-in-out .5s;
+}
+
+.dis-table th:first-child {
+    min-width: 40px;
+    width: 40px;
+    padding-left: 16px;
+}
+
+.dis-table input {
+    width: 16px;
+    height: 16px;
     cursor: pointer;
 }
 
-.delete_modal-middle {
-    font-size: 1.025rem;
-    text-align: left;
-    margin: 0 16px 30px;
-    font-weight: var(--fw-600);
+.dis-table tbody tr:nth-child(even) {
+    background-color: #0000000b;
 }
 
-.delete_modal-footer {
-    display: flex;
-    justify-content: space-around;
-    margin: 10px 0;
+.dis-table_name {
+    width: 250px;
 }
 
-.delete_modal-footer button {
-    background-color: var(--hoockers-green_80_color);
-    color: white;
-    font-weight: var(--fw-600);
-    font-size: 1.25rem;
-    padding: 5px 20px;
-    border-radius: 8px;
-    transition: ease-in-out .3s;
+.dis-table_id {
+    width: 150px;
 }
 
-.delete_modal-footer button:hover {
-    background-color: var(--hoockers-green_color);
+/* Tìm kiếm sản phẩm giảm giá */
+/* ===== SEARCH BOX - KHUNG TÌM KIẾM ===== */
+.table_dis-wrapper .search-box {
+    position: relative;
+    height: 7vh;
+    min-width: 550px;
+    width: 100%;
+    margin: 10px auto;
+}
+
+.table_dis-wrapper .search-box input {
+    height: 100%;
+    width: 100%;
+    outline: none;
+    background: white;
+    border: 2px solid #EFEEF1;
+    border-radius: 6px;
+    font-size: 18px;
+    padding: 0 15px;
+    margin: auto;
+}
+
+.table_dis-wrapper .search-box input:focus {
+    outline: 3px solid var(--hoockers-green_color);
+}
+
+.table_dis-wrapper .search-box .bx-search {
+    position: absolute;
+    height: 35px;
+    width: 35px;
+    background: #4e7460;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-radius: 4px;
+    line-height: 35px;
+    text-align: center;
+    color: #fff;
+    font-size: 22px;
+    transition: all 0.4 ease;
+    cursor: pointer;
+}
+/* ====== Search sort -  HIỆU ỨNG TÌM KIẾM ====== */
+.dis-table tbody tr {
+    transition: .5s ease-in-out var(--delay), background-color 0s;
+}
+
+.product-table tbody tr.hide {
+    opacity: 0;
+    transform: translateX(100%);
+}
+
+.dis-table tbody tr td,
+.dis-table tbody tr td input,
+.dis-table tbody tr td img,
+.dis-table tbody tr td button,
+.dis-table tbody tr td button i {
+    transition: .2s ease-in-out;
+}
+
+.dis-table tbody tr.hide td,
+.dis-table tbody tr.hide td button,
+.dis-table tbody tr.hide td button i,
+.dis-table tbody tr.hide td input {
+    padding: 0;
+    font: 0 / 0 'Merriweather', serif;
+    transition: .2s ease-in-out .5s;
+}
+
+.dis-table tbody tr.hide td img,
+.dis-table tbody tr.hide td input {
+    height: 0;
+    width: 0;
+    transition: .2s ease-in-out .5s;
+}
+
+.admin_home-section .home-content{
+    padding-bottom: 10px;
 }

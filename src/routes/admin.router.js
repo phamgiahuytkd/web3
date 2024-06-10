@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const {getAdmin, getAdminProduct, postAddProduct, getAdminIdProduct, postUpdateProduct,
     getCatalogAdmin, getAdminOrder, getAdminOrderDetail, getStatistics, postQuantity0Product, 
-    getCustomer, getCustomerID, getDiscount, postStatusBill
+    getCustomer, getCustomerID, getDiscount, postStatusBill, postAddDiscount, getAdminAccount, postChangePass
 } = require('../controllers/admin.controller');
 
 //Upload ảnh
@@ -91,6 +91,11 @@ router.get('/customer/:customerID', getCustomerID);
 router.get('/discount', getDiscount);
 
 
+router.post('/discount/ad_discount', postAddDiscount);
+
+router.get('/admin_account', getAdminAccount);
+
+router.post('/admin_acount/change_pass', postChangePass);
 
 
 module.exports = router;

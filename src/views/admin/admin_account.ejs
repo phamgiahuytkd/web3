@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<%- include ('genaral/head.ejs') %>
+
+<body>
+    <!-- SIDE MENU -->
+    <%- include ('genaral/menu.ejs') %>
+
+    <!-- HOME CONTENT -->
+    <section class="admin_home-section" id="csc">
+        <!-- HEADER -->
+        <nav>
+            <div class="sidebar-button">
+                <i class="bx bx-menu sidebarBtn"></i>
+                <span class="admin_dashboard_title">Cài đặt</span>
+            </div>
+        </nav>
+        <div class="home-content">
+            <div class="account_form-container">
+                <h2>Thông tin tài khoản</h2>
+                <form >
+                    <div class="account_form-group">
+                        <label for="username">Tên tài khoản</label>
+                        <input type="text" id="username" name="username" value="<%= User_ID %>" readonly>
+                    </div>
+                </form>
+                    <h2>Đổi mật khẩu</h2>
+                    <form id="account_change-password-form" onsubmit="return false;">
+                        <div class="account_form-group">
+                            <label for="new-password">Mật khẩu mới <span class="account_required">*</span></label>
+                            <input type="password" name="old_password" required>
+                        </div>
+                        <div class="account_form-group">
+                            <label for="new-password">Mật khẩu mới <span class="account_required">*</span></label>
+                            <input type="password" id="new-password" name="new_password" required>
+                        </div>
+                        <div class="account_form-group">
+                            <label for="confirm-password">Xác nhận lại mật khẩu <span
+                                    class="account_required">*</span></label>
+                            <input type="password" id="confirm-password" name="confirm_password" required>
+                        </div>
+                        <div class="account_form-group account_center">
+                            <button type="submit" onclick="update_pass_admin()">Đồng ý</button>
+                        </div>
+                    
+                </form>
+            </div>
+        </div>
+
+    </section>
+    <!-- JAVA Link -->
+    <script src="/admin/js/admin_account.js" defer></script>
+    <%- include ('genaral/linkandicon.ejs') %>
+</body>
+
+</html>

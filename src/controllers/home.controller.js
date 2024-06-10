@@ -1,6 +1,9 @@
-const {db_AllProduct, db_IdProduct, db_Discount, db_Catalog, db_Group, db_BestDiscount, db_DiscountProduct} = require('../models/product.model');
+const {db_AllProduct, db_IdProduct, db_Discount, db_Catalog, db_Group, db_BestDiscount, db_DiscountProduct,
+    db_Productrating
 
+} = require('../models/product.model');
 
+const baseForm = require('../migration/view.func');
 
 
 
@@ -38,9 +41,11 @@ const getProduct = async function (req, res){
 
 const getIdProduct = async function (req, res){
     let id_product = req.params.id_product;
+    let rating = await db_Productrating(id_product);
     let product = await db_IdProduct(id_product);
     let discount = await db_Discount();
-    return res.render('product_detail.ejs', {id_Product: product[0], all_Discount: discount});
+    
+    return res.render('product_detail.ejs', {id_Product: product[0], all_Discount: discount, rating: rating, baseForm: baseForm});
     
 };
 

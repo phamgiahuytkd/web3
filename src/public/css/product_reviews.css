@@ -1,0 +1,112 @@
+
+
+.review-section {
+    background-color: white;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.overall-rating_point {
+    display: flex;
+    margin-bottom: 20px;
+    background-color: hsl(0, 0%, 100%);
+    height: 150px;
+    align-items: center;
+    border: 0.5px solid  hsl(0, 0%, 100%, 0.5);
+    border-radius: 5px;
+}
+
+.overall-rating_point_a {
+    margin-left: 20px;
+}
+.overall-rating_point_container {
+    display: flex;
+    justify-content:end; 
+    align-items:end;  
+}
+
+.overall-rating_point_container_rating {
+    padding-right: 10px;
+}
+
+.overall-rating_point_container_text {
+    vertical-align: bottom;
+}
+.rating-number {
+    font-size: 2em;
+    color: #e53935;
+    margin-right: 10px;
+}
+
+.rating-stars span {
+    font-size: 1.5em;
+    color: #ffcc00;
+}
+
+.rating-stars {
+    display: flex;
+}
+
+.overall-rating_point_button {
+    display: flex;
+    justify-content: center; 
+    align-items: center;  
+    gap: 10px;               
+    margin-left: 20px;
+}
+
+.overall-rating_point_button button {
+    justify-content: center;
+}
+
+.overall-rating-review {
+    border-bottom: 1px solid #eee;
+    padding-top: 20px;
+    padding-left: 50px;
+    padding-bottom: 30px;
+    background-color: hsl(0, 0%, 100%);
+    margin-bottom: 20px;
+    border: 0.5px solid  hsl(0, 0%, 100%, 0.5);
+    border-radius: 5px;
+}
+
+.overall-rating-review-header {
+    display:grid;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.overall-rating-username-date {
+    display: flex;
+    flex-direction: column;
+}
+
+.overall-rating-username {
+    font-weight: bold;
+}
+
+.overall-rating-review-date {
+    color: #999;
+}
+
+.review-content {
+    background-color: #eee;
+}
+
+
+
+
+
+
+
+
+.rating_starts-start span {
+    color: #ccc; /* Màu xám mặc định */
+}
+
+.rating_starts-start span.highlighted {
+    color: orange; /* Màu khi được chọn */
+}

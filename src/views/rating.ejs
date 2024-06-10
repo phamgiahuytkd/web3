@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<%- include ('genaral/head.ejs') %>
+
+<body id="top">
+    <!-- MENU -->
+    <%- include ('genaral/menu.ejs') %>
+
+    <!-- HOME CONTENT -->
+    <main>
+        <article>
+            
+
+            <!-- COLLECTIONS -->
+            <section class="section products container" data-section>
+                <div class="home_new-product">
+                    <div class="grid">
+                        <div class="grid_row">
+                            <div class="grid_column-12 review-content">
+                                <h2 style="margin-bottom: 20px; margin-top:20px">ĐÁNH GIÁ SẢN PHẨM</h2>
+                                <div class="overall-rating">
+                                
+                                
+                                    <% RateProduct.forEach(function(each_rate){ %>
+                                        <form action="/rating/ad_rating" method="POST">
+                                            <div class="rating_container">
+                                                <h3 class="rating_date-invoice">Mã sản phẩm: <%= each_rate.Ma_san_pham %></h3>
+                                                <div class="rating_product-review">
+                                                    <div class="rating_product-image" style="background-image: url('/product_img/<%= each_rate.Hinh_anh %>')">
+                                                        <!-- hình đại diện -->
+                                                    </div>
+                                                    <div class="rating_product-details">
+                                                        <div class="rating_product-name"><%= each_rate.Ten_san_pham %></div>
+                                                        <div class="rating_starts">
+                                                            <div class="rating_starts-start">
+                                                                <span data-value="1">&#9733;</span>
+                                                                <span data-value="2">&#9733;</span>
+                                                                <span data-value="3">&#9733;</span>
+                                                                <span data-value="4">&#9733;</span>
+                                                                <span data-value="5">&#9733;</span>
+                                                            </div>
+                                                            <textarea type="text" class="rating_start-comment" placeholder="Nhập đánh giá của bạn" name="Mo_ta"></textarea>
+                                                        </div>
+                                                        <input type="hidden" name="Ma_hoa_don" value="<%= id_rating %>">
+                                                        <input type="hidden" name="Ma_san_pham" value="<%= each_rate.Ma_san_pham %>">
+                                                        <input type="hidden" class="rating-value" name="rating" value="5">
+                                                        <div class="rating_submit-review">
+                                                            <button type="submit" onclick="submitRating(this)">Gửi đánh giá</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    <% }) %>
+                                    
+                                    <script>
+                                       document.addEventListener('DOMContentLoaded', () => {
+                                            const forms = document.querySelectorAll('.rating_container');
+
+                                            forms.forEach(form => {
+                                                const stars = form.querySelectorAll('.rating_starts-start span');
+                                                const ratingInput = form.querySelector('.rating-value');
+                                                
+                                                stars.forEach(star => {
+                                                    star.addEventListener('click', () => {
+                                                        const selectedRating = parseInt(star.getAttribute('data-value'));
+                                                        ratingInput.value = selectedRating;
+                                                        highlightStars(selectedRating, stars);
+                                                    });
+                                                });
+                                            });
+                                        });
+
+                                        function highlightStars(selectedRating, stars) {
+                                            stars.forEach(star => {
+                                                const starValue = parseInt(star.getAttribute('data-value'));
+                                                if (starValue <= selectedRating) {
+                                                    star.classList.add('highlighted');
+                                                } else {
+                                                    star.classList.remove('highlighted');
+                                                }
+                                            });
+                                        }
+
+                                    </script>
+                                    
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            
+            <!-- COLLECTIONS -->
+            
+            <!-- BANNER -->
+            
+
+            <!-- FEATURE -->
+            
+
+            
+        </article>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer" data-section>
+        <div class="container">
+
+            <div class="footer-top">
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title logo">G <span>LAM</span></p>
+                    </li>
+
+                    <li>
+                        <p class="footer-list-text">
+                            Tìm cửa hàng gần bạn tại đây <a href="#" class="link">Xem cửa hàng gần đây</a>
+                        </p>
+                    </li>
+
+                    <li>
+                        <p class="footer-list-text bold"><i class="ri-phone-fill"></i> 0986.448.789</p>
+                    </li>
+
+                    <li>
+                        <p class="footer-list-text">GLAM_cosmetic@gmail.com</p>
+                    </li>
+
+                </ul>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title">Chuyển trang</p>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Chăm sóc tóc</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Chăm sóc da</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Nước hoa</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Trang điểm</a>
+                    </li>
+
+                </ul>
+
+                <ul class="footer-list">
+
+                    <li>
+                        <p class="footer-list-title">Thông tin</p>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Trang chủ</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Liên hệ</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Shipping FAQ</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Điều khoản</a>
+                    </li>
+
+                    <li>
+                        <a href="#" class="footer-link">Chính sách quyền riêng tư</a>
+                    </li>
+
+                </ul>
+
+                <div class="footer-list">
+
+                    <p class="newsletter-title">Nhận ưu đãi sớm nhất</p>
+
+                    <p class="newsletter-text">
+                        Đăng ký để nhận thông tin ưu đãi và thông báo mới nhất về sản phẩm.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <div class="wrapper">
+
+                    <ul class="social-list">
+
+                        <li>
+                            <a href="#" class="social-link">
+                                <ion-icon name="logo-twitter"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="social-link">
+                                <ion-icon name="logo-facebook"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="social-link">
+                                <ion-icon name="logo-instagram"></ion-icon>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="#" class="social-link">
+                                <ion-icon name="logo-youtube"></ion-icon>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <a href="#" class="logo">
+                    G<span>LAM</span>
+                </a>
+
+                <img src="./img/pay.png" width="313" height="28" alt="available all payment method" class="w-100">
+
+            </div>
+
+        </div>
+    </footer>
+
+    <!-- BACK TO TOP -->
+    <!-- <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+        <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
+    </a> -->
+
+    <!-- JAVASCRIPT LINK -->
+    <script src="/js/main.js" defer></script>
+    <script src="/js/login.js" defer></script>
+    <!-- IONCIONS LINK -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+
+</body>
+
+</html>

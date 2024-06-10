@@ -3,321 +3,191 @@
 
 <%- include ('genaral/head.ejs') %>
 
-<body id="top">
-    <!-- MENU -->
-    <%- include ('genaral/menu.ejs') %>
+    <body id="top">
+        <!-- MENU -->
+        <%- include ('genaral/menu.ejs') %>
 
-    <!-- HOME CONTENT -->
-    <section>
-        <div class="container prroduct_detail-content">
-                <%
-                    // Phân tách chuỗi ảnh thành mảng ảnh, sử dụng dấu phẩy (,) làm dấu phân cách
-                    let ar_Img = id_Product.Hinh_anh.split(',');
-                    
-
-                %>
-            <div class="image-slider">
-                <button class="prev" onclick="prevImage()">❮</button>
-                <img id="productImage" src="/product_img/<%= ar_Img[0] %>" alt="Nước sen Hậu Giang 310ml">
-                <button class="next" onclick="nextImage()">❯</button>
-            </div>
-            <div class="product-details">
-                <h1><%= id_Product.Ten_san_pham %></h1>
-
-                <%
-                    let Gia_moi = null;
-                    let Phan_tram = null;
-                    for (let i = 0; i < all_Discount.length; i++) {
-                        if (id_Product.Ma_san_pham == all_Discount[i].Ma_san_pham) {
-                            Gia_moi = (id_Product.Don_gia * all_Discount[i].Phan_tram) / 100;
-                            Phan_tram = all_Discount[i].Phan_tram;
-                        }
-                       
-                    }
-                %>
-
-                <% if (Gia_moi == null) { 
-                    Gia_moi = id_Product.Don_gia; 
-                %>
-                <p class="price"><%= Gia_moi %> đ</p>
-                <% } else { %>
-                <p class="price"> <%= Gia_moi %> đ          <b style="color: red;">Giảm <%= Phan_tram %> %</b></p>
-                <% } %>
-
-                <p class="description">
-                    <%= id_Product.Mo_ta_san_pham %>
-                </p>
-
-                
-                <div class="suitable-for">
-                    <h3>Thích hợp với</h3>
-                    <p>Da dầu</p>
-                </div>
-
-                <div class="ingredients">
-                    <h3>Thành phần chính</h3>
-                    <p>Chiết xuất sen, Madecassoside, B5, B12, Beta-glucan và Sweetone®.</p>
-                </div>
-                
-                <button class="add-to-cart" onclick="addToCart('<%= id_Product.Ma_san_pham %>', '<%= id_Product.Ten_san_pham %>', '<%= ar_Img[0] %>', '<%= Gia_moi %>')">THÊM VÀO GIỎ HÀNG <i class="ri-shopping-cart-2-line"></i></button>
-            </div>
-        </div>
-        
-        <div id="images" style="display: none;">
-            <% ar_Img.forEach(function(each_Img){ %>
-                <img src="/product_img/<%= each_Img %>" alt="Nước sen Hậu Giang 310ml">
-            <% }) %>
-        </div>
-    </section>
-     <!--- Thêm sản phẩm vào giỏ hàng -->
-     
-
-
-
-
-
-
-
-    <section class="section products container" data-section>
-        <div class="home_new-product">
-            <div class="grid">
-                <div class="grid_row">
-                    <div class="grid_column-12">
-                        <div class="new-product">
-                            <h2 class="new-product_heading">
-                                SẢN PHẨM KHÁC
-                            </h2>
-                            <a href="#" class="more">XEM THÊM
-                                <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
-                            </a>
-                        </div>
-                        <div class="product">
-                            <div class="grid_row">
-                                <div class="grid_column-2-4">
-                                    <div class="product-item">
-                                        <div class="product-item_img"
-                                            style="background-image: url('../img/product-01.jpg')">
-                                        </div>
-                                        <a href="#" class="product-item_name">
-                                            Hộp 8 Miếng Mặt Nạ Naruko Tràm Trà Kiềm Dầu Giảm Mụn 26ml/M
-                                        </a>
-                                        <div class="product_rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-half-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                        <div class="product-item_price">
-                                            <span class="product-item_price-current">123.000</span>
-                                            <span class="product-item_price-old">233.000</span>
-                                        </div>
-                                        <div class="product-item_action">
-                                            <ul class="product-item_action-list">
-                                                <li class="product-item_cart">
-                                                    <span class="product-item_icon product-item_cart-icon">
-                                                        <i class="ri-shopping-cart-2-fill"></i>
-                                                    </span>
-                                                    <span class="product-item_action-title">
-                                                        <a href="#">Thêm vào giỏ</a>
-                                                    </span>
-                                                </li>
-                                                <li class="product-item_buy">
-                                                    <span class="product-item_icon product-item_buy-icon">
-                                                        <i class="ri-eye-fill"></i>
-                                                    </span>
-                                                    <span class="product-item_action-title">
-                                                        <a href="#">Chi tiết</a>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="grid_column-2-4">
-                                    <div class="product-item">
-                                        <div class="product-item_img"
-                                            style="background-image: url('../img/product-02.jpg')">
-                                        </div>
-                                        <a href="#" class="product-item_name">Sữa rửa mặt</a>
-                                        <div class="product_rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-half-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                        <div class="product-item_price">
-                                            <span class="product-item_price-current">123.000</span>
-                                            <span class="product-item_price-old">233.000</span>
-                                        </div>
-                                        <div class="product-item_action">
-                                            <ul class="product-item_action-list">
-                                                <li class="product-item_cart">
-                                                    <span class="product-item_icon product-item_cart-icon">
-                                                        <i class="ri-shopping-cart-2-fill"></i>
-                                                    </span>
-                                                    <span class="product-item_action-title">
-                                                        <a href="#">Thêm vào giỏ</a>
-                                                    </span>
-                                                </li>
-                                                <li class="product-item_buy">
-                                                    <span class="product-item_icon product-item_buy-icon">
-                                                        <i class="ri-eye-fill"></i>
-                                                    </span>
-                                                    <span class="product-item_action-title">
-                                                        <a href="#">Chi tiết</a>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="grid_column-2-4">
-                                    <div class="product-item">
-                                        <div class="product-item_img"
-                                            style="background-image: url('../img/product-03.jpg')">
-                                        </div>
-                                        <a href="#" class="product-item_name">Sữa rửa mặt</a>
-                                        <div class="product_rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-half-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                        <div class="product-item_price">
-                                            <span class="product-item_price-current">123.000</span>
-                                            <span class="product-item_price-old">233.000</span>
-                                        </div>
-                                        <div class="product-item_action">
-                                            <ul class="product-item_action-list">
-                                                <li class="product-item_cart">
-                                                    <span class="product-item_icon product-item_cart-icon">
-                                                        <i class="ri-shopping-cart-2-fill"></i>
-                                                    </span>
-                                                    <span class="product-item_action-title">
-                                                        <a href="#">Thêm vào giỏ</a>
-                                                    </span>
-                                                </li>
-                                                <li class="product-item_buy">
-                                                    <span class="product-item_icon product-item_buy-icon">
-                                                        <i class="ri-eye-fill"></i>
-                                                    </span>
-                                                    <span class="product-item_action-title">
-                                                        <a href="#">Chi tiết</a>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="grid_column-2-4">
-                                    <div class="product-item">
-                                        <div class="product-item_img"
-                                            style="background-image: url('../img/product-04.jpg')">
-                                        </div>
-                                        <a href="#" class="product-item_name">Sữa rửa mặt</a>
-                                        <div class="product_rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-half-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                        <div class="product-item_price">
-                                            <span class="product-item_price-current">123.000</span>
-                                            <span class="product-item_price-old">233.000</span>
-                                        </div>
-                                        <div class="product-item_action">
-                                            <ul class="product-item_action-list">
-                                                <li class="product-item_cart">
-                                                    <span class="product-item_icon product-item_cart-icon">
-                                                        <i class="ri-shopping-cart-2-fill"></i>
-                                                    </span>
-                                                    <span class="product-item_action-title">
-                                                        <a href="#">Thêm vào giỏ</a>
-                                                    </span>
-                                                </li>
-                                                <li class="product-item_buy">
-                                                    <span class="product-item_icon product-item_buy-icon">
-                                                        <i class="ri-eye-fill"></i>
-                                                    </span>
-                                                    <span class="product-item_action-title">
-                                                        <a href="#">Chi tiết</a>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="grid_column-2-4">
-                                    <div class="product-item">
-                                        <div class="product-item_img"
-                                            style="background-image: url('../img/product-05.jpg')">
-                                        </div>
-                                        <a href="#" class="product-item_name">Sữa rửa mặt</a>
-                                        <div class="product_rating">
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-fill"></i>
-                                            <i class="ri-star-half-fill"></i>
-                                            <i class="ri-star-line"></i>
-                                            <i class="ri-star-line"></i>
-                                        </div>
-                                        <div class="product-item_price">
-                                            <span class="product-item_price-current">123.000</span>
-                                            <span class="product-item_price-old">233.000</span>
-                                        </div>
-                                        <div class="product-item_action">
-                                            <ul class="product-item_action-list">
-                                                <li class="product-item_cart">
-                                                    <span class="product-item_icon product-item_cart-icon">
-                                                        <i class="ri-shopping-cart-2-fill"></i>
-                                                    </span>
-                                                    <span class="product-item_action-title">
-                                                        <a href="#">Thêm vào giỏ</a>
-                                                    </span>
-                                                </li>
-                                                <li class="product-item_buy">
-                                                    <span class="product-item_icon product-item_buy-icon">
-                                                        <i class="ri-eye-fill"></i>
-                                                    </span>
-                                                    <span class="product-item_action-title">
-                                                        <a href="#">Chi tiết</a>
-                                                    </span>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
+            <!-- HOME CONTENT -->
+            <section>
+                <div class="container prroduct_detail-content">
+                    <div class="image-slider">
+                        <button class="prev" onclick="prevImage()">❮</button>
+                        <img id="productImage" src="../img/product-Sen01.jpg" alt="Nước sen Hậu Giang 310ml">
+                        <button class="next" onclick="nextImage()">❯</button>
                     </div>
-                    <hr>
+                    <div class="product-details">
+                        <h1>
+                            <%= id_Product.Ten_san_pham %>
+                        </h1>
+
+                        <% let Gia_moi=null; let Phan_tram=null; for (let i=0; i < all_Discount.length; i++) { if
+                            (id_Product.Ma_san_pham==all_Discount[i].Ma_san_pham) { Gia_moi=(id_Product.Don_gia *
+                            all_Discount[i].Phan_tram) / 100; Phan_tram=all_Discount[i].Phan_tram; } } %>
+
+                            <% if (Gia_moi==null) { Gia_moi=id_Product.Don_gia; %>
+                                <p class="price">
+                                    <%= baseForm.formatTien(Gia_moi) %> đ
+                                </p>
+                                <% } else { %>
+                                    <p class="price">
+                                        <%= baseForm.formatTien(Gia_moi) %> đ <b style="color: red;">Giảm <%= Phan_tram %> %</b>
+                                    </p>
+                                    <% } %>
+
+                                        <p class="description">
+                                            <%= id_Product.Mo_ta_san_pham %>
+                                        </p>
+
+
+                                        <div class="suitable-for">
+                                            <h3>Thích hợp với</h3>
+                                            <p>Da dầu</p>
+                                        </div>
+
+                                        <div class="ingredients">
+                                            <h3>Thành phần chính</h3>
+                                            <p>Chiết xuất sen, Madecassoside, B5, B12, Beta-glucan và Sweetone®.</p>
+                                        </div>
+                                        <% // Phân tách chuỗi ảnh thành mảng ảnh, sử dụng dấu phẩy (,) làm dấu phân cách
+                                            let ar_Img=id_Product.Hinh_anh.split(','); %>
+                                            <button class="add-to-cart"
+                                                onclick="addToCart('<%= id_Product.Ma_san_pham %>', '<%= id_Product.Ten_san_pham %>', '<%= ar_Img[0] %>', '<%= Gia_moi %>')">THÊM
+                                                VÀO GIỎ HÀNG <i class="ri-shopping-cart-2-line"></i></button>
+                    </div>
                 </div>
-            </div>
-        </div>
-    </section>
+
+                <div id="images" style="display: none;">
+                    <% ar_Img.forEach(function(each_Img){ %>
+                        <img src="/product_img/<%= each_Img %>" alt="Nước sen Hậu Giang 310ml">
+                        <% }) %>
+                </div>
+            </section>
+            <!--- Thêm sản phẩm vào giỏ hàng -->
 
 
 
-    <!-- FOOTER -->
-    <%- include ('genaral/footer.ejs') %>
 
-    <!-- BACK TO TOP -->
-    <!-- <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+
+
+
+
+
+
+
+            <section class="section products container" data-section>
+                <div class="home_new-product">
+                    <div class="grid">
+                        <div class="grid_row">
+                            <div class="grid_column-12 review-content">
+                                <h2 style="margin-bottom: 20px; margin-top:20px">ĐÁNH GIÁ SẢN PHẨM</h2>
+
+                                <% if(rating.length === 0){ %>
+                                <h5>Chưa có bình luận nào!</h5>
+                                <% }else { %>
+                                <div class="overall-rating">
+                                    <div class="overall-rating_point">
+                                        <div class="overall-rating_point_a">
+                                            <div class="overall-rating_point_container">
+                                                <h2 class="overall-rating_point_container_rating" id="average-rating-value">4.9</h2>
+                                                <div class="overall-rating_point_container_text">trên 5</div>
+                                            </div>
+                                            <div class="rating-stars" id="average-rating-stars">
+                                                <!-- Các sao sẽ được thêm bằng JavaScript -->
+                                            </div>
+                                        </div>
+                                        <div class="overall-rating_point_button">
+                                            <button class="all-btn" onclick="filterReviews('all')">Tất cả</button>
+                                            <button class="positive-btn" onclick="filterReviews('positive')">Tích Cực</button>
+                                            <button class="negative-btn" onclick="filterReviews('negative')">Tiêu Cực</button>
+                                        </div>
+                                    </div>
+                                    <div id="reviews-container">
+                                        <% rating.forEach(function(each_rating){ %>
+                                        <div class="overall-rating-review" data-rating="<%= each_rating.Sao %>">
+                                            <div class="overall-rating-review-header">
+                                                <span class="overall-rating-username"><%= each_rating.Ho_ten %></span>
+                                                <div class="rating-stars">
+                                                    <% for (let i = 1; i <= each_rating.Sao; i++) { %>
+                                                    <span data-value="<%= i %>">&#9733;</span>
+                                                    <% } %>
+                                                </div>
+                                                <span class="overall-rating-review-date"><%= baseForm.formatDateTime(each_rating.Ngay_danh_gia) %></span>
+                                            </div>
+                                            <div class="overall-rating-review-body">
+                                                <p><%= each_rating.Binh_luan %></p>
+                                            </div>
+                                        </div>
+                                        <% }) %>
+                                    </div>
+                                </div>
+                                <% }%>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </section>
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+            // Tính trung bình sao
+            const reviews = document.querySelectorAll('.overall-rating-review');
+            let totalStars = 0;
+            reviews.forEach(review => {
+                totalStars += parseInt(review.getAttribute('data-rating'));
+            });
+            const averageRating = (totalStars / reviews.length).toFixed(1);
+
+            // Cập nhật giá trị trung bình sao
+            document.getElementById('average-rating-value').textContent = averageRating;
+
+            // Hiển thị trung bình sao
+            const averageStarsContainer = document.getElementById('average-rating-stars');
+            averageStarsContainer.innerHTML = '';
+            for (let i = 1; i <= 5; i++) {
+                if (i <= Math.round(averageRating)) {
+                    averageStarsContainer.innerHTML += '<span data-value="' + i + '">&#9733;</span>';
+                } else {
+                    averageStarsContainer.innerHTML += '<span data-value="' + i + '">&#9734;</span>';
+                }
+            }
+        });
+
+        function filterReviews(type) {
+            const reviews = document.querySelectorAll('.overall-rating-review');
+            reviews.forEach(review => {
+                const rating = parseInt(review.getAttribute('data-rating'));
+                if (type === 'all') {
+                    review.style.display = 'block';
+                } else if (type === 'positive' && rating >= 4) {
+                    review.style.display = 'block';
+                } else if (type === 'negative' && rating <= 3) {
+                    review.style.display = 'block';
+                } else {
+                    review.style.display = 'none';
+                }
+            });
+        }
+
+</script>
+
+
+
+            <!-- FOOTER -->
+            <%- include ('genaral/footer.ejs') %>
+
+                <!-- BACK TO TOP -->
+                <!-- <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
         <ion-icon name="arrow-up" aria-hidden="true"></ion-icon>
     </a> -->
 
-    <!-- JAVASCRIPT LINK --><!-- IONCIONS LINK -->
-    <%- include ('genaral/linkandicon.ejs') %>
+                <!-- JAVASCRIPT LINK --><!-- IONCIONS LINK -->
+                <%- include ('genaral/linkandicon.ejs') %>
 
 
-</body>
+    </body>
 
 </html>

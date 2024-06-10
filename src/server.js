@@ -53,7 +53,7 @@ app.use((req, res, next) => {
       
         let user = decodeToken(req.session.token);
        
-        res.locals.user = user.User_ID;
+        res.locals.user = user.Ho_ten;
         if (!req.session.cart) {        
             req.session.cart = [];
         }

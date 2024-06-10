@@ -1,0 +1,53 @@
+.account_form-container {
+    width: 50%;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    margin-top: 0;
+}
+
+.account_form-group {
+    margin-bottom: 15px;
+}
+
+.account_form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.account_form-group input,
+.account_form-group select {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+
+}
+
+.account_form-group input:focus {
+    outline: none;
+}
+
+.account_form-group .account_required {
+    color: red;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #67987e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #4e7460;
+}

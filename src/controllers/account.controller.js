@@ -1,8 +1,9 @@
 const {getInfoUsers, update_InfoUsers, update_Pass, getIdUsers} = require('../models/user.model');
-const {ad_Bill, ad_DetailBill, db_AllBillUser, get_BillDetail} = require('../models/bill.model');
+const {ad_Bill, ad_DetailBill, db_AllBillUser, get_BillDetail, db_RateProduct, add_Rating} = require('../models/bill.model');
 const baseForm = require('../migration/view.func');
 const moment = require('moment');
 const bcrypt = require('bcrypt');
+const {decodeToken} = require('../middleware/token');
 
 
 const { v4: uuidv4 } = require('uuid');
@@ -70,7 +71,8 @@ const postRemoveCart = async function (req, res){
 const getCheckout = async function (req, res){
     if (req.session.isLoggedIn === true) {
         if (req.session.checkout) {   
-            let info_user = await getInfoUsers(res.locals.user);
+            let user = decodeToken(req.session.token);
+            let info_user = await getInfoUsers(user.User_ID);
             let checkout = req.session.checkout;
             return res.render('checkout.ejs', { checkout : checkout, info_user : info_user[0]});
         }
@@ -104,8 +106,9 @@ const postCartPay = async function (req, res) {
 
 const getAccount = async function (req, res){
     if (req.session.isLoggedIn === true) {
-        let all_bill = await db_AllBillUser(res.locals.user);
-        let info_user = await getInfoUsers(res.locals.user);
+        let user = decodeToken(req.session.token);
+        let all_bill = await db_AllBillUser(user.User_ID);
+        let info_user = await getInfoUsers(user.User_ID);
         return res.render('account.ejs', {all_bill: all_bill, info_user: info_user[0], baseForm: baseForm});
     }
     
@@ -120,8 +123,9 @@ const getAccount = async function (req, res){
 
 const postUpdateAddressAccount = async function (req, res){
     if (req.session.isLoggedIn === true) {
-        
-        let User_ID  = res.locals.user;
+
+        let user = decodeToken(req.session.token);
+        let User_ID  = user.User_ID;
         let Ho_ten = req.body.Ho_ten ;
         let Dien_thoai = req.body.Dien_thoai ;
         let Dia_chi = req.body.Dia_chi ;
@@ -141,7 +145,8 @@ const postUpdateAddressAccount = async function (req, res){
 const postUpdatePass = async function (req, res){
     if (req.session.isLoggedIn === true) {
         
-        let User_ID  = res.locals.user;
+        let user = decodeToken(req.session.token);
+        let User_ID  = user.User_ID;
         let Old_pass = req.body.oldPassword;
         let Pass_word = req.body.newPassword ;
         let check_pass = await getIdUsers(User_ID);
@@ -172,7 +177,7 @@ const postOrderDetail = async function (req, res){
         let Ma_hoa_don  = req.body.Ma_hoa_don;
         let bill_detail = await get_BillDetail(Ma_hoa_don);
         if(bill_detail){
-            console.log(bill_detail);
+            
             res.send({success: true, bill_detail: bill_detail});
         }else{
             res.send({success: false});
@@ -192,7 +197,8 @@ const postOrderDetail = async function (req, res){
 const postUpdateAddressCheckout = async function (req, res){
     if (req.session.isLoggedIn === true) {
         
-        let User_ID  = res.locals.user;
+        let user = decodeToken(req.session.token);
+        let User_ID  = user.User_ID;
         let Ho_ten = req.body.Ho_ten ;
         let Dien_thoai = req.body.Dien_thoai ;
         let Dia_chi = req.body.Dia_chi ;
@@ -208,7 +214,9 @@ const postUpdateAddressCheckout = async function (req, res){
 const postAddBill = async function (req, res){
     if (req.session.isLoggedIn === true) {
 
-        let makhachhang  = res.locals.user;
+        let user = decodeToken(req.session.token);
+
+        let makhachhang  = user.User_ID;
         let Ma_hoa_don = uuidv4();
         let Thoi_gian_xuat_hoa_don = moment().format('YYYY-MM-DD HH:mm:ss');
         let Dia_chi  = req.body.Dia_chi;
@@ -245,8 +253,42 @@ const postAddBill = async function (req, res){
 
 
 
+const getRating = async function (req, res){
+    if (req.session.isLoggedIn === true) {
+        let id_rating = req.params.id_rating;
+        let RateProduct = await db_RateProduct(id_rating);
+        return res.render('rating.ejs',{RateProduct: RateProduct, id_rating: id_rating});
+    }
+        
+    
+    
+    
+    
+};
+
+
+
+
+const postAddRate = async function (req, res){
+    if (req.session.isLoggedIn === true) {
+        let Ma_hoa_don  = req.body.Ma_hoa_don;
+        let Ma_san_pham  = req.body.Ma_san_pham;
+        let Sao = req.body.rating;
+        let Binh_luan = req.body.Mo_ta;
+        let check = await add_Rating(Ma_hoa_don, Ma_san_pham, Sao, Binh_luan);
+        if(check === true){
+            res.redirect('/rating/'+Ma_hoa_don);
+        }else{
+            res.send({success: false});
+        }
+        
+        
+        
+    }
+    
+};
 
 module.exports = {
     getCart, postUpdateCart, postRemoveCart, getCheckout, postCartPay, getAccount, postUpdateAddressCheckout, postAddBill, postUpdateAddressAccount,
-    postUpdatePass, postOrderDetail
+    postUpdatePass, postOrderDetail, getRating, postAddRate
 };

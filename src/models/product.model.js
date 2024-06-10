@@ -144,7 +144,88 @@ const set_Quantity0_Product = async function (Ma_san_pham) {
 
 
 
+const ad_Discount = async function (Ma_san_pham, Ngay_bat_dau, Ngay_ket_thuc, Phan_tram) {
+    try{
+        const [results, fields] = await connection.query("INSERT INTO tb_giamgia (Ma_san_pham, Ngay_bat_dau, Ngay_ket_thuc, Phan_tram) VALUES (?, ?, ?, ?)", [Ma_san_pham, Ngay_bat_dau, Ngay_ket_thuc, Phan_tram]);
+        return true;
+
+    }catch(err){
+        console.log(err);
+        throw new Error('Database query failed');S
+    }
+}
+
+
+
+const db_AllCodeDiscountProduct = async function (err) {
+    try{
+        const [results, fields] = await connection.query(`
+SELECT sp.Ma_san_pham, sp.Ten_san_pham, sp.Don_gia
+FROM tb_sanpham sp
+LEFT JOIN tb_giamgia gg ON sp.Ma_san_pham = gg.Ma_san_pham AND gg.Ngay_ket_thuc <= CURDATE()
+WHERE sp.So_luong > 0
+AND gg.Ma_san_pham IS NULL
+            `);
+        return results;
+
+    }catch(err){
+        throw new Error('Database query failed');
+    }
+}
+
+
+
+
+const db_DiscountAdmin = async function (err) {
+    try{
+        const [results, fields] = await connection.query(`
+SELECT gg.*, sp.Ten_san_pham
+FROM tb_giamgia gg
+JOIN tb_sanpham sp ON gg.Ma_san_pham = sp.Ma_san_pham
+WHERE CURRENT_DATE() < gg.Ngay_ket_thuc
+            
+        `);
+        return results;
+
+    }catch(err){
+        throw new Error('Database query failed');
+    }
+}
+
+
+
+
+const db_Productrating = async function (id) {
+    try{
+        const [results, fields] = await connection.query(`
+            SELECT 
+            d.Ngay_danh_gia, 
+            d.Sao, 
+            d.Binh_luan, 
+            k.Ho_ten
+        FROM 
+            tb_danhgia d
+        JOIN 
+            tb_hoadon h ON d.Ma_hoa_don = h.Ma_hoa_don
+        JOIN 
+            tb_khachhang k ON h.makhachhang = k.User_ID
+        WHERE 
+            d.Ma_san_pham = ?
+        `, [id]);
+        return results;
+
+    }catch(err){
+        throw new Error('Database query failed');
+    } 
+}
+
+
+
+
+
+
 module.exports = {
     db_AllProduct, db_IdProduct, db_Discount, db_Catalog, db_Group, db_BestDiscount, db_DiscountProduct, db_AddProduct,
-    db_UpdateProduct, db_AllProductAdmin, db_CatalogAdmin, set_Quantity0_Product
+    db_UpdateProduct, db_AllProductAdmin, db_CatalogAdmin, set_Quantity0_Product, ad_Discount, db_AllCodeDiscountProduct,
+    db_DiscountAdmin, db_DiscountAdmin, db_Productrating
 }

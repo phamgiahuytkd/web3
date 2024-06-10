@@ -428,29 +428,50 @@ function get_info_customer(customerID, Ho_ten, Dien_thoai, Dia_chi) {
 
 
 //cập nhật trang thái
-function update_status_bill(Ma_hoa_don, Trang_thai) {
-    // Gửi dữ liệu lên server bằng AJAX
-    $.ajax({
-        type: 'POST',
-        url: '/manager/order/update_status_bill',
-        data: {
-            Ma_hoa_don: Ma_hoa_don,
-            Trang_thai: Trang_thai
+function update_pass_admin() { 
+    var form = document.getElementById("account_change-password-form");
+    var oldPassword = form.elements["old_password"];
+    var newPassword = form.elements["new_password"];
+    var confirmPassword = form.elements["confirm_password"];
+    if (confirmPassword.value === newPassword.value){
+        $.ajax({
+            type: 'POST',
+            url: '/manager/admin_acount/change_pass',
+            data: {
+                    oldPassword: oldPassword.value,
+                    newPassword: newPassword.value,
+                    confirmPassword: confirmPassword.value
+            },
+            success: function(response) {
+                if (response.success) {
+                    alert('Đổi mật khẩu thành công!');
+                    window.location.href = '/manager/admin_account'
 
-        },
-        success: function(response) {
-            if (response.success) {
-                alert('Đã xử lý!');
-                window.location.href = '/manager/order';
-            } else {
-                alert('Lôi duyệt hóa đơn: ' + response.message);
+                } else {
+                    alert(response.message);
+                }
+            },  
+            error: function(xhr, status, error) {
+                console.error('Lỗi AJAX:', error);
             }
-        },
-        error: function(xhr, status, error) {
-            console.error('Lỗi AJAX:', error);
-        }
-    });
+        });
+    }else{
+        alert('Mật khẩu không trùng khớp');
+    }
+
+  
+  
+
 }
+
+
+
+
+
+//Đổi mk admin
+
+
+
 
 
 </script>

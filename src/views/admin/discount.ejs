@@ -4,10 +4,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sản phẩm</title>
+    <title>GLAM</title>
     <!-- CSS Link -->
     <link rel="stylesheet" href="/admin/css/style.css" />
-    <link rel="stylesheet" href="/admin/css/product.css">
     <link rel="stylesheet" href="/admin/css/discount.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link rel="stylesheet" type="text/css" href="https://npmcdn.com/flatpickr/dist/themes/material_green.css">
@@ -18,66 +17,7 @@
 
 <body>
     <!-- SIDE MENU -->
-    <div class="admin_sidebar">
-        <div class="logo-details">
-            <div class="admin_home_logo">
-                <i class="ri-gatsby-fill"></i>
-                <a href="">
-                    G<span>LAM</span>
-                </a>
-            </div>
-        </div>
-        <ul class="nav-links">
-            <li>
-                <a href="#">
-                    <i class="bx bx-grid-alt"></i>
-                    <span class="links_name">Tổng quan</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-box"></i>
-                    <span class="links_name">Sản phẩm</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-list-ul"></i>
-                    <span class="links_name">Đơn hàng</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-pie-chart-alt-2"></i>
-                    <span class="links_name">Thống kê</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-user"></i>
-                    <span class="links_name">Khách hàng</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="active">
-                    <i class="ri-discount-percent-line"></i>
-                    <span class="links_name">Giảm giá</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="bx bx-cog"></i>
-                    <span class="links_name">Cài đặt</span>
-                </a>
-            </li>
-            <li class="log_out">
-                <a href="#">
-                    <i class="bx bx-log-out"></i>
-                    <span class="links_name"> Đăng xuất</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+    <%- include ('genaral/menu.ejs') %>
 
     <!-- HOME CONTENT -->
     <section class="admin_home-section" id="csc">
@@ -88,329 +28,130 @@
                 <span class="admin_dashboard_title">Giảm giá</span>
             </div>
             <div class="search-box">
-                <input id="search-input" class="form-control" type="text" placeholder="Tìm kiếm..." />
+                <input id="product-search-input" class="form-control" type="text"
+                    placeholder="Tìm kiếm sản phẩm đã áp giảm giá..." />
                 <i class="bx bx-search"></i>
             </div>
         </nav>
 
         <!-- CONTENT -->
         <div class="home-content">
-            <!-- SORT & FILTER -->
-            <div class="filter">
-                <a href="#"><button class="filter_btn btn-filter">Tất cả</button></a>
-                <a href="#"><button class="filter_btn btn-filter">Nước hoa</button></a>
-                <a href="#"><button class="filter_btn btn-filter">Dầu gội</button></a>
-                <a href="#"><button class="filter_btn btn-filter">Dầu xả</button></a>
-                <a href="#"><button class="filter_btn btn-filter">Sữa tắm</button></a>
-                <a href="#"><button class="filter_btn btn-filter">Dưỡng da</button></a>
-                <a href="#"><button class="filter_btn btn-filter">Da mặt</button></a>
-                <div class="filter_page">
-                    <button class="filter_btn btn-filter filter_product-btn" id="show_add-product"
-                        onclick="openModal()">
-                        <i class='bx bx-plus'></i>
-                        Thêm
-                    </button>
-                    <button class="filter_btn btn-filter filter_product-btn disabled delete-product" disabled="disabled"
-                        id="del_btn" type="submit" onclick="openModal_delete()">
-                        <i class='bx bxs-trash'></i>
-                        Xóa
-                    </button>
+
+            <!-- BẢNG CHỌN SẢN PHẨM -->
+            <div class="dis-filter">
+                <div class="filter_page dis-wrap">
+                    <div class="table_dis-wrapper">
+                        <div class="search-box dis_search">
+                            <input id="dis-search-input" class="form-control" type="text"
+                                placeholder="Tìm kiếm sản phẩm..." />
+                            <i class="bx bx-search"></i>
+                        </div>
+                        <div class="dis-table_section">
+                            <table class="dis-table">
+                                <form>
+                                    <thead>
+                                        <tr>
+                                            <th> </th>
+                                            <th class="dis-table_id">Mã<span> &uarr;</span></th>
+                                            <th class="dis-table_name">Tên<span> &uarr;</span></th>
+                                            <th>Giá<span> &uarr;</span></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbody_dis-table">
+                                        <% all_Product.forEach(function(each_Product) { %>
+                                        <tr>
+                                            <td>
+                                                <input type="radio" name="product-radio" value="<%= each_Product.Ma_san_pham %>">
+                                            </td>
+                                            <td><strong><%= each_Product.Ma_san_pham %></strong></td>
+                                            <td><%= each_Product.Ten_san_pham %></td>
+                                            <td class="dis-table_price"><%= baseForm.formatTien(each_Product.Don_gia) %></td>
+                                            </td>
+                                        </tr>
+                                        <% }); %>
+
+
+                                    </tbody>
+                                </form>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- MODAL MÃ GIẢM GIÁ -->
+                    <div id="add_product_Modal" class="add-product_modal">
+                        <div class="modal-content">
+                            <h2>Thêm giảm giá</h2>
+                            <form id="addProductForm" action="/manager/discount/ad_discount" method="POST">
+                                <div class="popup-container">
+                                    <div class="popup_form">
+                                        <div class="popup_form-element">
+                                            <label for="product_code">Mã sản phẩm</label>
+                                            <input type="text" id="product_code" placeholder="Mã sản phẩm" readonly name="Ma_san_pham">
+                                            <div class="error" id="error_product_code"></div>
+                                        </div>
+                                        <div class="popup_form-element">
+                                            <label for="product_discount">Phần trăm giảm giá (%)</label>
+                                            <input type="text" id="product_discount"
+                                                placeholder="Nhập phần trăm giảm giá" name="Phan_tram">
+                                            <div class="error" id="error_product_discount"></div>
+                                        </div>
+                                        <div class="popup_form-element">
+                                            <label for="product_start_end_discount">Thời gian giảm giá</label>
+                                            <input type="text" id="myID" placeholder="Chọn thời gian giảm giá" name="Thoi_gian">
+                                        </div>
+
+                                    </div>
+                                    <div class="popup_form-element">
+                                        <input type="submit" class="btn_ad" value="Thêm giảm giá cho sản phẩm">
+                                    </div>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
-            <!-- PRODUCT TABLE -->
+            <!-- TABLE SẢN PHẨM ĐÃ ÁP MÃ GIẢM GIÁ -->
             <div class="table">
                 <div class="table_section">
                     <table class="product-table">
                         <form>
                             <thead>
                                 <tr>
-                                    <th>
-                                        <label for="SelectAll">
-                                            <input type="checkbox" id="SelectAll" name="">
-                                        </label>
-                                    </th>
+                                    
                                     <th class="product-table_id">Mã<span> &uarr;</span></th>
                                     <th class="product-table_name">Tên<span> &uarr;</span></th>
                                     <th class="data-sort-order" data-sort-order="asc">Ngày bắt đầu</th>
                                     <th class="data-sort-order" data-sort-order="asc">Ngày kết thúc</th>
                                     <th>Giảm giá (%)<span> &uarr;</span></th>
-                                    <th class="product-table_action">Thao tác</th>
+
+                                    <th>
+                                        Thao tác
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody id="tbody_product-table">
+                                
+                                <% all_Discount.forEach(function(each_Discount) { %>
                                 <tr>
+                                    
+                                    <td><strong><%= each_Discount.Ma_san_pham %></strong></td>
+                                    <td><%= each_Discount.Ten_san_pham %>
+                                    </td>
+                                    <td class="product-table_start_discount"><%= baseForm.formatNgayThangNam(each_Discount.Ngay_bat_dau) %></td>
+                                    <td class="product-table_end_discount"><%= baseForm.formatNgayThangNam(each_Discount.Ngay_ket_thuc) %></td>
+                                    <td class="product-table_price"><%= each_Discount.Phan_tram %> %</td>
+
                                     <td>
                                         <input type="checkbox" class="select" name="">
                                     </td>
-                                    <td><strong>Abc001</strong></td>
-                                    <td>Matcha latte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara Yoko</td>
-                                    <td class="product-table_start_discount">2-1-1990</td>
-                                    <td class="product-table_end_discount">5-1-1990</td>
-                                    <td class="product-table_price">150</td>
-                                    <td>
-                                        <button title="Chi tiết" type="button" class="see-product_icon"
-                                            onclick="openModal_view()">
-                                            <i class="ri-eye-fill"></i>
-                                        </button>
-
-                                        <button title="Sửa" type="button" class="edit-product_icon"
-                                            onclick="openModal_edit()">
-                                            <i class='bx bxs-edit'></i>
-                                        </button>
-
-                                        <button title="Xóa" type="button" class="delete-product_icon"
-                                            onclick="openModal_delete()">
-                                            <i class='bx bxs-trash'></i>
-                                        </button>
-                                    </td>
                                 </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="select" name="">
-                                    </td>
-                                    <td><strong>bbc001</strong></td>
-                                    <td>Matcha latte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara Yoko</td>
-                                    <td class="product-table_start_discount">11-1-1989</td>
-                                    <td class="product-table_end_discount">2-1-1991</td>
-                                    <td class="product-table_price">150</td>
-                                    <td>
-                                        <button title="Chi tiết" type="button" class="see-product_icon"
-                                            onclick="openModal_view()">
-                                            <i class="ri-eye-fill"></i>
-                                        </button>
+                                <% }); %>
 
-                                        <button title="Sửa" type="button" class="edit-product_icon"
-                                            onclick="openModal_edit()">
-                                            <i class='bx bxs-edit'></i>
-                                        </button>
 
-                                        <button title="Xóa" type="button" class="delete-product_icon"
-                                            onclick="openModal_delete()">
-                                            <i class='bx bxs-trash'></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="select" name="">
-                                    </td>
-                                    <td><strong>Abc001</strong></td>
-                                    <td>aatcha latte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara Yoko</td>
-                                    <td class="product-table_start_discount">1-5-1990</td>
-                                    <td class="product-table_end_discount">2-1-1990</td>
-                                    <td class="product-table_price">150</td>
-                                    <td>
-                                        <button title="Chi tiết" type="button" class="see-product_icon"
-                                            onclick="openModal_view()">
-                                            <i class="ri-eye-fill"></i>
-                                        </button>
-
-                                        <button title="Sửa" type="button" class="edit-product_icon"
-                                            onclick="openModal_edit()">
-                                            <i class='bx bxs-edit'></i>
-                                        </button>
-
-                                        <button title="Xóa" type="button" class="delete-product_icon"
-                                            onclick="openModal_delete()">
-                                            <i class='bx bxs-trash'></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <input type="checkbox" class="select" name="">
-                                    </td>
-                                    <td><strong>Abc001</strong></td>
-                                    <td>Matcha latte socola sữa hột gà kim chi đỏ au Fayr Malisorn Sippakorn Aspara Yoko</td>
-                                    <td class="product-table_start_discount">1-1-1990</td>
-                                    <td class="product-table_end_discount">2-1-1990</td>
-                                    <td class="product-table_price">140</td>
-                                    <td>
-                                        <button title="Chi tiết" type="button" class="see-product_icon"
-                                            onclick="openModal_view()">
-                                            <i class="ri-eye-fill"></i>
-                                        </button>
-
-                                        <button title="Sửa" type="button" class="edit-product_icon"
-                                            onclick="openModal_edit()">
-                                            <i class='bx bxs-edit'></i>
-                                        </button>
-
-                                        <button title="Xóa" type="button" class="delete-product_icon"
-                                            onclick="openModal_delete()">
-                                            <i class='bx bxs-trash'></i>
-                                        </button>
-                                    </td>
-                                </tr>
                             </tbody>
                         </form>
                     </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- MODAL THÊM SẢN PHẨM -->
-        <div id="add_product_Modal" class="add-product_modal">
-            <div class="modal-content">
-                <h2>Thêm thông tin giảm giá</h2>
-                <form id="addProductForm">
-                    <div class="popup-container">
-                        <div class="close-popup-btn" title="Đóng" onclick="closeModal()"><i class='bx bxs-x-circle'></i>
-                        </div>
-                        <div class="popup_form">
-                            <div class="popup_form-element">
-                                <label for="product_code">Mã sản phẩm</label>
-                                <input type="text" id="product_code" placeholder="Nhập mã sản phẩm">
-                                <div class="error" id="error_product_code"></div>
-                            </div>
-                            <div class="popup_form-element">
-                                <label for="product_discount">Phần trăm giảm giá</label>
-                                <input type="text" id="product_discount" placeholder="Nhập phần trăm giảm giá">
-                                <div class="error" id="error_product_discount"></div>
-                            </div>
-                            <div class="popup_form-element">
-                                <label for="product_start_end_discount">Thời gian giảm giá</label>
-                                <input type="text" id="myID" placeholder="Chọn thời gian giảm giá">
-                            </div>
-
-                            </div>
-                            <div class="popup_form-element">
-                                <input type="submit" class="btn_ad" value="Thêm giảm giá cho sản phẩm">
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-
-        <!-- MODAL SỬA SẢN PHẨM -->
-        <div id="edit_product_Modal" class="edit-product_modal">
-            <div class="modal-content">
-                <h2>Sửa thông tin giảm giá</h2>
-                <form id="editProductForm">
-                    <div class="popup-container">
-                        <div class="close-popup-btn" title="Đóng" onclick="closeModal_edit()"><i
-                                class='bx bxs-x-circle'></i></div>
-                        <div class="popup_form">
-                            <div class="popup_form-element">
-                                <label for="product_code">Mã sản phẩm</label>
-                                <input type="text" id="product_code-edit" placeholder="Nhập mã sản phẩm">
-                                <div class="error" id="error_product_code-edit"></div>
-                            </div>
-                            <div class="popup_form-element">
-                                <label for="product_discount">Phần trăm giảm giá</label>
-                                <input type="text" id="product_discount-edit" placeholder="Nhập phần trăm giảm giá">
-                                <div class="error" id="error_product_discount-edit"></div>
-                            </div>
-                            <div class="popup_form-element">
-                                <label for="product_start_end_discount-edit">Thời gian giảm giá</label>
-                                <input type="text" id="myID" placeholder="Chọn thời gian giảm giá">
-                            </div>
-                            <div class="popup_form-element">
-                                <input type="submit" class="btn_ad" value="Sửa thông tin giảm giá">
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-
-        <!-- MODAL XEM CHI TIẾT SẢN PHẨM -->
-        <div id="view_product_Modal" class="view-product_modal">
-            <div class="modal-content">
-                <h2>Thông tin sản phẩm giảm giá</h2>
-                <form id="viewProductForm">
-                    <div class="popup-container">
-                        <div class="close-popup-btn" title="Đóng" onclick="closeModal_view()"><i
-                                class='bx bxs-x-circle'></i></div>
-                        <div class="popup_form">
-                            <div class="popup_form-element view_modal">
-                                <label for="product_code-view">Mã sản phẩm:</label>
-                                <p class="product_view-content product_code-view">Abc001</p>
-                            </div>
-                            <div class="popup_form-element view_modal">
-                                <label for="product_name-view">Tên sản phẩm:</label>
-                                <p class="product_view-content product_name-view">bánh rán Doraemon nè Nobita</p>
-                            </div>
-                            <div class="popup_form-element view_modal">
-                                <label for="product_price-view">Giá bán:</label>
-                                <p class="product_view-content product_price-view">123.456.789</p>
-                            </div>
-                            <div class="popup_form-element view_modal">
-                                <label for="product_quantity-view">Số lượng:</label>
-                                <p class="product_view-content product_quantity-view">987,654</p>
-                            </div>
-                            <div class="popup_form-element product_info_field">
-                                <label for="product_info-view">Mô tả:</label>
-                                <p class="product_view-textarea product_info-view">Khai thác sức mạnh từ những đoá sen
-                                    tinh khiết
-                                    từ vùng đất Hậu Giang kết hợp cùng các hoạt chất khoa học tiên tiến gồm
-                                    Madecassoside,
-                                    vitamin B5, B12, Beta-glucan (prebiotic) và Sweetone® (chiết xuất quả ngũ vị tử),
-                                    nước sen Hậu Giang dịu lành giúp bảo vệ hàng rào độ ẩm của làn da nhạy cảm,
-                                    giảm mẩn đỏ và ngứa do khô ráp, mang lại cho làn da một cảm giác nhẹ nhàng, êm ái
-                                    như được vỗ về.
-                                </p>
-                            </div>
-                            <div class="popup_form-element popup_form-element-img_view">
-                                <label for="product_images-view">Hình ảnh:</label>
-                                <div class="upload_product_images-view">
-                                    <img src="/admin/images/sunglasses.jpg" alt="">
-                                    <img src="/admin/images/nike-min.jpg" alt="">
-                                    <img src="/admin/images/profile.jpg" alt="">
-                                    <img src="/admin/images/scarves.jpg" alt="">
-                                </div>
-                            </div>
-                            <div class="popup_form-element view_modal">
-                                <label for="product_category-view">Danh mục sản phẩm:</label>
-                                <p class="product_view-content product_category-view">Dầu gội</p>
-                            </div>
-                            <div class="popup_form-element view_modal">
-                                <label for="product_rating-view">Đánh giá:</label>
-                                <div class="product_view-content product_rating-view product_rating">
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-fill"></i>
-                                    <i class="ri-star-half-fill"></i>
-                                    <i class="ri-star-line"></i>
-                                    <i class="ri-star-line"></i>
-                                    <span>(10 lượt đánh giá)</span>
-                                </div>
-                            </div>
-                            <div class="popup_form-element view_modal">
-                                <label for="product_start-discount-view">Ngày bắt đầu giảm giá:</label>
-                                <p class="product_view-content product_start-discount-view">2-2-1990</p>
-                            </div>
-                            <div class="popup_form-element view_modal">
-                                <label for="product_end-discount-view">Ngày kết thúc giảm giá:</label>
-                                <p class="product_view-content product_end-discount-view">2-2-1990</p>
-                            </div>
-                            <div class="popup_form-element view_modal">
-                                <label for="product_discount-view">Phần trăm giảm giá giảm giá:</label>
-                                <p class="product_view-content product_discount-view">20 (%)</p>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-
-        <!-- MODAL XÓA SẢN PHẨM -->
-        <div id="delete_product_Modal" class="delete-product_modal">
-            <div class="delete-modal-content">
-                <div class="delete_modal-header">
-                    <h2>Xóa giảm giá</h2>
-                    <i class='ri-close-fill' title="Đóng" onclick="closeModal_delete()"></i>
-                </div>
-                <div class="delete_modal-middle">
-                    <p>Bạn sẽ không thể khôi phục thao tác này</p>
-                </div>
-                <div class="delete_modal-footer">
-                    <button class="modal-button" onclick="closeModal_delete()">Hủy</button>
-                    <button id="confirm_delete_button" class="modal-button">Xóa</button>
                 </div>
             </div>
         </div>
@@ -420,14 +161,27 @@
 
     <!-- JAVA Link -->
 
-    <script src="/admin/js/script.js" defer></script>
+
     <script src="/admin/js/discount.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        // Thanh menu
+        let sidebar = document.querySelector(".admin_sidebar");
+        let sidebarBtn = document.querySelector(".sidebarBtn");
+        sidebarBtn.onclick = function () {
+            sidebar.classList.toggle("active");
+            if (sidebar.classList.contains("active")) {
+                sidebarBtn.classList.replace("bx-menu", "bx-menu-alt-right");
+            } else
+                sidebarBtn.classList.replace("bx-menu-alt-right", "bx-menu");
+        }
+    </script>
     <script>
         /* ===== BẪY LỖI THÊM SẢN PHẨM ===== */
         document.getElementById("addProductForm").addEventListener("submit", function (e) {
             e.preventDefault();
             let valid = true;
+            const form = this;
 
             // Clear previous errors
             document.querySelectorAll(".error").forEach(el => el.innerText = "");
@@ -440,51 +194,41 @@
                 productCode.classList.add("error-input");
                 document.getElementById("error_product_code").innerText = "Mã không được để trống";
             }
-            // Validate product price
+
+            // Validate product discount
             const productDiscount = document.getElementById("product_discount");
-            if (!productDiscount.value.trim() || isNaN(productDiscount.value)) {
+            const discountValue = parseFloat(productDiscount.value.trim());
+
+            if (!productDiscount.value.trim() || isNaN(discountValue)) {
                 valid = false;
                 productDiscount.classList.add("error-input");
-                document.getElementById("error_product_discount").innerText = "Phần trăm giảm giá không được để trống và chỉ có thể nhập số";
+                document.getElementById("error_product_discount").innerText = "Không được để trống và chỉ có thể nhập số";
+            } else if (discountValue <= 0 || discountValue > 100) {
+                valid = false;
+                productDiscount.classList.add("error-input");
+                document.getElementById("error_product_discount").innerText = "Phần trăm phải lớn hơn 0 và không quá 100";
             }
+
             if (valid) {
                 alert("Đã thêm giảm giá cho sản phẩm");
+                form.submit();
             }
         });
 
-        /* ===== BẪY LỖI CHỈNH SỬA SẢN PHẨM ===== */
-        document.getElementById("editProductForm").addEventListener("submit", function (e) {
-            e.preventDefault();
-            let valid = true;
-
-            // Clear previous errors
-            document.querySelectorAll(".error").forEach(el => el.innerText = "");
-            document.querySelectorAll("input, textarea").forEach(el => el.classList.remove("error-input"));
-
-            // Validate product name
-            const productCode_edit = document.getElementById("product_code-edit");
-            if (!productCode_edit.value.trim()) {
-                valid = false;
-                productCode_edit.classList.add("error-input");
-                document.getElementById("error_product_code-edit").innerText = "Mã sản phẩm không được để trống";
-            }
-            // Validate product price
-            const productDiscount_eidt = document.getElementById("product_discount-edit");
-            if (!productDiscount_eidt.value.trim() || isNaN(productDiscount_eidt.value)) {
-                valid = false;
-                productDiscount_eidt.classList.add("error-input");
-                document.getElementById("error_product_discount-edit").innerText = "Giảm giá chỉ có thể nhập số và không thể để trống";
-            }
-            if (valid) {
-                alert("Đã cập nhật giảm giá.");
-            }
-        });
 
         flatpickr("#myID", {
             dateFormat: 'd-m-Y',
             minDate: "today",
-            mode : "range"
+            mode: "range"
         })
+
+
+
+
+
+
+    //thêm maz giảm giá
+
 
     </script>
 </body>

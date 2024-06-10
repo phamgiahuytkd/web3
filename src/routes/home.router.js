@@ -4,7 +4,7 @@ const router = express.Router();
 const {getHome, getLogout, getProduct, getIdProduct, postAddCart, getCatalog, getGroup, getDiscountProdcut, postSearch} = require('../controllers/home.controller');
 
 const {getCart, postUpdateCart, postRemoveCart, getCheckout, postCartPay, getAccount, postUpdateAddressCheckout, postAddBill, postUpdateAddressAccount, 
-    postUpdatePass, postOrderDetail
+    postUpdatePass, postOrderDetail, getRating, postAddRate
 } = require('../controllers/account.controller');
 
 
@@ -66,6 +66,12 @@ router.post('/account/update_pass', postUpdatePass);
 
 
 router.post('/account/order_detail', postOrderDetail);
+
+
+
+router.get('/rating/:id_rating', getRating);
+
+router.post('/rating/ad_rating', postAddRate);
 
 
 

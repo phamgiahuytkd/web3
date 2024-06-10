@@ -86,7 +86,9 @@
                                             <td><%= baseForm.formatDateTime(each_bill.Thoi_gian_xuat_hoa_don) %></td>
                                             <td><%= baseForm.formatTrangThai(each_bill.Trang_thai) %></td>
                                             <td><%= baseForm.formatTien(each_bill.Tong_tien) %> đ</td>
-                                            <td><a onclick="get_detail_bill('<%= each_bill.Ma_hoa_don %>', '<%= baseForm.formatDateTime(each_bill.Thoi_gian_xuat_hoa_don) %>', '<%= baseForm.formatTrangThai(each_bill.Trang_thai) %>', '<%= baseForm.formatTien(each_bill.Tong_tien) %>')" class="view__order">Xem</a></td>
+                                            <td><a onclick="get_detail_bill('<%= each_bill.Ma_hoa_don %>', '<%= baseForm.formatDateTime(each_bill.Thoi_gian_xuat_hoa_don) %>', '<%= baseForm.formatTrangThai(each_bill.Trang_thai) %>', '<%= baseForm.formatTien(each_bill.Tong_tien) %>')" class="view__order">Xem</a>
+                                                /<a href="/rating/<%= each_bill.Ma_hoa_don %>">Đánh giá</a>
+                                            </td>
                                         </tr>
                                         <% }); %>   
                                     </table>

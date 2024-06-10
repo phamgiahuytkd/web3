@@ -196,8 +196,55 @@ const update_StatusBill = async function (Ma_hoa_don, Trang_thai) {
 
 
 
+const db_RateProduct = async function (id) {
+    try{
+        const [results, fields] = await connection.query(`
+SELECT 
+    ch.Ma_san_pham,
+    sp.Ten_san_pham,
+    sp.Hinh_anh
+FROM 
+    tb_chitiethoadon ch
+JOIN 
+    tb_sanpham sp ON ch.Ma_san_pham = sp.Ma_san_pham
+WHERE 
+    ch.Ma_hoa_don = ?
+    AND NOT EXISTS (
+        SELECT 1
+        FROM tb_danhgia dg
+        WHERE dg.Ma_hoa_don = ch.Ma_hoa_don
+        AND dg.Ma_san_pham = ch.Ma_san_pham
+    )
+
+
+
+`, [id]);
+        return results;
+
+    }catch(err){
+        throw new Error('Database query failed');
+    }
+}
+
+
+
+
+
+const add_Rating = async function (Ma_hoa_don, Ma_san_pham, Sao, Binh_luan) {
+    try{
+        const [results, fields] = await connection.query(`
+            INSERT INTO tb_danhgia (Ma_hoa_don, Ma_san_pham, Ngay_danh_gia, Sao, Binh_luan) 
+VALUES (?, ?, DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'), ?, ?)
+        `, [Ma_hoa_don, Ma_san_pham, Sao, Binh_luan]);
+        return true;
+
+    }catch(err){
+        throw new Error('Database query failed');
+    } 
+}
+
 module.exports = {
     ad_Bill, ad_DetailBill, db_AllBill, get_BillDetail, db_StatisticsCatalog, db_StatisticsMonth, db_Top10Product, db_RecentBill, db_Overview,
-    db_AllBillUser, update_StatusBill
+    db_AllBillUser, update_StatusBill, db_RateProduct, add_Rating
 
 }

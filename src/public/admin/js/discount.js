@@ -1,252 +1,157 @@
-/*=============== Search product ===============*/
-const search = document.querySelector('.search-box input');
-let table_rows = document.querySelectorAll('tbody tr');
-const table_headings = document.querySelectorAll('thead th');
+document.addEventListener('DOMContentLoaded', function () {
+    // Hàm chuyển đổi ký tự có dấu thành không dấu
+    function removeAccents(str) {
+        return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+    }
 
-search.addEventListener('input', searchTable);
+    // Tìm kiếm trong bảng product table
+    const productSearchInput = document.getElementById('product-search-input');
+    let productTableRows = document.querySelectorAll('.product-table tbody tr');
 
-function searchTable() {
-    table_rows.forEach((row, i) => {
-        let table_data = row.textContent.toLowerCase(),
-            search_data = search.value.toLowerCase();
+    if (productSearchInput) {
+        productSearchInput.addEventListener('input', searchProductTable);
+    }
 
-        row.classList.toggle('hide', table_data.indexOf(search_data) < 0);
-        row.style.setProperty('--delay', i / 25 + 's');
-    })
-    document.querySelectorAll('.product-table tbody tr:not(.hide)').forEach((visible_row, i) => {
-        visible_row.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
-    });
-}
+    function searchProductTable() {
+        productTableRows.forEach((row, i) => {
+            let tableData = removeAccents(row.textContent.toLowerCase());
+            let searchData = removeAccents(productSearchInput.value.toLowerCase());
 
-/*=============== SORT TABLE ===============*/
-window.onload = function () {
-    document.querySelectorAll('th').forEach((element) => { // Table headers
+            row.classList.toggle('hide', tableData.indexOf(searchData) < 0);
+            row.style.setProperty('--delay', i / 25 + 's');
+        });
+        document.querySelectorAll('.product-table tbody tr:not(.hide)').forEach((visibleRow, i) => {
+            visibleRow.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
+        });
+    }
+
+    // Tìm kiếm trong bảng dis-table
+    const disSearchInput = document.getElementById('dis-search-input');
+    let disTableRows = document.querySelectorAll('.dis-table tbody tr');
+
+    if (disSearchInput) {
+        disSearchInput.addEventListener('input', searchDisTable);
+    }
+
+    function searchDisTable() {
+        disTableRows.forEach((row, i) => {
+            let tableData = removeAccents(row.textContent.toLowerCase());
+            let searchData = removeAccents(disSearchInput.value.toLowerCase());
+
+            row.classList.toggle('hide', tableData.indexOf(searchData) < 0);
+            row.style.setProperty('--delay', i / 25 + 's');
+        });
+        document.querySelectorAll('.dis-table tbody tr:not(.hide)').forEach((visibleRow, i) => {
+            visibleRow.style.backgroundColor = (i % 2 == 0) ? 'transparent' : '#0000000b';
+        });
+    }
+
+    // Sắp xếp bảng product table
+    document.querySelectorAll('.product-table th').forEach((element) => {
         element.addEventListener('click', function () {
             let table = this.closest('table');
 
-            // If the column is sortable
             if (this.querySelector('span')) {
-                let order_icon = this.querySelector('span');
-                let order = encodeURI(order_icon.innerHTML).includes('%E2%86%91') ? 'desc' : 'asc';
-                let separator = '-----'; // Separate the value of it's index, so data keeps intact
+                let orderIcon = this.querySelector('span');
+                let order = encodeURI(orderIcon.innerHTML).includes('%E2%86%91') ? 'desc' : 'asc';
+                let separator = '-----';
 
-                let value_list = {}; // <tr> Object
-                let obj_key = []; // Values of selected column
+                let valueList = {};
+                let objKey = [];
 
-                let string_count = 0;
-                let number_count = 0;
-
-                // <tbody> rows
-                table.querySelectorAll('tbody tr').forEach((line, index_line) => {
-                    // Value of each field
+                table.querySelectorAll('tbody tr').forEach((line, indexLine) => {
                     let key = line.children[element.cellIndex].textContent.toUpperCase();
-
-                    // Check if value is date, numeric or string
-                    if (line.children[element.cellIndex].hasAttribute('data-timestamp')) {
-                        // if value is date, we store it's timestamp, so we can sort like a number
-                        key = line.children[element.cellIndex].getAttribute('data-timestamp');
-                    }
-                    else if (key.replace('-', '').match(/^[0-9,.]*$/g)) {
-                        number_count++;
-                    }
-                    else {
-                        string_count++;
-                    }
-
-                    value_list[key + separator + index_line] = line.outerHTML.replace(/(\t)|(\n)/g, ''); // Adding <tr> to object
-                    obj_key.push(key + separator + index_line);
+                    valueList[key + separator + indexLine] = line.outerHTML.replace(/(\t)|(\n)/g, '');
+                    objKey.push(key + separator + indexLine);
                 });
-                if (string_count === 0) { // If all values are numeric
-                    obj_key.sort(function (a, b) {
-                        return a.split(separator)[0] - b.split(separator)[0];
-                    });
-                }
-                else {
-                    obj_key.sort();
-                }
 
+                objKey.sort();
                 if (order === 'desc') {
-                    obj_key.reverse();
-                    order_icon.innerHTML = '   &darr;';
-                }
-                else {
-                    order_icon.innerHTML = '   &uarr;';
+                    objKey.reverse();
+                    orderIcon.innerHTML = '   &darr;';
+                } else {
+                    orderIcon.innerHTML = '   &uarr;';
                 }
 
                 let html = '';
-                obj_key.forEach(function (chave) {
-                    html += value_list[chave];
+                objKey.forEach(function (key) {
+                    html += valueList[key];
                 });
                 table.getElementsByTagName('tbody')[0].innerHTML = html;
 
-                // Reinitialize select check functionality after sorting
-                initializeSelectCheck();
-
                 // Reapply search functionality
-                table_rows = document.querySelectorAll('tbody tr');
-                searchTable();
+                productTableRows = document.querySelectorAll('.product-table tbody tr');
+                searchProductTable();
             }
         });
     });
 
-    // Initialize select check functionality on load
-    initializeSelectCheck();
-}
+    // Sắp xếp bảng dis-table
+    document.querySelectorAll('.dis-table th').forEach((element) => {
+        element.addEventListener('click', function () {
+            let table = this.closest('table');
 
-/* ========== CHECKED SELECT PRODUCT ==========*/
-function initializeSelectCheck() {
-    var main = document.getElementById('SelectAll');
-    var select = document.getElementsByClassName('select');
+            if (this.querySelector('span')) {
+                let orderIcon = this.querySelector('span');
+                let order = encodeURI(orderIcon.innerHTML).includes('%E2%86%91') ? 'desc' : 'asc';
+                let separator = '-----';
 
-    for (let i = 0; i < select.length; i++) {
-        var count = 0;
-        select[i].onclick = () => {
-            if (select[i].checked == true) {
-                count += 1;
-            }
-            else {
-                count -= 1;
-            }
+                let valueList = {};
+                let objKey = [];
 
-            if (count > 0) {
-                main.checked = true;
-                document.querySelector('.disabled').style.cursor = 'pointer';
-                document.querySelector('.disabled').style.opacity = '1';
-                document.querySelector('.disabled').removeAttribute('disabled');
+                table.querySelectorAll('tbody tr').forEach((line, indexLine) => {
+                    let key = line.children[element.cellIndex].textContent.toUpperCase();
+                    valueList[key + separator + indexLine] = line.outerHTML.replace(/(\t)|(\n)/g, '');
+                    objKey.push(key + separator + indexLine);
+                });
+
+                objKey.sort();
+                if (order === 'desc') {
+                    objKey.reverse();
+                    orderIcon.innerHTML = '   &darr;';
+                } else {
+                    orderIcon.innerHTML = '   &uarr;';
+                }
+
+                let html = '';
+                objKey.forEach(function (key) {
+                    html += valueList[key];
+                });
+                table.getElementsByTagName('tbody')[0].innerHTML = html;
+
+                // Reapply search functionality
+                disTableRows = document.querySelectorAll('.dis-table tbody tr');
+                searchDisTable();
             }
-            if (count <= 0) {
-                main.checked = false;
-                document.querySelector('.disabled').style.cursor = 'not-allowed';
-                document.querySelector('.disabled').style.opacity = '0.6';
-                document.querySelector('.disabled').setAttribute('disabled', '');
-            }
+        });
+    });
+
+    // Ensure radio buttons work after sorting
+    document.addEventListener('click', function (event) {
+        if (event.target.name === 'product-radio') {
+            document.querySelectorAll('input[name="product-radio"]').forEach((radio) => {
+                radio.checked = false;
+            });
+            event.target.checked = true;
         }
-    }
+    });
+});
 
-    main.onclick = () => {
-        if (main.checked == true) {
-            for (let i = 0; i < select.length; i++) {
-                select[i].checked = true;
-                count = i + 1;
-                document.querySelector('.disabled').style.cursor = 'pointer';
-                document.querySelector('.disabled').style.opacity = '1';
-                document.querySelector('.disabled').removeAttribute('disabled');
+
+
+
+
+
+//Chọn mã sản phẩm
+const radioButtons = document.querySelectorAll('input[name="product-radio"]');
+    const productCodeInput = document.getElementById('product_code');
+
+    // Add a change event listener to each radio button
+    radioButtons.forEach(radio => {
+        radio.addEventListener('change', () => {
+            // When a radio button is selected, update the text input with its value
+            if (radio.checked) {
+                productCodeInput.value = radio.value;
             }
-        }
-        else {
-            for (let i = 0; i < select.length; i++) {
-                select[i].checked = false;
-                count = 0;
-                document.querySelector('.disabled').style.cursor = 'not-allowed';
-                document.querySelector('.disabled').style.opacity = '0.6';
-                document.querySelector('.disabled').setAttribute('disabled', '');
-            }
-        }
-    }
-}
-
-/*========== CHỌN ẢNH MODAL THÊM SẢN PHẨM ==========*/
-let fileInput = document.getElementById("file-input_product");
-let imageContainer = document.getElementById("upload_product_images");
-let numOfFiles = document.getElementById("num-of-files_product");
-
-function preview() {
-    imageContainer.innerHTML = "";
-    numOfFiles.textContent = `${fileInput.files.length} ảnh được chọn`;
-
-    for (i of fileInput.files) {
-        let reader = new FileReader();
-        let figure = document.createElement("figure");
-        let figCap = document.createElement("figcaption");
-        figCap.innerText = i.name;
-        figure.appendChild(figCap);
-        reader.onload = () => {
-            let img = document.createElement("img");
-            img.setAttribute("src", reader.result);
-            figure.insertBefore(img, figCap);
-        }
-        imageContainer.appendChild(figure);
-        reader.readAsDataURL(i);
-    }
-}
-
-/*========== CHỌN ẢNH MODAL CHỈNH SỬA SẢN PHẨM ==========*/
-let fileInput_edit = document.getElementById("file-input_product-edit");
-let imageContainer_edit = document.getElementById("upload_product_images-edit");
-let numOfFiles_edit = document.getElementById("num-of-files_product-edit");
-
-function preview_edit() {
-    imageContainer_edit.innerHTML = "";
-    numOfFiles_edit.textContent = `${fileInput_edit.files.length} ảnh được chọn`;
-
-    for (i of fileInput_edit.files) {
-        let reader = new FileReader();
-        let figure = document.createElement("figure");
-        let figCap = document.createElement("figcaption");
-        figCap.innerText = i.name;
-        figure.appendChild(figCap);
-        reader.onload = () => {
-            let img = document.createElement("img");
-            img.setAttribute("src", reader.result);
-            figure.insertBefore(img, figCap);
-        }
-        imageContainer_edit.appendChild(figure);
-        reader.readAsDataURL(i);
-    }
-}
-
-/*========== MODAL THÊM SẢN PHẨM & BẪY LỖI SẢN PHẨM ==========*/
-// Function to open the modal
-function openModal() {
-    document.getElementById("add_product_Modal").style.display = "block";
-}
-
-// Function to close the modal
-function closeModal() {
-    document.getElementById("add_product_Modal").style.display = "none";
-}
-
-// Event listener for the close button
-document.querySelector('.close').addEventListener('click', closeModal);
-
-/*========== MODAL SỬA SẢN PHẨM & BẪY LỖI SẢN PHẨM ==========*/
-// Function to open the modal
-function openModal_edit() {
-    document.getElementById("edit_product_Modal").style.display = "block";
-}
-
-// Function to close the modal
-function closeModal_edit() {
-    document.getElementById("edit_product_Modal").style.display = "none";
-}
-
-// Event listener for the close button
-document.querySelector('.close').addEventListener('click', closeModal_edit);
-
-/*========== MODAL XEM CHI TIẾT SẢN PHẨM ==========*/
-// Function to open the modal
-function openModal_view() {
-    document.getElementById("view_product_Modal").style.display = "block";
-}
-
-// Function to close the modal
-function closeModal_view() {
-    document.getElementById("view_product_Modal").style.display = "none";
-}
-
-// Event listener for the close button
-document.querySelector('.close').addEventListener('click', closeModal_view);
-
-/*========== MODAL XÓA SẢN PHẨM ==========*/
-// Function to open the modal
-function openModal_delete() {
-    document.getElementById("delete_product_Modal").style.display = "block";
-}
-
-// Function to close the modal
-function closeModal_delete() {
-    document.getElementById("delete_product_Modal").style.display = "none";
-}
-
-// Event listener for the close button
-document.querySelector('.close').addEventListener('click', closeModal_delete);
+        });
+    });

@@ -1,6 +1,6 @@
 const connection = require('../config/database');
 const bcrypt = require('bcrypt');
-const {getIdUsers, add_Users, add_info_Users} = require('../models/user.model');
+const {getIdUsers, add_Users, add_info_Users, getInfoUsers} = require('../models/user.model');
 
 const {createToken} = require('../middleware/token');
 
@@ -17,10 +17,10 @@ const getLogin = function (req, res){
 const postLogin = async function (req, res){
     let User_ID  = req.body.User_ID ;
     let Pass_word =  req.body.Pass_word;
-   
+        let info_user = await getInfoUsers(User_ID);
         let results = await getIdUsers(User_ID);
         if (!results || results.length === 0) {
-            req.session.check_login = 'Số điện thoại chưa được đăng ký!'
+            req.session.check_login = 'Tài khoản không tồn tại!'
             res.redirect('/login');
         }
         else{
@@ -33,7 +33,9 @@ const postLogin = async function (req, res){
                     if (result) {
                         let user = {
                             User_ID: results[0].User_ID,
-                            Phan_quyen: results[0].Phan_quyen
+                            Phan_quyen: results[0].Phan_quyen,
+                            Ho_ten: info_user[0].Ho_ten,
+                            Anh_dai_dien: results[0].Anh_dai_dien
                         }
                         token = createToken(user);
                         delete req.session.check_login;
