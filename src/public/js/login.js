@@ -56,7 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
       hideError(phone, "phone_error");
     }
 
-    if (!password.value || password.value.length < 6) {
+    if (!password.value == "") {
       showError(password, "password_error");
       isValid = false;
     } else {
